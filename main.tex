@@ -1,0 +1,182 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,array,tabularx,xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\newcommand{\F}{\mathbb F}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ran}{\operatorname{R}}
+\newtcolorbox{personalnote}{colback=gray!8,colframe=gray!40,title=Personal note,fonttitle=\bfseries,breakable}
+\newenvironment{proofsteps}{\begin{enumerate}\setlength{\itemsep}{4pt}}{\end{enumerate}}
+\newcommand{\prooftable}[1]{\medskip\textbf{Proof summary}\par\smallskip #1\medskip}
+\title{Advanced Vector Spaces -- Oral Exam Notes\\Topic A: Duality for Linear Maps}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+\section{Definition 3.6: The dual map}
+Let \(A:U\to V\) be linear. Its \emph{dual map} is
+\[
+ A':V'\longrightarrow U',\qquad A'y=y\circ A,
+ \quad\text{meaning}\quad (A'y)(u)=y(Au).
+\]
+The direction reverses: \(A\) maps vectors from \(U\) to \(V\), whereas \(A'\) maps linear functionals on \(V\) to linear functionals on \(U\).
+
+\begin{personalnote}
+Why is \(A'\) always well-defined? For any \(y\in V'\), the composition \(y\circ A\) is linear on \(U\), so \(A'y\in U'\). No injectivity or surjectivity assumption on \(A\) is needed.
+\end{personalnote}
+
+\section{Lemma 3.7: Elementary properties of the dual}
+For linear maps \(A:U\to V\), \(B:V\to W\), the following hold:
+\[
+ A'\text{ is linear},\qquad (BA)'=A'B',\qquad (I_V)'=I_{V'}.
+\]
+The assignment \(A\mapsto A'\) is linear and injective. If \(A\) is bijective, so is \(A'\), and \((A')^{-1}=(A^{-1})'\).
+
+\textbf{Proof.}
+\begin{proofsteps}
+\item For \(y_1,y_2\in V'\), \(a,b\in\F\), and \(u\in U\),
+\[
+ [A'(ay_1+by_2)](u)=(ay_1+by_2)(Au)
+ =a(A'y_1)(u)+b(A'y_2)(u).
+\]
+Thus \(A'\) is linear.
+\item For linear \(A_1,A_2:U\to V\) and scalars \(a,b\),
+\[
+ [(aA_1+bA_2)'y](u)=y((aA_1+bA_2)u)
+ =a(A_1'y)(u)+b(A_2'y)(u).
+\]
+Hence \(A\mapsto A'\) is linear.
+\item If \(A'=0\), then \(y(Au)=0\) for every \(u\in U\) and \(y\in V'\). By Lemma 3.3 (linear functionals separate nonzero vectors), \(Au=0\) for every \(u\); hence \(A=0\). Thus \(A\mapsto A'\) is injective.
+\item For \(z\in W'\) and \(u\in U\),
+\[
+ [(BA)'z](u)=z(B(Au))=[A'(B'z)](u),
+\]
+so \((BA)'=A'B'\). Likewise, \((I_V'y)(v)=y(v)\), hence \((I_V)'=I_{V'}\).
+\item If \(A\) is bijective, apply the preceding identities to \(A^{-1}A=I_U\) and \(AA^{-1}=I_V\):
+\[
+ A'(A^{-1})'=I_{U'},\qquad (A^{-1})'A'=I_{V'}.
+\]
+Therefore \((A')^{-1}=(A^{-1})'\).
+\end{proofsteps}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.23\linewidth}X@{}}\hline
+Step & Purpose\\\hline
+Linearity & Composition respects sums and scalars.\\
+Injectivity & Functionals detect any nonzero image \(Au\).\\
+Composition and identity & Duality reverses the order of composition.\\
+Inverse & Dualizing an inverse gives an inverse.\\\hline
+\end{tabularx}}
+
+\section{Theorem 3.8: Equality of ranks}
+\textbf{Statement.} For every linear map \(A:U\to V\),
+\[
+ \boxed{\rank(A')=\rank(A).}
+\]
+Here \(\rank(A)=\dim\Ran(A)\), with \(\Ran(A)=A(U)\).
+
+\textbf{Proof.} Define
+\[
+ S:\Ran(A)'\longrightarrow U',\qquad Sf=f\circ A,
+\]
+where \(f\) is a linear functional on the subspace \(\Ran(A)\subseteq V\).
+\begin{proofsteps}
+\item \textbf{\(S\) is injective.} If \(Sf=0\), then \(f(Au)=0\) for all \(u\in U\). Every \(v\in\Ran(A)\) equals \(Au\) for some \(u\), so \(f(v)=0\) throughout \(\Ran(A)\). Hence \(f=0\).
+\item \textbf{\(\Ran(A')\subseteq\Ran(S)\).} Given \(A'y=y\circ A\), restrict \(y\in V'\) to \(\Ran(A)\): let \(f=y|_{\Ran(A)}\). Then \(Sf=f\circ A=y\circ A=A'y\).
+\item \textbf{\(\Ran(S)\subseteq\Ran(A')\).} For \(f\in\Ran(A)'\), Lemma 3.4(1) (a functional on a subspace extends to the whole space) supplies \(y\in V'\) with \(y|_{\Ran(A)}=f\). Thus \(Sf=y\circ A=A'y\).
+\item Therefore \(S:\Ran(A)'\to\Ran(A')\) is a linear bijection. Using Theorem 3.5 (a vector space and its dual have the same dimension),
+\[
+ \rank(A')=\dim\Ran(A')=\dim\Ran(A)'=\dim\Ran(A)=\rank(A).
+\]
+\end{proofsteps}
+\begin{personalnote}
+Do not confuse \(\Ran(A)'\) with \(\Ran(A')\): the first is the dual of the image of \(A\); the second is the image of the dual map \(A'\). The map \(S\) identifies them.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.23\linewidth}X@{}}\hline
+Step & Purpose\\\hline
+Define \(S\) & Compare \(\Ran(A)'\) and \(\Ran(A')\).\\
+Injectivity & A functional vanishing on every \(Au\) vanishes on the range.\\
+Two inclusions & Restrict and extend functionals to identify the images.\\
+Dimensions & Use Theorem 3.5 to conclude equal ranks.\\\hline
+\end{tabularx}}
+
+\section{Lemma 3.25: Matrix of the dual map}
+Choose ordered bases \(u_1,\ldots,u_m\) of \(U\) and \(x_1,\ldots,x_n\) of \(V\), and corresponding dual bases \(z_1,\ldots,z_m\) of \(U'\) and \(y_1,\ldots,y_n\) of \(V'\).
+
+\textbf{Statement.} Relative to these bases,
+\[
+ \boxed{[A']=[A]^t.}
+\]
+
+\textbf{Proof.}
+\begin{proofsteps}
+\item Write the images of basis elements in coordinates:
+\[
+ Au_j=\sum_{i=1}^{n}\alpha_{ij}x_i,\qquad
+ A'y_l=\sum_{k=1}^{m}\beta_{kl}z_k.
+\]
+The matrices have entries \([A]_{ij}=\alpha_{ij}\) and \([A']_{kl}=\beta_{kl}\).
+\item Apply \(y_l\) to the first identity. Since \(y_l(x_i)=\delta_{li}\),
+\[
+ y_l(Au_j)=\sum_i\alpha_{ij}y_l(x_i)=\alpha_{lj}.
+\]
+\item Evaluate the second identity at \(u_j\). Since \(z_k(u_j)=\delta_{kj}\),
+\[
+ (A'y_l)(u_j)=\sum_k\beta_{kl}z_k(u_j)=\beta_{jl}.
+\]
+\item By Definition 3.6 (the dual map acts by precomposition),
+\[
+ \alpha_{lj}=y_l(Au_j)=(A'y_l)(u_j)=\beta_{jl}.
+\]
+Thus the row and column indices swap, so \([A']=[A]^t\).
+\end{proofsteps}
+\begin{personalnote}
+The \(j\)-th column of \([A]\) gives the coordinates of \(Au_j\). A dual basis functional \(y_l\) extracts the \(l\)-th coordinate because \(y_l(x_i)=\delta_{li}\). Dual basis elements are \emph{linear functionals}, not vectors in \(V\).
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.23\linewidth}X@{}}\hline
+Step & Purpose\\\hline
+Coordinate expansions & Introduce entries \(\alpha_{ij}\) and \(\beta_{kl}\).\\
+Apply \(y_l\) & Extract \(\alpha_{lj}\) from \([A]\).\\
+Evaluate at \(u_j\) & Extract \(\beta_{jl}\) from \([A']\).\\
+Dual-map definition & Identify the two entries, proving transpose.\\\hline
+\end{tabularx}}
+
+\section{Corollary 3.26: Row rank equals column rank}
+\textbf{Statement.} For every matrix \(M\), its row rank and column rank are equal.
+
+\textbf{Proof.} Let \(M\in\F^{n\times m}\) represent \(A:\F^m\to\F^n\), \(A(x)=Mx\). The range of \(A\) is the span of the columns of \(M\), since \(Mx\) is a linear combination of those columns. By Theorem 3.8 (a map and its dual have equal rank) and Lemma 3.25 (the dual map is represented by the transpose),
+\[
+ \operatorname{columnrank}(M)
+ =\rank(A)=\rank(A')
+ =\operatorname{columnrank}(M^t)
+ =\operatorname{rowrank}(M).
+\]
+The last equality holds because columns of \(M^t\) are rows of \(M\).
+
+\begin{personalnote}
+The \emph{column space} is the span of the columns, and its dimension is the \emph{column rank}. Similarly, the row rank is the dimension of the span of the rows. For \(A(x)=Mx\), the range \(\Ran(A)\) equals the column space.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.23\linewidth}X@{}}\hline
+Step & Purpose\\\hline
+\(A(x)=Mx\) & Identify column rank with \(\rank(A)\).\\
+Theorem 3.8 & Replace \(\rank(A)\) by \(\rank(A')\).\\
+Lemma 3.25 & Identify \([A']\) with \(M^t\).\\
+Transpose & Columns of \(M^t\) are rows of \(M\).\\\hline
+\end{tabularx}}
+
+\section{Big Picture: How to present Topic A}
+Start with a linear map \(A:U\to V\). Its dual \(A':V'\to U'\) sends \(y\) to \(y\circ A\), reversing direction. Lemma 3.7 shows that dualization is compatible with linear structure, composition and inverses.
+
+Theorem 3.8 establishes the central abstract fact: \(A\) and \(A'\) have the same rank. The key construction is the isomorphism \(S:\Ran(A)'\to\Ran(A')\), obtained by composing functionals with \(A\). Restriction and extension of functionals prove that it is onto.
+
+Finally choose bases. Lemma 3.25 turns abstract duality into a matrix statement: the matrix of \(A'\) is the transpose of that of \(A\). Corollary 3.26 follows: column rank equals row rank.
+
+\[
+ \boxed{\text{Dual map}\ \longrightarrow\
+ \rank(A)=\rank(A')\ \longrightarrow\
+ [A']=[A]^t\ \longrightarrow\
+ \text{row rank}=\text{column rank}.}
+\]
+\end{document}
