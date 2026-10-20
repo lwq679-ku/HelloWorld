@@ -179,4 +179,158 @@ Finally choose bases. Lemma 3.25 turns abstract duality into a matrix statement:
  [A']=[A]^t\ \longrightarrow\
  \text{row rank}=\text{column rank}.}
 \]
+
+\clearpage
+\part*{Topic C: Tensor Products}
+\textbf{Goal.} Convert bilinear maps \(X\times Y\to U\) into linear maps from \(X\otimes Y\).
+
+\section*{Definition 5.5: Universal property}
+A tensor product is a pair \((T,B)\), with \(B:X\times Y\to T\) bilinear, such that for every vector space \(U\) and bilinear map \(M:X\times Y\to U\), there exists a \emph{unique} linear map \(L:T\to U\) satisfying \(M=L\circ B\):
+\[
+\begin{array}{ccc}X\times Y&\xrightarrow{\ B\ }&T\\&\searrow_{\scriptstyle M}&\downarrow{\scriptstyle\exists!L}\\&&U.\end{array}
+\]
+Write \(T=X\otimes Y\), \(B(x,y)=x\otimes y\); these are \emph{pure tensors}.
+\begin{personalnote}
+Bilinear means linear in each variable separately. UP means every bilinear map factors uniquely through \(B\) as a linear map. A general tensor can be a sum of pure tensors without being pure itself.
+\end{personalnote}
+
+\section*{Theorem 5.7: Existence (Theorem 5.6(a))}
+\textbf{Statement.} A tensor product exists.
+
+\textbf{Proof.} Put \(W=\operatorname{Bil}(X,Y;\F)\). For each \(x,y\), define an evaluation functional \(x\otimes y\in W'\) by
+\[
+(x\otimes y)(w)=w(x,y)\qquad(w\in W).
+\]
+Set \(T=\operatorname{Span}\{x\otimes y\}\subseteq W'\) and \(B(x,y)=x\otimes y\).
+\begin{proofsteps}
+\item \(B\) is bilinear: evaluate \((ax_1+bx_2)\otimes y\) at any \(w\in W\), obtaining
+\(w(ax_1+bx_2,y)=aw(x_1,y)+bw(x_2,y)\); similarly in the second argument.
+\item Given bilinear \(M:X\times Y\to U\), UP forces
+\[
+L\Big(\sum_i a_ix_i\otimes y_i\Big)=\sum_i a_iM(x_i,y_i). \tag{*}
+\]
+Since pure tensors span \(T\), this determines \(L\) uniquely.
+\item \textbf{Well-definedness.} Suppose \(\sum_i a_ix_i\otimes y_i=\sum_j b_ju_j\otimes v_j\). For any \(z\in U'\), the composition \(w=z\circ M\) belongs to \(W\). Evaluate the tensor equality at \(w\):
+\[
+z\Big(\sum_i a_iM(x_i,y_i)\Big)
+=\sum_i a_iw(x_i,y_i)
+=\sum_j b_jw(u_j,v_j)
+=z\Big(\sum_j b_jM(u_j,v_j)\Big).
+\]
+By Lemma 3.3(1) (linear functionals distinguish nonzero vectors), the two sums in \(U\) agree. Thus (*) is independent of representation.
+\item Formula (*) therefore defines linear \(L:T\to U\) with \(L(x\otimes y)=M(x,y)\), establishing UP.
+\end{proofsteps}
+\begin{personalnote}
+Here \(x\otimes y\) is a functional \emph{on the space of bilinear forms}: it sends \(w\) to \(w(x,y)\). The hard part is proving the formula for \(L\) gives the same answer for two different expressions of a tensor. We test equality using arbitrary \(z\in U'\).
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Why\\\hline
+Evaluation functionals & Construct candidate tensor product.\\
+Bilinearity & Check \(B\) satisfies the definition.\\
+Formula (*) & Determine unique possible \(L\).\\
+Test with \(z\circ M\) & Establish well-definedness.\\
+Conclusion & Prove existence via UP.\\\hline
+\end{tabularx}}
+
+\section*{Theorem 5.6(b): Uniqueness}
+\textbf{Statement.} If \((T,B)\) and \((S,A)\) are tensor products of \(X,Y\), there is a unique isomorphism \(\Psi:T\to S\) with \(\Psi B=A\).
+
+\textbf{Proof.} UP for \((T,B)\) applied to \(A\) gives unique linear \(\Psi:T\to S\) with \(\Psi B=A\). UP for \((S,A)\) applied to \(B\) gives linear \(\Phi:S\to T\) with \(\Phi A=B\). Then
+\[
+(\Phi\Psi)B=\Phi A=B=I_TB,\qquad
+(\Psi\Phi)A=\Psi B=A=I_SA.
+\]
+By uniqueness in UP, \(\Phi\Psi=I_T\) and \(\Psi\Phi=I_S\). Thus \(\Psi\) is the required isomorphism.
+\begin{personalnote}
+Uniqueness up to isomorphism does not mean \(T=S\) literally; the UP determines a unique invertible comparison map respecting the pure tensors.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Why\\\hline
+UP twice & Produce maps \(\Psi,\Phi\) in both directions.\\
+UP uniqueness & Their compositions must be identities.\\
+Conclusion & Obtain a unique isomorphism.\\\hline
+\end{tabularx}}
+
+\section*{Lemma 5.8: Pure tensors span}
+\textbf{Statement.} \(X\otimes Y=\operatorname{Span}\{x\otimes y\}\).
+
+\textbf{Proof.} Put \(T=X\otimes Y\), \(T_0=\operatorname{Span}\{x\otimes y\}\), and let \(Q:T\to T/T_0\) be the quotient map. Since every \(B(x,y)=x\otimes y\) lies in \(T_0\), we have \(QB=0\). The zero map also satisfies \(0B=0\). By uniqueness in UP, \(Q=0\), so \(T=T_0\).
+\begin{personalnote}
+The quotient map kills \(T_0\). If it is zero on all of \(T\), every tensor lies in \(T_0\). This proves spanning for \emph{any} tensor-product model, not only the one constructed above.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Why\\\hline
+Define \(T_0\), \(Q\) & Compare span of pure tensors with \(T\).\\
+\(QB=0=0B\) & Invoke uniqueness in UP.\\
+\(Q=0\) & Conclude \(T=T_0\).\\\hline
+\end{tabularx}}
+
+\section*{Lemma 5.9: Independence test}
+\textbf{Statement.} If \(y_1,\ldots,y_k\) are independent and \(\sum_i x_i\otimes y_i=0\), then all \(x_i=0\). In particular, \(x\otimes y=0\) iff \(x=0\) or \(y=0\).
+
+\textbf{Proof.}
+\begin{proofsteps}
+\item For arbitrary \(z\in X'\), define bilinear \(M(x,y)=z(x)y:X\times Y\to Y\).
+\item UP gives linear \(L:X\otimes Y\to Y\) with \(L(x\otimes y)=z(x)y\).
+\item Hence \(0=L(\sum_i x_i\otimes y_i)=\sum_i z(x_i)y_i\). Independence of the \(y_i\) forces \(z(x_i)=0\).
+\item Since this holds for every \(z\in X'\), Lemma 3.3(1) (a nonzero vector is detected by some functional) implies \(x_i=0\). The special case follows by taking \(k=1\) if \(y\neq0\); the converse follows from bilinearity.
+\end{proofsteps}
+\begin{personalnote}
+The functional \(z\) turns \(x_i\) into a scalar. Independence of \(y_i\) kills the scalars, then Lemma 3.3 kills the vectors.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Why\\\hline
+Choose \(z\), define \(M\) & Construct a bilinear test map.\\
+UP & Obtain linear \(L\).\\
+Independence in \(Y\) & Show \(z(x_i)=0\).\\
+Lemma 3.3 & Show \(x_i=0\).\\\hline
+\end{tabularx}}
+
+\section*{Corollary 5.10: Independent pure tensors}
+\textbf{Statement.} If \(C\subseteq X,D\subseteq Y\) are independent, then \(C\otimes D=\{x\otimes y:x\in C,y\in D\}\) is independent and \(C\times D\to C\otimes D\) is bijective.
+
+\textbf{Proof.} For distinct \(x_i\in C,y_j\in D\), suppose
+\[
+0=\sum_{i,j}a_{ij}x_i\otimes y_j
+=\sum_j\Big(\sum_i a_{ij}x_i\Big)\otimes y_j.
+\]
+Lemma 5.9 (independent second factors force the first factors to vanish) gives \(\sum_i a_{ij}x_i=0\) for each \(j\). Independence of \(C\) gives \(a_{ij}=0\) for all \(i,j\). Thus the products are independent and distinct; surjectivity onto \(C\otimes D\) is by definition.
+\begin{personalnote}
+Group by the \(y_j\) first; Lemma 5.9 removes each vector coefficient, and independence of the \(x_i\) removes the scalar coefficients.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Why\\\hline
+Group by \(y_j\) & Apply Lemma 5.9.\\
+Independence of \(C\) & Force all coefficients to zero.\\\hline
+\end{tabularx}}
+
+\section*{Theorem 5.11: Tensor-product basis}
+\textbf{Statement.} If \(C,D\) are bases of \(X,Y\), then \(C\otimes D\) is a basis of \(X\otimes Y\). If finite-dimensional,
+\[
+\boxed{\dim(X\otimes Y)=\dim(X)\dim(Y).}
+\]
+\textbf{Proof.} By Corollary 5.10 (products of independent sets are independent), \(C\otimes D\) is independent. For \(x=\sum_i a_ix_i\) and \(y=\sum_j b_jy_j\), bilinearity gives
+\[
+x\otimes y=\sum_{i,j}a_ib_j(x_i\otimes y_j)\in\operatorname{Span}(C\otimes D).
+\]
+By Lemma 5.8 (pure tensors span the tensor product), this spans all of \(X\otimes Y\). Thus it is a basis. If \(|C|=m,|D|=n\), it has \(mn\) distinct elements, giving the dimension formula.
+\begin{personalnote}
+Example: \(\mathbb R^2\otimes\mathbb R^3\) has the six basis tensors \(e_i\otimes f_j\), \(i=1,2\), \(j=1,2,3\).
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Why\\\hline
+Corollary 5.10 & Independence.\\
+Bilinear expansion & Every pure tensor lies in the span.\\
+Lemma 5.8 & Spanning of the whole space.\\
+Count pairs & Dimension formula.\\\hline
+\end{tabularx}}
+
+\section*{Big Picture: Topic C}
+The UP converts bilinear maps into linear maps. Theorem 5.7 constructs a model by evaluation on bilinear forms; its key step is proving the formula for \(L\) is well-defined. Theorem 5.6(b) shows any two models are uniquely isomorphic. Lemma 5.8 proves pure tensors span. Lemma 5.9 uses the test map \(M(x,y)=z(x)y\) to prove independence; Corollary 5.10 applies this twice. Theorem 5.11 combines independence and spanning to obtain a basis and the dimension formula.
+\[
+\boxed{\text{UP}\longrightarrow\text{existence and uniqueness}
+\longrightarrow\text{span and independence}
+\longrightarrow\text{basis}.}
+\]
+
 \end{document}
