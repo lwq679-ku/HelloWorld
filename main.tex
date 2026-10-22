@@ -8,7 +8,7 @@
 \newcommand{\F}{\mathbb F}
 \newcommand{\rank}{\operatorname{rank}}
 \newcommand{\Ran}{\operatorname{R}}
-\newtcolorbox{personalnote}{colback=gray!8,colframe=gray!40,title=Personal note,fonttitle=\bfseries,breakable}
+\newtcolorbox{personalnote}[1][]{colback=gray!8,colframe=gray!40,title=Personal note,fonttitle=\bfseries,breakable,#1}
 \newenvironment{proofsteps}{\begin{enumerate}\setlength{\itemsep}{4pt}}{\end{enumerate}}
 \newcommand{\prooftable}[1]{\medskip\textbf{Proof summary}\par\smallskip #1\medskip}
 \title{Advanced Vector Spaces -- Oral Exam Notes\\Topic A: Duality for Linear Maps}
@@ -184,30 +184,34 @@ A tensor product is a pair \((T,B)\), with \(B:X\times Y\to T\) bilinear, such t
 \[
 \begin{array}{ccc}X\times Y&\xrightarrow{\ B\ }&T\\&\searrow_{\scriptstyle M}&\downarrow{\scriptstyle\exists!L}\\&&U.\end{array}
 \]
-***Include the statement that this is equivalent to L being a bijection (from the notes)
+Equivalently, for every vector space \(U\), the map
+\[
+\operatorname{Hom}(T,U)\longrightarrow\operatorname{Bil}(X,Y;U),\qquad L\longmapsto L\circ B
+\]
+is a bijection: existence means every bilinear \(M\) is attained, and uniqueness means no two linear maps have the same composition with \(B\).
 We write \(T=X\otimes Y\), \(B(x,y)=x\otimes y\); these are \emph{pure tensors}.
-\begin{personalnote}
-*** Here I would like the personal note to be called Definitions for understanding and I would like that to be a general thing: If the personal note is just definitions, then write that instead.\\
-\textbf{Bilinear:} means linear in each variable separately.\\
+\begin{personalnote}[title=Definitions for understanding]
+\textbf{Bilinear:} a map \(M:X\times Y\to U\) that is linear in each variable separately, with the other held fixed.
 \end{personalnote}
 
 \section*{Theorem 5.7: Existence (Theorem 5.6(a))}
 The pair $(T,B)$ is a tensor product of $X$ and $Y$.
 
-\textbf{Proof.} Put \(W=\operatorname{Bil}(X,Y;\F)\).***Can we not write it as W and just write it out everytime instead? For each \(x,y\), define an evaluation functional \(x\otimes y\in W'\) by
+\textbf{Proof.} For each \(x\in X\), \(y\in Y\), define an evaluation functional
+\(x\otimes y\in\operatorname{Bil}(X,Y;\F)'\) by
 \[
-(x\otimes y)(w)=w(x,y)\qquad(w\in W).
+(x\otimes y)(w)=w(x,y)\qquad(w\in\operatorname{Bil}(X,Y;\F)).
 \]
-Set \(T=\operatorname{Span}\{x\otimes y\}\subseteq W'\) and \(B(x,y)=x\otimes y\).
+Set \(T=\operatorname{Span}\{x\otimes y:x\in X,\ y\in Y\}\subseteq\operatorname{Bil}(X,Y;\F)'\) and \(B(x,y)=x\otimes y\).
 \begin{proofsteps}
-\item \(B\) is bilinear: evaluate \((ax_1+bx_2)\otimes y\) at any \(w\in W\), obtaining
+\item \(B\) is bilinear: evaluate \((ax_1+bx_2)\otimes y\) at any \(w\in\operatorname{Bil}(X,Y;\F)\), obtaining
 \(w(ax_1+bx_2,y)=aw(x_1,y)+bw(x_2,y)\); similarly in the second argument.
-\item Given bilinear \(M:X\times Y\to U\), UP forces ***make a little parethesis here with why UP forces this
+\item Given bilinear \(M:X\times Y\to U\), UP forces the following formula (since \(M=L\circ B\) requires \(L(x\otimes y)=M(x,y)\), and \(L\) must be linear):
 \[
 L\Big(\sum_i a_ix_i\otimes y_i\Big)=\sum_i a_iM(x_i,y_i). \tag{*}
 \]
-Since pure tensors span \(T\), this determines \(L\) uniquely (*** What does this mean? explain it better in the text.
-\item \textbf{Well-definedness.} Suppose \(\sum_i a_ix_i\otimes y_i=\sum_j b_ju_j\otimes v_j\). For any \(z\in U'\), the composition \(w=z\circ M\) belongs to \(W\). Evaluate the tensor equality at \(w\):
+Since every element of \(T\) is a linear combination of pure tensors, the formula prescribes \(L\) on \emph{every} element of \(T\). Thus any linear map satisfying \(L(x\otimes y)=M(x,y)\) must use this formula; there can be at most one such \(L\). We still have to check that different representations of the same tensor give the same result.
+\item \textbf{Well-definedness.} Suppose \(\sum_i a_ix_i\otimes y_i=\sum_j b_ju_j\otimes v_j\). For any \(z\in U'\), the composition \(w=z\circ M\) belongs to \(\operatorname{Bil}(X,Y;\F)\). Evaluate the tensor equality at \(w\):
 \[
 z\Big(\sum_i a_iM(x_i,y_i)\Big)
 =\sum_i a_iw(x_i,y_i)
@@ -250,9 +254,19 @@ Conclusion & Obtain a unique isomorphism.\\\hline
 \textbf{Statement.} \(X\otimes Y=\operatorname{Span}\{x\otimes y\}\).
 
 \textbf{Proof.} Put \(T=X\otimes Y\), \(T_0=\operatorname{Span}\{x\otimes y\}\), and let \(Q:T\to T/T_0\) be the quotient map. Since every \(B(x,y)=x\otimes y\) lies in \(T_0\), we have \(QB=0\). The zero map also satisfies \(0B=0\). By uniqueness in UP, \(Q=0\), so \(T=T_0\).
-***I would like a diagram here
-\begin{personalnote}
-***In this note I want you to explain to me what the difference between a tensor and a pure tensor is. and what exactly this notation means:\(X\otimes Y\)
+The two maps \(Q\) and \(0\) both complete the following diagram (the diagonal map is the zero bilinear map):
+\[
+\begin{array}{ccc}
+X\times Y&\xrightarrow{\ B\ }&T=X\otimes Y\\
+&\searrow_{\scriptstyle 0}&\downarrow\scriptstyle{Q\ \text{or}\ 0}\\
+&&T/T_0.
+\end{array}
+\]
+Uniqueness in UP therefore gives \(Q=0\).
+\begin{personalnote}[title=Definitions for understanding]
+\textbf{Tensor product \(X\otimes Y\):} the vector space constructed from \(X\) and \(Y\) with the universal property. The symbol \(\otimes\) here names the entire vector space, not one tensor.\\
+\textbf{Tensor:} any element of \(X\otimes Y\).\\
+\textbf{Pure tensor:} an element of the special form \(x\otimes y\) for a single pair \((x,y)\). Every tensor is a \emph{finite sum} of pure tensors (Lemma 5.8), but not every tensor is itself pure. For example, in \(\mathbb R^2\otimes\mathbb R^2\), \(e_1\otimes e_1+e_2\otimes e_2\) is not pure.
 \end{personalnote}
 \prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
 Step & Why\\\hline
@@ -288,8 +302,12 @@ Lemma 3.3 & Show \(x_i=0\).\\\hline
 =\sum_j\Big(\sum_i a_{ij}x_i\Big)\otimes y_j.
 \]
 Lemma 5.9 (independent second factors force the first factors to vanish) gives \(\sum_i a_{ij}x_i=0\) for each \(j\). Independence of \(C\) gives \(a_{ij}=0\) for all \(i,j\). Thus the products are independent and distinct; surjectivity onto \(C\otimes D\) is by definition.
-\begin{personalnote}
-*** In this box write what exactly is means for a subset to be independent
+\begin{personalnote}[title=Definitions for understanding]
+A subset \(C\subseteq X\) is \textbf{linearly independent} if, for every choice of \emph{distinct} vectors \(x_1,\ldots,x_k\in C\) and scalars \(a_1,\ldots,a_k\in\F\),
+\[
+\sum_{i=1}^k a_ix_i=0\quad\Longrightarrow\quad a_1=\cdots=a_k=0.
+\]
+Thus no nontrivial finite linear combination of distinct elements of \(C\) equals zero.
 \end{personalnote}
 \prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
 Step & Why\\\hline
