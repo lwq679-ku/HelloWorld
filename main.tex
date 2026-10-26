@@ -341,4 +341,310 @@ The UP converts bilinear maps into linear maps. Theorem 5.7 constructs a model b
 \longrightarrow\text{basis}.}
 \]
 
+
+\clearpage
+\part*{Topic D: Minimal Polynomial and Diagonalizability}
+
+\section*{Definitions for understanding}
+Let \(A\in\operatorname{End}(V)=\operatorname{Hom}(V,V)\). For a polynomial
+\(f(X)=\sum_{i=0}^n a_iX^i\in\F[X]\), define
+\[
+f(A)=\sum_{i=0}^n a_iA^i\in\operatorname{End}(V),\qquad A^0=I.
+\]
+Thus \(f(A)\) is a \emph{linear map}, not a scalar; for example
+\(f(X)=2X+3X^3\) gives \(f(A)=2A+3A^3\).
+A polynomial \emph{annihilates} \(A\) when \(f(A)=0\), the zero map.
+A \emph{minimal polynomial} \(p_A\) is a nonzero monic polynomial of smallest
+degree satisfying \(p_A(A)=0\). Monic means that its leading coefficient is \(1\).
+
+\begin{personalnote}[title=Definitions for understanding]
+\(\operatorname{Hom}(U,V)\) denotes linear maps \(U\to V\), and
+\(\operatorname{End}(V)=\operatorname{Hom}(V,V)\).
+The expression \(A^i\) means composition of \(A\) with itself \(i\) times.
+The constant term \(a_0\) in \(f(A)\) means \(a_0I\).
+Do not confuse the nonzero polynomial \(p_A(X)\) with its value \(p_A(A)=0\).
+\end{personalnote}
+
+\section*{Theorem 6.13: Existence and uniqueness}
+\textbf{Statement.} If \(\dim V<\infty\), every \(A\in\operatorname{End}(V)\)
+has exactly one minimal polynomial.
+
+\textbf{Proof.}
+\begin{proofsteps}
+\item \textbf{Existence.} Since \(\operatorname{End}(V)\) is finite-dimensional,
+the sequence \(I,A,A^2,\ldots\) cannot be linearly independent.
+Choose the smallest \(m\geq 1\) for which
+\[
+A^m\in\operatorname{Span}\{I,A,\ldots,A^{m-1}\}.
+\]
+Write \(A^m=\sum_{i=0}^{m-1}a_iA^i\), and set
+\[
+p(X)=X^m-\sum_{i=0}^{m-1}a_iX^i.
+\]
+Then \(p\) is monic and \(p(A)=0\). If a nonzero polynomial of degree
+\(k<m\) annihilated \(A\), its nonzero leading coefficient could be
+rearranged to express \(A^k\) as a combination of lower powers,
+contradicting the choice of \(m\). Hence \(p\) is minimal.
+\item \textbf{Uniqueness.} If \(p,q\) are monic minimal polynomials,
+they have the same degree \(m\). Their leading terms cancel in \(p-q\),
+and \((p-q)(A)=0\). If \(p-q\neq0\), it would have degree less than \(m\),
+contradicting minimality. Thus \(p=q\).
+\end{proofsteps}
+
+\begin{personalnote}
+\textbf{Why must some power belong to the span of earlier powers?}
+If each new \(A^m\) were outside the span of \(I,\ldots,A^{m-1}\),
+Lemma 1.11 would make \(I,A,A^2,\ldots\) linearly independent.
+That is impossible in the finite-dimensional space \(\operatorname{End}(V)\)
+(of dimension \((\dim V)^2\)). Here we treat the maps \(I,A,A^2,\ldots\)
+as \emph{vectors in the vector space of linear maps}.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Why\\\hline
+Finite dimension & Some power depends on earlier powers.\\
+Choose least \(m\) & Construct a monic annihilating polynomial of minimal degree.\\
+Subtract monic candidates & Lower-degree annihilator forces equality.\\\hline
+\end{tabularx}}
+
+\section*{Lemma 6.11: Divisibility}
+\textbf{Statement.} If \(p_A\) is minimal and \(P(A)=0\), then \(p_A\mid P\).
+
+\textbf{Proof.} Euclidean division (Theorem 6.5) gives
+\[
+P(X)=p_A(X)q(X)+r(X),\qquad r=0\ \text{or}\ \deg r<\deg p_A.
+\]
+Evaluate at \(A\):
+\[
+r(A)=P(A)-p_A(A)q(A)=0.
+\]
+If \(r\neq0\), this is a nonzero polynomial of degree less than \(p_A\)
+that annihilates \(A\), contradicting minimality. Thus \(r=0\), so
+\(P=p_Aq\), i.e.\ \(p_A\mid P\).
+
+\begin{personalnote}
+\textbf{Why is the remainder zero?} Euclidean division only tells us
+its degree is smaller. Evaluating at \(A\) shows it also annihilates \(A\).
+The \emph{minimality} of \(p_A\) then forces \(r\) to be the zero polynomial.
+Be careful: it is \(p_A(A)=0\), not necessarily \(q(A)=0\).
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Why\\\hline
+\(P=p_Aq+r\) & Euclidean division.\\
+\(r(A)=0\) & Both \(P\) and \(p_A\) annihilate \(A\).\\
+\(r=0\) & Minimality of \(p_A\).\\\hline
+\end{tabularx}}
+
+\section*{Lemma 6.12: Roots are eigenvalues}
+\textbf{Statement.} \(Z(p_A)=\sigma(A)\), where \(Z(p_A)\) is the set of roots
+and \(\sigma(A)\) the set of eigenvalues.
+
+\textbf{Proof.} Let \(\lambda\in Z(p_A)\). The factor theorem gives
+\[
+p_A(X)=(X-\lambda)q(X),\qquad \deg q=\deg p_A-1.
+\]
+By minimality, \(q(A)\neq0\). Choose \(x\in V\) with
+\(y=q(A)x\neq0\). Then
+\[
+(A-\lambda I)y=(A-\lambda I)q(A)x=p_A(A)x=0.
+\]
+Thus \(Ay=\lambda y\) with \(y\neq0\), so \(\lambda\in\sigma(A)\).
+Conversely, if \(Ax=\lambda x\) with \(x\neq0\), then
+\(0=p_A(A)x=p_A(\lambda)x\); hence \(p_A(\lambda)=0\)
+(Lemma 6.9). Both inclusions follow.
+
+\begin{personalnote}[title=Definitions for understanding]
+\textbf{Eigenvalue:} \(\lambda\in\F\) for which some \emph{nonzero}
+\(y\in V\) satisfies \(Ay=\lambda y\).
+\(\sigma(A)=\{\lambda:\lambda\text{ is an eigenvalue}\}\);
+\(Z(p_A)=\{\lambda:p_A(\lambda)=0\}\).
+\end{personalnote}
+\begin{personalnote}
+\textbf{Why does \(q(A)\neq0\) give an eigenvector?}
+A nonzero linear map must send \emph{some} vector \(x\) to a nonzero vector;
+it need not send every vector to something nonzero.
+We deliberately choose \(y=q(A)x\neq0\).
+The factorization ensures \((A-\lambda I)y=0\), so this \(y\) is an eigenvector.
+\textbf{Why factor?} Since \(p_A(\lambda)=0\), the factor theorem says
+\(X-\lambda\) divides \(p_A\).
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Why\\\hline
+\(p_A=(X-\lambda)q\) & Root and factor theorem.\\
+\(q(A)\neq0\) & Minimality.\\
+\(y=q(A)x\neq0\) & Construct candidate eigenvector.\\
+\((A-\lambda I)y=0\) & Prove \(Z(p_A)\subseteq\sigma(A)\).\\
+Lemma 6.9 & Prove reverse inclusion.\\\hline
+\end{tabularx}}
+
+\section*{Corollary 6.14: Existence of eigenvalues}
+\textbf{Statement.} If \(0<\dim V<\infty\) and \(\F\) is algebraically
+closed, every \(A\in\operatorname{End}(V)\) has an eigenvalue.
+
+\textbf{Proof.} By Theorem 6.13, \(A\) has a minimal polynomial \(p_A\).
+It is nonconstant: the only monic constant polynomial is \(1\), but
+\(1(A)=I\neq0\) since \(V\neq\{0\}\).
+As \(\F\) is algebraically closed, \(p_A\) has a root \(\lambda\in\F\).
+Lemma 6.12 then makes \(\lambda\) an eigenvalue.
+
+\begin{personalnote}[title=Definitions for understanding]
+A field is \textbf{algebraically closed} if every nonconstant polynomial
+over it has a root in that field. For example, \(\mathbb C\) is algebraically
+closed, whereas \(\mathbb R\) is not: \(X^2+1\) has no real root.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Why\\\hline
+Minimal polynomial exists & Theorem 6.13.\\
+\(p_A\) nonconstant & \(I\neq0\) on nonzero \(V\).\\
+Root exists & Algebraic closure.\\
+Root is eigenvalue & Lemma 6.12.\\\hline
+\end{tabularx}}
+
+\section*{Theorem 6.18: Minimal polynomial and diagonalizability}
+Assume \(\dim V<\infty\), with distinct eigenvalues
+\(\sigma(A)=\{\lambda_1,\ldots,\lambda_m\}\).
+\textbf{Statement.} \(A\) is diagonalizable if and only if \(p_A\)
+splits into linear factors without repeated roots. In that case
+\[
+\text{(i)}\quad p_A(X)=\prod_{i=1}^m(X-\lambda_i),\qquad
+\text{(ii)}\quad V=\bigoplus_{i=1}^m V_{\lambda_i},
+\]
+and the associated projections onto \(V_{\lambda_i}\) are
+\(E_i=p_i(A)\), with the Lagrange polynomials
+\[
+p_i(X)=\prod_{j\neq i}\frac{X-\lambda_j}{\lambda_i-\lambda_j}.
+\]
+By Lemma 6.12, the roots of \(p_A\) are exactly the eigenvalues;
+thus (i) is equivalent to splitting without repeated roots.
+We prove \(\text{diagonalizable}\Rightarrow\text{(i)}
+\Rightarrow\text{(ii)}\Rightarrow\text{diagonalizable}\).
+
+\textbf{Proof.}
+\begin{proofsteps}
+\item \textbf{Diagonalizable \(\Rightarrow\) (i).}
+Let \(q(X)=\prod_{i=1}^m(X-\lambda_i)\).
+For an eigenvector \(x\) with eigenvalue \(\lambda_i\),
+\((A-\lambda_iI)x=0\), hence \(q(A)x=0\).
+Since eigenvectors form a basis of \(V\), linearity gives \(q(A)=0\).
+Lemma 6.11 implies \(p_A\mid q\).
+By Lemma 6.12, each distinct \(\lambda_i\) is a root of \(p_A\),
+so \(q\mid p_A\). Both polynomials are monic, hence \(p_A=q\).
+
+\item \textbf{(i) \(\Rightarrow\) (ii).}
+Define \(E_i=p_i(A)\) and \(U_i=R(E_i)\).
+The Lagrange identity \(\sum_i p_i(X)=1\) (Lemma 6.17) gives
+\[
+\sum_{i=1}^m E_i=I.
+\]
+For \(i\neq j\), \(p_A\mid p_ip_j\): together \(p_i,p_j\) contain
+all the factors \(X-\lambda_k\). Since \(p_A(A)=0\),
+\[
+E_iE_j=(p_ip_j)(A)=0.
+\]
+By Lemma 6.16, \(V=U_1\oplus\cdots\oplus U_m\),
+and \(E_i\) are the associated projections.
+We show \(U_i=V_{\lambda_i}\) using both inclusions:
+\begin{itemize}
+\item If \(x\in V_{\lambda_i}\), then
+\(E_ix=p_i(A)x=p_i(\lambda_i)x=x\), so \(x\in U_i\).
+\item Since
+\[
+(X-\lambda_i)p_i(X)
+=\frac{p_A(X)}{\prod_{j\neq i}(\lambda_i-\lambda_j)},
+\]
+we have \((A-\lambda_iI)E_i=0\). Thus every \(E_iv\)
+lies in \(\ker(A-\lambda_iI)=V_{\lambda_i}\), so \(U_i\subseteq V_{\lambda_i}\).
+\end{itemize}
+Therefore \(U_i=V_{\lambda_i}\), proving (ii).
+
+\item \textbf{(ii) \(\Rightarrow\) diagonalizable.}
+Choose a basis of each eigenspace \(V_{\lambda_i}\).
+Because their sum is direct and equals \(V\), the union of these
+bases is a basis of \(V\) consisting of eigenvectors. Hence \(A\)
+is diagonalizable.
+\end{proofsteps}
+
+\begin{personalnote}
+\textbf{Why does \(q(A)x=0\) for eigenvectors imply \(q(A)=0\)?}
+The \(x\) does not disappear: diagonalizability provides an eigenvector
+basis \(x_1,\ldots,x_n\). For \emph{any} \(v=\sum_k a_kx_k\),
+\[
+q(A)v=\sum_k a_kq(A)x_k=\sum_k a_k\,0=0.
+\]
+Thus \(q(A)\) sends \emph{every} vector to zero, which is precisely
+the statement that \(q(A)\) is the zero map.
+\end{personalnote}
+
+\begin{personalnote}
+\textbf{Why does \(p_A=q\) in (1)?}
+We know \(p_A\mid q\) by Lemma 6.11. Every \(\lambda_i\) is a root
+of \(p_A\) by Lemma 6.12; because these roots are distinct,
+their product \(q\) also divides \(p_A\). Two monic polynomials
+dividing one another are equal. \emph{Monic matters} to rule out
+a nonunit scalar multiple.
+\end{personalnote}
+
+\begin{personalnote}[title=Definitions for understanding]
+\textbf{Lagrange polynomials:} \(p_i(\lambda_j)=\delta_{ij}\):
+they equal \(1\) at their own eigenvalue and \(0\) at every other one.
+\textbf{Range:} \(R(E_i)=\{E_iv:v\in V\}\).
+\textbf{Projection:} for a direct sum, \(E_i\) extracts the \(i\)-th
+component of a vector.
+\textbf{Direct sum:} each vector has a \emph{unique} expression
+as a sum of vectors from the stated subspaces.
+\end{personalnote}
+
+\begin{personalnote}
+\textbf{Why do the Lagrange polynomials sum to \(1\)?}
+Each \(p_i\) has degree at most \(m-1\), and
+\(\sum_i p_i(\lambda_k)=1\) for all \(m\) distinct eigenvalues.
+Thus \(\sum_i p_i(X)-1\) has degree \(<m\) and \(m\) roots,
+so it is identically zero (Lemma 6.17).
+
+\textbf{Why does Lemma 6.16 apply?} The maps \(E_i\) sum to \(I\)
+and their pairwise products vanish. These are exactly its hypotheses:
+they give the direct-sum decomposition by the ranges \(R(E_i)\).
+The final two inclusions identify these ranges as the eigenspaces.
+\end{personalnote}
+
+\begin{personalnote}
+\textbf{Minimal versus characteristic polynomial.}
+The condition concerns \(p_A\), \emph{not} the characteristic polynomial.
+For \(A=\operatorname{diag}(2,2,3)\),
+\[
+\chi_A(X)=(X-2)^2(X-3),\qquad
+p_A(X)=(X-2)(X-3).
+\]
+This matrix is already diagonal, even though its characteristic polynomial
+has a repeated root. Repeated roots of the \emph{minimal} polynomial,
+however, prevent diagonalizability.
+\end{personalnote}
+
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.29\linewidth}X@{}}\hline
+Step & Why\\\hline
+(1) \(q(A)=0\) & Eigenvectors span \(V\).\\
+(1) \(p_A=q\) & Lemmas 6.11 and 6.12, monicity.\\
+(2) \(\sum_i E_i=I\) & Lagrange identity, Lemma 6.17.\\
+(2) \(E_iE_j=0\) & \(p_A\mid p_ip_j\) for \(i\neq j\).\\
+(2) \(V=\bigoplus_i U_i\) & Lemma 6.16, \(U_i=R(E_i)\).\\
+(2) \(U_i=V_{\lambda_i}\) & Show both inclusions.\\
+(3) Eigenvector basis & Combine bases of the eigenspaces.\\\hline
+\end{tabularx}}
+
+\section*{Big Picture: Topic D}
+We start with polynomial expressions \(f(A)\) and the minimal polynomial.
+Theorem 6.13 uses finite dimension to establish existence and monicity
+to establish uniqueness. Lemma 6.11 makes the minimal polynomial divide
+every annihilating polynomial. Lemma 6.12 identifies its roots with
+the eigenvalues; Corollary 6.14 uses algebraic closure to guarantee
+at least one eigenvalue. Finally, Theorem 6.18 turns the absence
+of repeated roots in the minimal polynomial into a direct sum of
+eigenspaces via Lagrange projections:
+\[
+\boxed{\text{finite dimension}\longrightarrow p_A
+\longrightarrow Z(p_A)=\sigma(A)
+\longrightarrow
+\bigl(p_A\text{ splits with distinct roots}
+\iff A\text{ diagonalizable}\bigr).}
+\]
+
 \end{document}
