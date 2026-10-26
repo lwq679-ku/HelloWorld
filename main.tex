@@ -647,4 +647,285 @@ eigenspaces via Lagrange projections:
 \iff A\text{ diagonalizable}\bigr).}
 \]
 
+
+\clearpage
+\part*{Topic B: Diagonalization of Real Symmetric Bilinear Forms and Sylvester's Law of Inertia}
+
+\section*{Definitions for understanding}
+Let \(V\) be a finite-dimensional vector space over a field \(\F\) of characteristic different from \(2\).
+A \emph{bilinear form} is a map \(B:V\times V\to\F\) linear in each argument separately.
+It is \emph{symmetric} if \(B(u,v)=B(v,u)\) for all \(u,v\).
+Vectors \(u,v\) are \emph{orthogonal with respect to \(B\)} when \(B(u,v)=0\).
+A basis \((x_1,\ldots,x_n)\) is \emph{orthogonal} if \(B(x_i,x_j)=0\) for \(i\neq j\).
+An \emph{alternating} form satisfies \(B(v,v)=0\) for all \(v\).
+The \emph{radical} is
+\[
+V^\perp=\{v\in V:B(v,w)=0\text{ for every }w\in V\}.
+\]
+These definitions concern \(B\), not necessarily the usual Euclidean dot product.
+
+\section{Theorem 4.11: Orthogonal bases for symmetric forms}
+\textbf{Statement.} If \(B\in\operatorname{Sym}(V)\), there is an orthogonal basis of \(V\); equivalently, the matrix of \(B\) in that basis is diagonal.
+
+\textbf{Proof (induction on \(n=\dim V\)).}
+If \(n=0\), the empty basis works; if \(B=0\), every basis is orthogonal.
+Assume \(n\geq1\) and \(B\neq0\). By Lemmas 4.7 and 4.9, a nonzero symmetric form in characteristic different from \(2\) is not alternating. Choose \(x\in V\) with \(B(x,x)\neq0\).
+Set
+\[
+f:V\to\F,\quad f(v)=B(x,v),\qquad
+H=\ker f=\{v\in V:B(x,v)=0\}.
+\]
+Since \(f(x)\neq0\), the image of \(f\) is the one-dimensional space \(\F\). Rank-nullity gives \(\dim H=n-1\).
+The restriction \(B|_{H\times H}\) is symmetric, so by the induction hypothesis \(H\) has an orthogonal basis \(h_1,\ldots,h_{n-1}\).
+Since \(B(x,x)\neq0\), we have \(x\notin H\); thus
+\((x,h_1,\ldots,h_{n-1})\) is a linearly independent set of \(n\) vectors and hence a basis of \(V\). It is orthogonal since \(B(x,h_i)=0\) and the \(h_i\) are mutually orthogonal. \(\square\)
+
+\begin{personalnote}[title=Definitions for understanding]
+\textbf{Empty basis:} the zero-dimensional vector space is \(\{0\}\), and its basis is the empty set; it spans \(\{0\}\) and is linearly independent.
+
+\textbf{Why can we choose \(x\) with \(B(x,x)\neq0\)?}
+An alternating form has \(B(v,v)=0\) for every \(v\).
+If a symmetric \(B\) satisfied this, then
+\(0=B(u+v,u+v)=2B(u,v)\) for every \(u,v\);
+since \(\operatorname{char}\F\neq2\), this would imply \(B=0\), a contradiction.
+\end{personalnote}
+\begin{personalnote}
+\textbf{Why is \(\dim H=n-1\)?}
+The map \(f(v)=B(x,v)\) is linear, and \(H=\ker f\).
+Because \(f(x)=B(x,x)\neq0\), its image is a nonzero subspace of \(\F\).
+But \(\F\), viewed as a vector space over itself, has dimension \(1\);
+therefore \(\dim\operatorname{Im}f=1\). Rank-nullity now gives
+\[
+n=\dim V=\dim\ker f+\dim\operatorname{Im}f=\dim H+1.
+\]
+\textbf{What makes this induction?}
+We assume the theorem is true for \emph{every} symmetric bilinear form
+on a space of dimension \(n-1\), apply it to the smaller space \(H\),
+and then add the one missing direction \(x\) to obtain a basis of \(V\).
+The cases \(n=0\) (and \(B=0\)) start the argument.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.29\linewidth}X@{}}\hline
+Step & Why\\\hline
+Base cases & Empty basis or arbitrary basis.\\
+Choose \(x\) & Nonzero symmetric \(B\) is not alternating.\\
+Define \(H=\ker f\) & Vectors orthogonal to \(x\).\\
+\(\dim H=n-1\) & Nonzero map into a one-dimensional space; rank-nullity.\\
+Induct on \(H\) & Restriction remains symmetric.\\
+Add \(x\) & Orthogonal, independent, \(n\) vectors.\\\hline
+\end{tabularx}}
+
+\section{Theorem 4.15: Sylvester's law of inertia}
+\textbf{Statement.} Let \(V\) be real, \(n=\dim V\), and \(m=n-\dim V^\perp\).
+There exists an ordered basis \((x_1,\ldots,x_n)\) and a \emph{unique}
+integer \(0\leq k\leq m\) such that
+\[
+B(x_i,x_j)=
+\begin{cases}
+1 & 1\leq i=j\leq k,\\
+-1 & k<i=j\leq m,\\
+0 & \text{otherwise}.
+\end{cases}
+\]
+Thus the matrix is \(\operatorname{diag}(I_k,-I_{m-k},0_{n-m})\).
+
+\textbf{Proof of existence.}
+By Theorem 4.11, choose an orthogonal basis \(x_1,\ldots,x_n\).
+Write \(a_i=B(x_i,x_i)\); all off-diagonal entries vanish.
+For each \(a_i\neq0\), replace \(x_i\) by \(y_i=x_i/\sqrt{|a_i|}\).
+By bilinearity,
+\[
+B(y_i,y_i)=\frac{B(x_i,x_i)}{|a_i|}
+=\frac{a_i}{|a_i|}=
+\begin{cases}1&a_i>0,\\-1&a_i<0.\end{cases}
+\]
+For \(a_i=0\), keep \(y_i=x_i\). Rescaling preserves orthogonality.
+Reorder the basis so positive entries precede negative entries and zeros.
+The vectors corresponding to zero diagonal entries span \(V^\perp\):
+each is orthogonal to the entire basis, and conversely a vector in
+\(V^\perp\) cannot have a nonzero coefficient in a direction with
+diagonal entry \(+1\) or \(-1\). Hence there are exactly
+\(\dim V^\perp=n-m\) zeros, giving the required form.
+
+\textbf{Proof of uniqueness.}
+A symmetric bilinear form is \emph{positive definite} on a subspace
+\(W\) if \(B(w,w)>0\) for every \(0\neq w\in W\).
+We show that \(k\) is the maximal dimension of such a subspace.
+Indeed, \(W_0=\operatorname{Span}(x_1,\ldots,x_k)\) has dimension \(k\)
+and \(B(w,w)=a_1^2+\cdots+a_k^2>0\) for
+\(0\neq w=\sum_{i=1}^k a_ix_i\).
+Now let \(W\subseteq V\) be any subspace on which \(B\) is positive definite,
+and set \(U=\operatorname{Span}(x_{k+1},\ldots,x_n)\).
+Then \(\dim U=n-k\), while \(B(u,u)\leq0\) for every \(u\in U\).
+Thus \(U\cap W=\{0\}\), since a nonzero vector in the intersection
+would have both \(B(v,v)\leq0\) and \(B(v,v)>0\).
+Consequently,
+\[
+(n-k)+\dim W=\dim U+\dim W
+=\dim(U+W)\leq\dim V=n,
+\]
+so \(\dim W\leq k\).
+Therefore \(k\) is the maximum dimension of a positive-definite
+subspace, an intrinsic property of \(B\), and is unique. \(\square\)
+
+\begin{personalnote}[title=Definitions for understanding]
+\textbf{Positive definite (Definition 4.16):}
+\(B(w,w)>0\) for all nonzero \(w\) in the relevant space.
+\textbf{The radical \(V^\perp\):} vectors orthogonal to \emph{every}
+vector in \(V\). The number of zeros in the normalized diagonal
+matrix is \(n-m=\dim V^\perp\); the number of negatives is \(m-k\).
+\textbf{What does uniqueness claim?} Existence gives \emph{some} basis
+with \(+1,-1,0\). Uniqueness says every such normalized basis has
+the same number \(k\) of positive entries, not that the basis itself
+is unique.
+\end{personalnote}
+\begin{personalnote}
+\textbf{Why is \(\dim U=n-k\)?}
+The vectors \(x_{k+1},\ldots,x_n\) are \(n-k\) members of a basis,
+so they are independent and form a basis of \(U\).
+They correspond precisely to the negative and zero diagonal entries.
+
+\textbf{Why does \(U\cap W=\{0\}\) give \(\dim W\leq k\)?}
+The intersection being zero means \(U+W\) is a direct sum, so
+\(\dim(U+W)=\dim U+\dim W\).
+Since \(U+W\subseteq V\), its dimension cannot exceed \(n\):
+\[
+(n-k)+\dim W=\dim(U+W)\leq n
+\quad\Longrightarrow\quad\dim W\leq k.
+\]
+Because the \emph{maximum dimension} of a positive-definite
+subspace is defined without choosing a basis, \(k\) is independent
+of the chosen normalized basis.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Why\\\hline
+Orthogonal basis & Theorem 4.11.\\
+Normalize & Divide by \(\sqrt{|a_i|}\), obtaining \(+1,-1,0\).\\
+Count zeros & They span \(V^\perp\).\\
+Positive \(W_0\) & Its dimension is \(k\).\\
+Choose \(U\) & \(B(u,u)\leq0\), \(\dim U=n-k\).\\
+\(U\cap W=\{0\}\) & Positive and nonpositive values are incompatible.\\
+\(\dim W\leq k\) & Direct-sum dimension inequality.\\\hline
+\end{tabularx}}
+
+\section*{Definitions for understanding: Quadrics}
+A \emph{quadratic form} is \(q(x)=B(x,x)\) for a bilinear form \(B\).
+A \emph{quadric} in \(\mathbb R^n\) is the solution set of
+\(q(x)+y(x)=c\), where \(y\) is a linear form and \(c\in\mathbb R\).
+Two quadrics \(X_1,X_2\) are \emph{equivalent} if an invertible affine map
+\(T(x)=Ax+b\), \(A\in GL_n(\mathbb R)\), sends \(X_1\) onto \(X_2\).
+In simple terms, we may make an invertible linear change of coordinates
+and translate the origin; the equation changes, but the resulting sets
+represent the same affine geometry.
+
+\section{Theorem 4.20: Classification of quadrics}
+\textbf{Statement.} Every quadric in \(\mathbb R^n\) is equivalent to
+one given by
+\[
+x_1^2+\cdots+x_k^2-x_{k+1}^2-\cdots-x_m^2=1\ \text{or}\ 0,
+\qquad 0\leq k\leq m\leq n, \tag{4.11}
+\]
+or by
+\[
+x_1^2+\cdots+x_k^2-x_{k+1}^2-\cdots-x_m^2=x_{m+1},
+\qquad 0\leq k\leq m<n. \tag{4.12}
+\]
+
+\textbf{Proof (as sketched in the lecture notes).}
+Start with \(q(x)+y(x)=c\).
+By Sylvester's law (Theorem 4.15), an invertible linear change of
+coordinates makes the quadratic part
+\[
+q(x)=x_1^2+\cdots+x_k^2-x_{k+1}^2-\cdots-x_m^2.
+\]
+Write \(y(x)=\sum_{i=1}^n a_ix_i\).
+For \(1\leq i\leq m\), complete the square and translate \(x_i\)
+to eliminate the linear term \(a_ix_i\).
+For instance,
+\[
+x_1^2+\gamma x_1=(x_1+\gamma/2)^2-\gamma^2/4.
+\]
+(The same argument works for a negative squared term.)
+After absorbing the resulting constants, the equation has the form
+\[
+q(x)+a_{m+1}x_{m+1}+\cdots+a_nx_n=c'.
+\]
+If all remaining linear coefficients vanish, we have \(q(x)=c'\).
+If \(c'=0\), this is (4.11). If \(c'\neq0\), rescale coordinates
+to normalize \(|c'|\) to \(1\); if \(c'<0\), multiply the equation
+by \(-1\) and exchange the positive and negative groups.
+This gives (4.11) with right-hand side \(1\).
+
+Otherwise some coefficient \(a_i\) for \(i>m\) is nonzero, so \(m<n\).
+An invertible linear change among the last \(n-m\) coordinates
+combines their linear terms into one coordinate \(x_{m+1}\).
+A translation in that coordinate absorbs \(c'\), and a sign change
+if needed yields \(q(x)=x_{m+1}\), which is (4.12). \(\square\)
+
+\begin{personalnote}
+\textbf{Why only complete the square for \(i\leq m\)?}
+Only those coordinates have nonzero squared terms.
+The remaining coordinates \(x_{m+1},\ldots,x_n\) have no quadratic terms;
+a nonzero linear combination of them instead becomes the coordinate
+on the right of (4.12).
+
+\textbf{Why are translations legitimate?}
+The definition of equivalent quadrics permits \(T(x)=Ax+b\),
+so both invertible changes of basis and shifts of origin are allowed.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.29\linewidth}X@{}}\hline
+Step & Why\\\hline
+Diagonalize \(q\) & Sylvester's law.\\
+Complete squares & Remove linear terms in \(x_1,\ldots,x_m\).\\
+No linear terms remain & Normalize \(c'\) to \(1\) or \(0\): (4.11).\\
+Some linear term remains & Combine it into \(x_{m+1}\), absorb \(c'\): (4.12).\\\hline
+\end{tabularx}}
+
+\section{Corollary 4.21: Classification of non-degenerate conics}
+\textbf{Statement.} A \emph{conic} is a quadric in \(\mathbb R^2\).
+Every non-degenerate conic is equivalent to the circle,
+hyperbola, or parabola:
+\[
+x_1^2+x_2^2=1,\qquad x_1^2-x_2^2=1,\qquad x_1^2=x_2.
+\]
+
+\textbf{Proof.}
+Apply Theorem 4.20 with \(n=2\).
+For (4.11), the non-degenerate cases have \(m=2\) and right-hand side
+\(1\). The possibilities \(k=2\) and \(k=1\) give the circle and
+hyperbola. The case \(k=0\) gives
+\(-x_1^2-x_2^2=1\), whose real solution set is empty.
+For (4.12), non-degeneracy requires \(m+1=2\), hence \(m=1\).
+Then \(k=1\) gives \(x_1^2=x_2\), while \(k=0\) gives
+\(-x_1^2=x_2\), equivalent to the former by replacing \(x_2\)
+with \(-x_2\). Thus the three nonempty types are as claimed. \(\square\)
+
+\begin{personalnote}[title=Definitions for understanding]
+A \emph{conic} is simply a quadric in \(\mathbb R^2\).
+In the lecture notes, the cases \(c=0\) or \(m<n\) in (4.11),
+and \(m+1<n\) in (4.12), are excluded as degenerate.
+The negative-definite equation
+\(-x_1^2-x_2^2=1\) has no real points, so it does not
+describe a nonempty conic curve.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.29\linewidth}X@{}}\hline
+Step & Why\\\hline
+Set \(n=2\) & Definition of conic.\\
+(4.11): \(m=2,c=1\) & Circle or hyperbola (or empty set).\\
+(4.12): \(m=1\) & Both signs give equivalent parabolas.\\\hline
+\end{tabularx}}
+
+\section*{Big Picture: Topic B}
+Theorem 4.11 constructs an orthogonal basis for a symmetric bilinear form.
+Theorem 4.15 normalizes its diagonal entries to \(+1,-1,0\)
+and proves the positive count is basis-independent.
+Theorem 4.20 uses this diagonal form and completing the square
+to reduce arbitrary quadratic equations to two normal forms.
+Corollary 4.21 specializes to dimension two and yields the
+circle, hyperbola, and parabola:
+\[
+\boxed{\text{orthogonal basis}\ \longrightarrow\
+\text{Sylvester normal form}\ \longrightarrow\
+\text{quadrics}\ \longrightarrow\ \text{conics}.}
+\]
+
 \end{document}
