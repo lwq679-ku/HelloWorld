@@ -928,4 +928,302 @@ circle, hyperbola, and parabola:
 \text{quadrics}\ \longrightarrow\ \text{conics}.}
 \]
 
+
+\clearpage
+\part*{Topic E: Orthogonal Diagonalization of Normal and Symmetric Maps}
+\section*{Definitions for understanding}
+An \emph{inner product space} is a vector space over \(\mathbb R\) or \(\mathbb C\) equipped with a positive-definite, conjugate-symmetric, sesquilinear inner product \(\langle x,y\rangle\). Our convention is linearity in the first variable and conjugate-linearity in the second:
+\(\langle ax,by\rangle=a\overline b\langle x,y\rangle\).
+An \emph{orthonormal basis} \((e_1,\ldots,e_n)\) spans \(V\) and satisfies \(\langle e_i,e_j\rangle=\delta_{ij}\): distinct basis vectors are orthogonal and each has norm \(1\).
+The \emph{adjoint} \(A^*\) is characterized by
+\(\langle Ax,y\rangle=\langle x,A^*y\rangle\).
+A map is \emph{normal} if \(AA^*=A^*A\), and \emph{self-adjoint} if \(A=A^*\). Over \(\mathbb R\), self-adjoint maps are called \emph{symmetric}.
+The \emph{minimal polynomial} \(p_A\) is the unique monic polynomial of least degree with \(p_A(A)=0\).
+The eigenspace \(V_\lambda(A)=N(A-\lambda I)\), and \(\sigma(A)\) is the set of eigenvalues.
+
+\section{Lemma 7.22: Properties of normal maps}
+\textbf{Statement.} If \(A\in\operatorname{End}(V)\) is normal, then
+\[
+\begin{array}{ll}
+\text{(i)}&N(A^*)=N(A),\\
+\text{(ii)}&N(A^m)=N(A)\quad(m\geq1),\\
+\text{(iii)}&V_\lambda(A)=V_{\overline\lambda}(A^*),\\
+\text{(iv)}&V_\lambda(A)\perp V_\mu(A)\quad(\lambda\neq\mu).
+\end{array}
+\]
+\textbf{Proof.}
+\begin{proofsteps}
+\item[(i)] By Lemma 7.16(ii), \(N(A)=N(A^*A)\) and \(N(A^*)=N(AA^*)\).
+Normality gives \(A^*A=AA^*\), hence \(N(A)=N(A^*)\).
+\item[(ii)] For \(m\geq2\), if \(A^mx=0\), then
+\[
+A(A^{m-1}x)=0
+\ \underset{\text{(i)}}{\Longrightarrow}\
+A^*A(A^{m-2}x)=0
+\ \underset{\text{Lemma 7.16(ii)}}{\Longrightarrow}\
+A^{m-1}x=0.
+\]
+The reverse implication is automatic. Thus \(N(A^m)=N(A^{m-1})\), and iteration gives \(N(A^m)=N(A)\).
+\item[(iii)] Since \(A-\lambda I\) is normal, (i) gives
+\[
+V_\lambda(A)=N(A-\lambda I)
+=N((A-\lambda I)^*)
+=N(A^*-\overline\lambda I)
+=V_{\overline\lambda}(A^*).
+\]
+\item[(iv)] Let \(Ax=\mu x\), \(Ay=\lambda y\), where \(\mu\neq\lambda\).
+By (iii), \(A^*y=\overline\lambda y\). Thus
+\[
+\mu\langle x,y\rangle
+=\langle Ax,y\rangle
+=\langle x,A^*y\rangle
+=\langle x,\overline\lambda y\rangle
+=\lambda\langle x,y\rangle.
+\]
+Hence \((\mu-\lambda)\langle x,y\rangle=0\), so \(\langle x,y\rangle=0\).
+\end{proofsteps}
+\begin{personalnote}
+\textbf{Why is \(A-\lambda I\) normal?}
+Its adjoint is \(A^*-\overline\lambda I\). Expanding the two products
+\((A-\lambda I)(A^*-\overline\lambda I)\) and
+\((A^*-\overline\lambda I)(A-\lambda I)\) gives identical cross terms; their difference is \(AA^*-A^*A=0\).
+
+\textbf{Why does the scalar become conjugated?}
+The adjoint is conjugate-linear in scalars: \((\lambda I)^*=\overline\lambda I\), as follows from the defining inner-product identity.
+
+\textbf{Why does the last line in (iv) contain \(\lambda\), not \(\overline\lambda\)?}
+Our inner product is conjugate-linear in its second argument:
+\(\langle x,\overline\lambda y\rangle=\lambda\langle x,y\rangle\).
+Part (iv) says \emph{different eigenspaces are orthogonal}, not merely that some chosen eigenvectors are.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.22\linewidth}X@{}}\hline
+Part & Key argument\\\hline
+(i) & \(N(A)=N(A^*A)=N(AA^*)=N(A^*)\).\\
+(ii) & Use (i) and Lemma 7.16(ii) to lower the exponent one step.\\
+(iii) & Apply (i) to \(A-\lambda I\).\\
+(iv) & Apply the adjoint identity and (iii) to obtain \((\mu-\lambda)\langle x,y\rangle=0\).\\\hline
+\end{tabularx}}
+
+\section{Lemma 7.23: The minimal polynomial has no repeated roots}
+\textbf{Statement.} If \(V\) is finite-dimensional and \(A\) is normal, the minimal polynomial \(p_A\) has no repeated roots.
+
+\textbf{Proof.} Let \(\lambda\) be a root of multiplicity \(m\geq1\), and write
+\(p_A(X)=(X-\lambda)^m q(X)\).
+Since \(p_A(A)=0\),
+\[
+(A-\lambda I)^m q(A)=0.
+\]
+Thus, for every \(x\in V\), \((A-\lambda I)^m(q(A)x)=0\); equivalently,
+\(\operatorname{Im}q(A)\subseteq N((A-\lambda I)^m)\).
+Since \(A-\lambda I\) is normal, Lemma 7.22(ii) yields
+\[
+N((A-\lambda I)^m)=N(A-\lambda I).
+\]
+Hence \((A-\lambda I)q(A)x=0\) for every \(x\), so
+\((A-\lambda I)q(A)=0\).
+If \(m>1\), the nonzero polynomial \((X-\lambda)q(X)\) would annihilate \(A\) and have degree less than \(\deg p_A\), contradicting minimality. Thus \(m=1\). \(\square\)
+
+\begin{personalnote}
+\textbf{Why can we write an arbitrary \(x\)?}
+An equality of maps such as \(p_A(A)=0\) means the zero map, so its value is zero on \emph{every} \(x\in V\).
+The image inclusion means precisely that each output \(q(A)x\) is killed by \((A-\lambda I)^m\).
+Using equality of the null spaces, it is already killed by \(A-\lambda I\).
+Minimality refers to the \emph{degree of a nonzero annihilating polynomial}; removing \(m-1\) copies of \(X-\lambda\) would give a smaller one if \(m>1\).
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Why\\\hline
+Factor \(p_A\) & Isolate a possible repeated root.\\
+\((A-\lambda I)^m q(A)=0\) & Evaluate the minimal polynomial.\\
+Reduce null space & Lemma 7.22(ii) for \(A-\lambda I\).\\
+\((A-\lambda I)q(A)=0\) & Every output of \(q(A)\) lies in the smaller null space.\\
+\(m=1\) & Otherwise contradict minimal degree.\\\hline
+\end{tabularx}}
+
+\section*{Definitions for understanding: Spectral resolution}
+A map is \emph{orthogonally diagonalizable} if \(V\) has an orthonormal basis of eigenvectors, equivalently
+\(V=\bigoplus_{\lambda\in\sigma(A)}V_\lambda\) as an \emph{orthogonal} direct sum.
+For each eigenvalue \(\lambda\), the orthogonal projection \(E_\lambda\) sends a vector to its component in \(V_\lambda\).
+If \(v=\sum_\lambda v_\lambda\) with \(v_\lambda\in V_\lambda\), then
+\(E_\lambda v=v_\lambda\). Consequently,
+\[
+E_\lambda^*=E_\lambda,\quad
+E_\lambda E_\mu=\begin{cases}E_\lambda&\lambda=\mu,\\0&\lambda\neq\mu,\end{cases}
+\quad \sum_\lambda E_\lambda=I.
+\]
+The \emph{spectral resolution} is
+\[
+A=\sum_{\lambda\in\sigma(A)}\lambda E_\lambda.
+\]
+\begin{personalnote}
+\textbf{Intuition for orthogonal projection.}
+Decompose \(v\) into perpendicular pieces, one in each eigenspace. \(E_\lambda\) keeps only the \(\lambda\)-piece and discards all others. Applying the same projection twice does nothing new, while projecting onto a different eigenspace afterward gives zero.
+\end{personalnote}
+
+\section{Theorem 7.25: Spectral theorem for normal maps over \(\mathbb C\)}
+\textbf{Statement.} For finite-dimensional complex inner product spaces:
+(a) \(A\) is normal iff it is orthogonally diagonalizable;
+(b) \(A\) is self-adjoint iff it is normal and \(\sigma(A)\subseteq\mathbb R\).
+
+\textbf{Proof of (a).}
+\begin{proofsteps}
+\item Suppose \(A\) is orthogonally diagonalizable. The spectral resolution gives
+\[
+A=\sum_\lambda\lambda E_\lambda,\qquad
+A^*=\sum_\lambda\overline\lambda E_\lambda
+\]
+since \(E_\lambda^*=E_\lambda\).
+By the projection identities,
+\[
+AA^*=\sum_{\lambda,\mu}\lambda\overline\mu E_\lambda E_\mu
+=\sum_\lambda|\lambda|^2E_\lambda=A^*A.
+\]
+Thus \(A\) is normal.
+\item Conversely, assume \(A\) is normal. Over \(\mathbb C\), the fundamental theorem of algebra implies \(p_A\) splits; Lemma 7.23 says its roots are distinct. Theorem 6.18 therefore implies \(A\) is diagonalizable:
+\(V=\bigoplus_\lambda V_\lambda\).
+Lemma 7.22(iv) makes the distinct eigenspaces mutually orthogonal. Choose an orthonormal basis in each eigenspace (Gram--Schmidt); their union is an orthonormal eigenvector basis of \(V\).
+\end{proofsteps}
+\textbf{Proof of (b).}
+If \(A=A^*\), then \(A\) is normal. For \(Ax=\lambda x\) with \(x\neq0\), Lemma 7.22(iii) gives \(A^*x=\overline\lambda x\), hence
+\(\lambda x=\overline\lambda x\) and \(\lambda\in\mathbb R\).
+Conversely, if \(A\) is normal with real spectrum, (a) gives
+\[
+A=\sum_\lambda\lambda E_\lambda,\qquad
+A^*=\sum_\lambda\overline\lambda E_\lambda
+=\sum_\lambda\lambda E_\lambda=A.
+\]
+Thus \(A\) is self-adjoint. \(\square\)
+
+\begin{personalnote}
+\textbf{Why is the combined basis orthonormal?}
+Diagonalizability first guarantees that the eigenspaces \emph{span all of \(V\)}. Orthogonality alone would not guarantee spanning. Within each eigenspace choose an orthonormal basis; vectors from \emph{different} eigenspaces are perpendicular by Lemma 7.22(iv). Thus the union both spans \(V\) and is orthonormal.
+
+\textbf{Why is \(AA^*=A^*A\)?}
+The product \(E_\lambda E_\mu\) vanishes for distinct eigenvalues and equals \(E_\lambda\) when they coincide, so both products reduce to \(\sum_\lambda|\lambda|^2E_\lambda\).
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.30\linewidth}X@{}}\hline
+Direction & Key steps\\\hline
+Orthogonally diagonalizable \(\Rightarrow\) normal & Spectral resolution, self-adjoint projections, and \(E_\lambda E_\mu\).\\
+Normal \(\Rightarrow\) orthogonally diagonalizable & Splitting over \(\mathbb C\), Lemma 7.23, Theorem 6.18, Lemma 7.22(iv).\\
+Self-adjoint \(\Rightarrow\) real spectrum & Apply Lemma 7.22(iii) to an eigenvector.\\
+Normal + real spectrum \(\Rightarrow\) self-adjoint & Conjugates disappear in the adjoint spectral resolution.\\\hline
+\end{tabularx}}
+
+\section{Lemma 7.26: Injectivity of \(A^2+\lambda I\)}
+\textbf{Statement.} If \(A\) is symmetric over \(\mathbb R\), then \(A^2+\lambda I\) is injective for every \(\lambda>0\).
+
+\textbf{Proof.} Suppose \((A^2+\lambda I)x=0\).
+Since \(\lambda>0\), positivity of the inner product and symmetry of \(A\) give
+\[
+0\leq\lambda\langle x,x\rangle
+\leq\langle Ax,Ax\rangle+\lambda\langle x,x\rangle
+=\langle(A^2+\lambda I)x,x\rangle=0.
+\]
+Hence \(\lambda\langle x,x\rangle=0\), so \(\langle x,x\rangle=0\) and \(x=0\).
+Thus \(N(A^2+\lambda I)=\{0\}\), proving injectivity. \(\square\)
+
+\begin{personalnote}
+\textbf{What do the symbols mean?}
+Symmetric means \(\langle Au,v\rangle=\langle u,Av\rangle\).
+Injective means the only vector sent to zero is zero.
+The map \(A^2+\lambda I\) sends \(x\) to \(A(Ax)+\lambda x\); \(I\) is the identity.
+The equality
+\(\langle A^2x,x\rangle=\langle Ax,Ax\rangle\)
+uses symmetry with \(u=Ax,v=x\).
+Both \(\langle Ax,Ax\rangle\) and \(\lambda\langle x,x\rangle\) are nonnegative, so if their sum is zero, each is zero.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Why\\\hline
+Assume \((A^2+\lambda I)x=0\) & Test injectivity.\\
+Rewrite inner product & Symmetry turns \(\langle A^2x,x\rangle\) into \(\|Ax\|^2\).\\
+\(0\leq\lambda\|x\|^2\leq0\) & Both norm-squared terms are nonnegative.\\
+\(x=0\) & \(\lambda>0\) and positive definiteness.\\\hline
+\end{tabularx}}
+
+\section{Lemma 7.27: Real splitting of the minimal polynomial}
+\textbf{Statement.} If \(A\) is symmetric over \(\mathbb R\), then its minimal polynomial \(p_A\in\mathbb R[X]\) splits over \(\mathbb R\).
+
+\textbf{Proof.} Suppose \(p_A\) has a non-real root \(\lambda=\alpha+i\beta\), \(\beta\neq0\).
+Since \(p_A\) has real coefficients, \(\overline\lambda=\alpha-i\beta\) is also a root. Thus
+\[
+p_A(X)=(X-\lambda)(X-\overline\lambda)q(X)
+=\big((X-\alpha)^2+\beta^2\big)q(X)
+\]
+with \(q\in\mathbb R[X]\). Evaluating at \(A\) yields
+\[
+\big((A-\alpha I)^2+\beta^2I\big)q(A)=0.
+\]
+The map \(B=A-\alpha I\) is symmetric, and \(\beta^2>0\).
+By Lemma 7.26, \(B^2+\beta^2I\) is injective. Hence \(q(A)x=0\) for every \(x\in V\), so \(q(A)=0\).
+But \(\deg q=\deg p_A-2<\deg p_A\), contradicting the minimality of \(p_A\). Therefore no non-real root exists; by the fundamental theorem of algebra, all factors are real linear factors. \(\square\)
+
+\begin{personalnote}
+\textbf{Why is the conjugate also a root?}
+For a polynomial with real coefficients,
+\(p_A(\overline z)=\overline{p_A(z)}\). Thus \(p_A(\lambda)=0\) implies \(p_A(\overline\lambda)=0\).
+
+\textbf{Why does the image lie in a null space?}
+For each \(x\), the displayed operator identity says
+\(((A-\alpha I)^2+\beta^2I)(q(A)x)=0\).
+Thus \(q(A)x\) belongs to the kernel of the first factor. Since that factor is injective, its kernel is \(\{0\}\), so \(q(A)x=0\) for every \(x\).
+
+\textbf{Why does the degree decrease by two?}
+The factor \((X-\alpha)^2+\beta^2\) has degree \(2\), so \(\deg q=\deg p_A-2\).
+This is a contradiction because \(q\) is a nonzero polynomial annihilating \(A\) of smaller degree.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.29\linewidth}X@{}}\hline
+Step & Why\\\hline
+Assume a non-real root & Argue by contradiction.\\
+Factor conjugate pair & Real coefficients give \((X-\alpha)^2+\beta^2\).\\
+Evaluate at \(A\) & \(p_A(A)=0\).\\
+Apply Lemma 7.26 & \(A-\alpha I\) symmetric and \(\beta^2>0\).\\
+\(q(A)=0\) & Injectivity of the quadratic factor.\\
+Contradiction & \(\deg q=\deg p_A-2\).\\\hline
+\end{tabularx}}
+
+\section{Theorem 7.28: Spectral theorem for symmetric maps over \(\mathbb R\)}
+\textbf{Statement.} For \(A\in\operatorname{End}(V)\) on a finite-dimensional real inner product space,
+\[
+\boxed{A\text{ is orthogonally diagonalizable}\quad\Longleftrightarrow\quad A=A^*.}
+\]
+\textbf{Proof.}
+\begin{proofsteps}
+\item Assume \(A=A^*\). Then \(A\) is normal, because
+\(AA^*=A^2=A^*A\).
+By Lemma 7.27, \(p_A\) splits over \(\mathbb R\), and by Lemma 7.23 its roots are distinct.
+Theorem 6.18 implies \(A\) is diagonalizable:
+\(V=\bigoplus_\lambda V_\lambda\).
+By Lemma 7.22(iv), distinct eigenspaces are orthogonal.
+Choose an orthonormal basis of each eigenspace using Gram--Schmidt; together these form an orthonormal eigenvector basis of \(V\).
+\item Conversely, if \(A\) is orthogonally diagonalizable, then
+\(A=\sum_\lambda\lambda E_\lambda\), where \(E_\lambda^*=E_\lambda\).
+Since the field is \(\mathbb R\), each \(\lambda\) is real, and
+\[
+A^*=\sum_\lambda\overline\lambda E_\lambda
+=\sum_\lambda\lambda E_\lambda=A.
+\]
+Thus \(A\) is symmetric.
+\end{proofsteps}
+\begin{personalnote}
+\textbf{Why is symmetry enough to apply the normal-map lemmas?}
+If \(A=A^*\), then both products \(AA^*\) and \(A^*A\) equal \(A^2\).
+
+\textbf{Why can we choose bases of each eigenspace?}
+Each eigenspace is a finite-dimensional inner product subspace, so Gram--Schmidt gives an orthonormal basis. Theorem 6.18 first guarantees that the eigenspaces sum to all of \(V\); Lemma 7.22(iv) guarantees vectors chosen from distinct eigenspaces are orthogonal.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.29\linewidth}X@{}}\hline
+Direction & Key steps\\\hline
+Symmetric \(\Rightarrow\) orthogonally diagonalizable & Lemma 7.27 (splits), Lemma 7.23 (distinct roots), Theorem 6.18 (diagonalizable), Lemma 7.22(iv) (orthogonality).\\
+Orthogonally diagonalizable \(\Rightarrow\) symmetric & Spectral resolution and \(E_\lambda^*=E_\lambda\), with real eigenvalues.\\\hline
+\end{tabularx}}
+
+\section*{Big Picture: Topic E}
+For normal maps over \(\mathbb C\), the fundamental theorem of algebra gives splitting and Lemma 7.23 gives distinct roots; Theorem 6.18 gives diagonalizability, and Lemma 7.22(iv) upgrades it to \emph{orthogonal} diagonalizability (Theorem 7.25).
+For symmetric maps over \(\mathbb R\), splitting is not automatic: Lemma 7.26 supplies an injectivity argument, and Lemma 7.27 uses it to rule out non-real roots. Lemma 7.23 and Theorem 6.18 then give diagonalizability; Lemma 7.22(iv) again gives an orthonormal eigenbasis (Theorem 7.28).
+\[
+\boxed{\begin{gathered}
+\mathbb C:\ \text{normal}\Longleftrightarrow\text{orthogonally diagonalizable},\\
+\mathbb R:\ \text{symmetric}\Longleftrightarrow\text{orthogonally diagonalizable}.
+\end{gathered}}
+\]
+
 \end{document}
