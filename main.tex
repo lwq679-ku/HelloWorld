@@ -932,13 +932,23 @@ circle, hyperbola, and parabola:
 \clearpage
 \part*{Topic E: Orthogonal Diagonalization of Normal and Symmetric Maps}
 \section*{Definitions for understanding}
-An \emph{inner product space} is a vector space over \(\mathbb R\) or \(\mathbb C\) equipped with a positive-definite, conjugate-symmetric, sesquilinear inner product \(\langle x,y\rangle\). Our convention is linearity in the first variable and conjugate-linearity in the second:
+An \emph{inner product space} is a vector space over \(\mathbb R\) or \(\mathbb C\) equipped with a inner product \(\langle x,y\rangle\). Our convention is linearity in the first variable and conjugate-linearity in the second:
 \(\langle ax,by\rangle=a\overline b\langle x,y\rangle\).
+
+**Can you write definition 7.1 here?
+
 An \emph{orthonormal basis} \((e_1,\ldots,e_n)\) spans \(V\) and satisfies \(\langle e_i,e_j\rangle=\delta_{ij}\): distinct basis vectors are orthogonal and each has norm \(1\).
+
 The \emph{adjoint} \(A^*\) is characterized by
 \(\langle Ax,y\rangle=\langle x,A^*y\rangle\).
+
+
 A map is \emph{normal} if \(AA^*=A^*A\), and \emph{self-adjoint} if \(A=A^*\). Over \(\mathbb R\), self-adjoint maps are called \emph{symmetric}.
+
+
 The \emph{minimal polynomial} \(p_A\) is the unique monic polynomial of least degree with \(p_A(A)=0\).
+
+
 The eigenspace \(V_\lambda(A)=N(A-\lambda I)\), and \(\sigma(A)\) is the set of eigenvalues.
 
 \section{Lemma 7.22: Properties of normal maps}
@@ -951,6 +961,8 @@ The eigenspace \(V_\lambda(A)=N(A-\lambda I)\), and \(\sigma(A)\) is the set of 
 \text{(iv)}&V_\lambda(A)\perp V_\mu(A)\quad(\lambda\neq\mu).
 \end{array}
 \]
+
+** write out what (iii) and (iv) means with words like in the lecture notes
 \textbf{Proof.}
 \begin{proofsteps}
 \item[(i)] By Lemma 7.16(ii), \(N(A)=N(A^*A)\) and \(N(A^*)=N(AA^*)\).
@@ -960,7 +972,7 @@ Normality gives \(A^*A=AA^*\), hence \(N(A)=N(A^*)\).
 A(A^{m-1}x)=0
 \ \underset{\text{(i)}}{\Longrightarrow}\
 A^*A(A^{m-2}x)=0
-\ \underset{\text{Lemma 7.16(ii)}}{\Longrightarrow}\
+\ \underset{\text{Lemma 7.16(ii)}**write what the lemma says instead}{\Longrightarrow}\
 A^{m-1}x=0.
 \]
 The reverse implication is automatic. Thus \(N(A^m)=N(A^{m-1})\), and iteration gives \(N(A^m)=N(A)\).
@@ -972,7 +984,7 @@ V_\lambda(A)=N(A-\lambda I)
 =V_{\overline\lambda}(A^*).
 \]
 \item[(iv)] Let \(Ax=\mu x\), \(Ay=\lambda y\), where \(\mu\neq\lambda\).
-By (iii), \(A^*y=\overline\lambda y\). Thus
+By (iii)**how is this by (iii)?, \(A^*y=\overline\lambda y\). Thus
 \[
 \mu\langle x,y\rangle
 =\langle Ax,y\rangle
@@ -982,6 +994,7 @@ By (iii), \(A^*y=\overline\lambda y\). Thus
 \]
 Hence \((\mu-\lambda)\langle x,y\rangle=0\), so \(\langle x,y\rangle=0\).
 \end{proofsteps}
+**write a little note under the second equality sign that it's per definition
 \begin{personalnote}
 \textbf{Why is \(A-\lambda I\) normal?}
 Its adjoint is \(A^*-\overline\lambda I\). Expanding the two products
@@ -991,10 +1004,7 @@ Its adjoint is \(A^*-\overline\lambda I\). Expanding the two products
 \textbf{Why does the scalar become conjugated?}
 The adjoint is conjugate-linear in scalars: \((\lambda I)^*=\overline\lambda I\), as follows from the defining inner-product identity.
 
-\textbf{Why does the last line in (iv) contain \(\lambda\), not \(\overline\lambda\)?}
-Our inner product is conjugate-linear in its second argument:
-\(\langle x,\overline\lambda y\rangle=\lambda\langle x,y\rangle\).
-Part (iv) says \emph{different eigenspaces are orthogonal}, not merely that some chosen eigenvectors are.
+**Here can you explain why chosing Ax=ux and the other shows something about the eigenspaces, I think I'm missing the connection
 \end{personalnote}
 \prooftable{\begin{tabularx}{\linewidth}{@{}p{.22\linewidth}X@{}}\hline
 Part & Key argument\\\hline
@@ -1024,6 +1034,7 @@ Hence \((A-\lambda I)q(A)x=0\) for every \(x\), so
 If \(m>1\), the nonzero polynomial \((X-\lambda)q(X)\) would annihilate \(A\) and have degree less than \(\deg p_A\), contradicting minimality. Thus \(m=1\). \(\square\)
 
 \begin{personalnote}
+**In general when there are more points in the personal note can you seperate them by one line of space
 \textbf{Why can we write an arbitrary \(x\)?}
 An equality of maps such as \(p_A(A)=0\) means the zero map, so its value is zero on \emph{every} \(x\in V\).
 The image inclusion means precisely that each output \(q(A)x\) is killed by \((A-\lambda I)^m\).
@@ -1042,6 +1053,7 @@ Reduce null space & Lemma 7.22(ii) for \(A-\lambda I\).\\
 \section*{Definitions for understanding: Spectral resolution}
 A map is \emph{orthogonally diagonalizable} if \(V\) has an orthonormal basis of eigenvectors, equivalently
 \(V=\bigoplus_{\lambda\in\sigma(A)}V_\lambda\) as an \emph{orthogonal} direct sum.
+
 For each eigenvalue \(\lambda\), the orthogonal projection \(E_\lambda\) sends a vector to its component in \(V_\lambda\).
 If \(v=\sum_\lambda v_\lambda\) with \(v_\lambda\in V_\lambda\), then
 \(E_\lambda v=v_\lambda\). Consequently,
@@ -1061,8 +1073,10 @@ Decompose \(v\) into perpendicular pieces, one in each eigenspace. \(E_\lambda\)
 
 \section{Theorem 7.25: Spectral theorem for normal maps over \(\mathbb C\)}
 \textbf{Statement.} For finite-dimensional complex inner product spaces:
-(a) \(A\) is normal iff it is orthogonally diagonalizable;
-(b) \(A\) is self-adjoint iff it is normal and \(\sigma(A)\subseteq\mathbb R\).
+
+(a) \(A\) is normal $\Longleftrightarrow$ it is orthogonally diagonalizable;
+
+(b) \(A\) is self-adjoint $\Longleftrightarrow$ it is normal and \(\sigma(A)\subseteq\mathbb R\).
 
 \textbf{Proof of (a).}
 \begin{proofsteps}
@@ -1085,6 +1099,7 @@ Lemma 7.22(iv) makes the distinct eigenspaces mutually orthogonal. Choose an ort
 \textbf{Proof of (b).}
 If \(A=A^*\), then \(A\) is normal. For \(Ax=\lambda x\) with \(x\neq0\), Lemma 7.22(iii) gives \(A^*x=\overline\lambda x\), hence
 \(\lambda x=\overline\lambda x\) and \(\lambda\in\mathbb R\).
+
 Conversely, if \(A\) is normal with real spectrum, (a) gives
 \[
 A=\sum_\lambda\lambda E_\lambda,\qquad
