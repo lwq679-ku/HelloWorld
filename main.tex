@@ -935,12 +935,12 @@ circle, hyperbola, and parabola:
 An \emph{inner product space} is a vector space over \(\mathbb R\) or \(\mathbb C\) equipped with a inner product \(\langle x,y\rangle\). Our convention is linearity in the first variable and conjugate-linearity in the second:
 \(\langle ax,by\rangle=a\overline b\langle x,y\rangle\).
 
-**Can you write definition 7.1 here?
+\textbf{Definition 7.1 (Inner product).} An inner product is a map \(\langle\cdot,\cdot\rangle:V\times V\to\mathbb F\) such that (a) \(x\mapsto\langle x,y\rangle\) is linear for every fixed \(y\); (b) \(\langle x,y\rangle=\overline{\langle y,x\rangle}\); and (c) \(\langle x,x\rangle>0\) for every nonzero \(x\). In particular, (b) makes \(\langle x,x\rangle\) real, and (a)--(b) imply conjugate-linearity in the second argument.
 
 An \emph{orthonormal basis} \((e_1,\ldots,e_n)\) spans \(V\) and satisfies \(\langle e_i,e_j\rangle=\delta_{ij}\): distinct basis vectors are orthogonal and each has norm \(1\).
 
 The \emph{adjoint} \(A^*\) is characterized by
-\(\langle Ax,y\rangle=\langle x,A^*y\rangle\).
+\(\langle Ax,y\rangle\underset{\text{definition of }A^*}{=}\langle x,A^*y\rangle\).
 
 
 A map is \emph{normal} if \(AA^*=A^*A\), and \emph{self-adjoint} if \(A=A^*\). Over \(\mathbb R\), self-adjoint maps are called \emph{symmetric}.
@@ -962,7 +962,12 @@ The eigenspace \(V_\lambda(A)=N(A-\lambda I)\), and \(\sigma(A)\) is the set of 
 \end{array}
 \]
 
-** write out what (iii) and (iv) means with words like in the lecture notes
+\begin{personalnote}
+\textbf{In words, (iii).} A vector is an eigenvector of \(A\) with eigenvalue \(\lambda\) if and only if it is an eigenvector of \(A^*\) with eigenvalue \(\overline\lambda\); these eigenspaces are equal.
+
+\medskip
+\textbf{In words, (iv).} Eigenvectors of a normal map belonging to distinct eigenvalues are orthogonal. In other words, the corresponding eigenspaces are perpendicular.
+\end{personalnote}
 \textbf{Proof.}
 \begin{proofsteps}
 \item[(i)] By Lemma 7.16(ii), \(N(A)=N(A^*A)\) and \(N(A^*)=N(AA^*)\).
@@ -972,7 +977,7 @@ Normality gives \(A^*A=AA^*\), hence \(N(A)=N(A^*)\).
 A(A^{m-1}x)=0
 \ \underset{\text{(i)}}{\Longrightarrow}\
 A^*A(A^{m-2}x)=0
-\ \underset{\text{Lemma 7.16(ii)}**write what the lemma says instead}{\Longrightarrow}\
+\ \underset{\text{Lemma 7.16(ii)}:\ N(A)=N(A^*A)}{\Longrightarrow}\
 A^{m-1}x=0.
 \]
 The reverse implication is automatic. Thus \(N(A^m)=N(A^{m-1})\), and iteration gives \(N(A^m)=N(A)\).
@@ -984,7 +989,7 @@ V_\lambda(A)=N(A-\lambda I)
 =V_{\overline\lambda}(A^*).
 \]
 \item[(iv)] Let \(Ax=\mu x\), \(Ay=\lambda y\), where \(\mu\neq\lambda\).
-By (iii)**how is this by (iii)?, \(A^*y=\overline\lambda y\). Thus
+By (iii), \(Ay=\lambda y\) means \(y\in V_\lambda(A)=V_{\overline\lambda}(A^*)\), hence \(A^*y=\overline\lambda y\). Thus
 \[
 \mu\langle x,y\rangle
 =\langle Ax,y\rangle
@@ -994,17 +999,21 @@ By (iii)**how is this by (iii)?, \(A^*y=\overline\lambda y\). Thus
 \]
 Hence \((\mu-\lambda)\langle x,y\rangle=0\), so \(\langle x,y\rangle=0\).
 \end{proofsteps}
-**write a little note under the second equality sign that it's per definition
+
 \begin{personalnote}
 \textbf{Why is \(A-\lambda I\) normal?}
 Its adjoint is \(A^*-\overline\lambda I\). Expanding the two products
 \((A-\lambda I)(A^*-\overline\lambda I)\) and
 \((A^*-\overline\lambda I)(A-\lambda I)\) gives identical cross terms; their difference is \(AA^*-A^*A=0\).
 
+\medskip
+
 \textbf{Why does the scalar become conjugated?}
 The adjoint is conjugate-linear in scalars: \((\lambda I)^*=\overline\lambda I\), as follows from the defining inner-product identity.
 
-**Here can you explain why chosing Ax=ux and the other shows something about the eigenspaces, I think I'm missing the connection
+\medskip
+\textbf{Why choose \(Ax=\mu x\) and \(Ay=\lambda y\)?}
+By definition \(V_\mu(A)=\{x:Ax=\mu x\}\) and \(V_\lambda(A)=\{y:Ay=\lambda y\}\). So we have chosen arbitrary vectors from the two eigenspaces. To show that the eigenspaces are orthogonal, we must show \(\langle x,y\rangle=0\) for every such pair. The computation in (iv) proves exactly this when \(\mu\neq\lambda\).
 \end{personalnote}
 \prooftable{\begin{tabularx}{\linewidth}{@{}p{.22\linewidth}X@{}}\hline
 Part & Key argument\\\hline
@@ -1034,7 +1043,9 @@ Hence \((A-\lambda I)q(A)x=0\) for every \(x\), so
 If \(m>1\), the nonzero polynomial \((X-\lambda)q(X)\) would annihilate \(A\) and have degree less than \(\deg p_A\), contradicting minimality. Thus \(m=1\). \(\square\)
 
 \begin{personalnote}
-**In general when there are more points in the personal note can you seperate them by one line of space
+
+\medskip
+
 \textbf{Why can we write an arbitrary \(x\)?}
 An equality of maps such as \(p_A(A)=0\) means the zero map, so its value is zero on \emph{every} \(x\in V\).
 The image inclusion means precisely that each output \(q(A)x\) is killed by \((A-\lambda I)^m\).
@@ -1112,6 +1123,8 @@ Thus \(A\) is self-adjoint. \(\square\)
 \textbf{Why is the combined basis orthonormal?}
 Diagonalizability first guarantees that the eigenspaces \emph{span all of \(V\)}. Orthogonality alone would not guarantee spanning. Within each eigenspace choose an orthonormal basis; vectors from \emph{different} eigenspaces are perpendicular by Lemma 7.22(iv). Thus the union both spans \(V\) and is orthonormal.
 
+\medskip
+
 \textbf{Why is \(AA^*=A^*A\)?}
 The product \(E_\lambda E_\mu\) vanishes for distinct eigenvalues and equals \(E_\lambda\) when they coincide, so both products reduce to \(\sum_\lambda|\lambda|^2E_\lambda\).
 \end{personalnote}
@@ -1176,10 +1189,14 @@ But \(\deg q=\deg p_A-2<\deg p_A\), contradicting the minimality of \(p_A\). The
 For a polynomial with real coefficients,
 \(p_A(\overline z)=\overline{p_A(z)}\). Thus \(p_A(\lambda)=0\) implies \(p_A(\overline\lambda)=0\).
 
+\medskip
+
 \textbf{Why does the image lie in a null space?}
 For each \(x\), the displayed operator identity says
 \(((A-\alpha I)^2+\beta^2I)(q(A)x)=0\).
 Thus \(q(A)x\) belongs to the kernel of the first factor. Since that factor is injective, its kernel is \(\{0\}\), so \(q(A)x=0\) for every \(x\).
+
+\medskip
 
 \textbf{Why does the degree decrease by two?}
 The factor \((X-\alpha)^2+\beta^2\) has degree \(2\), so \(\deg q=\deg p_A-2\).
@@ -1221,6 +1238,8 @@ Thus \(A\) is symmetric.
 \begin{personalnote}
 \textbf{Why is symmetry enough to apply the normal-map lemmas?}
 If \(A=A^*\), then both products \(AA^*\) and \(A^*A\) equal \(A^2\).
+
+\medskip
 
 \textbf{Why can we choose bases of each eigenspace?}
 Each eigenspace is a finite-dimensional inner product subspace, so Gram--Schmidt gives an orthonormal basis. Theorem 6.18 first guarantees that the eigenspaces sum to all of \(V\); Lemma 7.22(iv) guarantees vectors chosen from distinct eigenspaces are orthogonal.
