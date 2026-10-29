@@ -935,12 +935,12 @@ circle, hyperbola, and parabola:
 An \emph{inner product space} is a vector space over \(\mathbb R\) or \(\mathbb C\) equipped with a inner product \(\langle x,y\rangle\). Our convention is linearity in the first variable and conjugate-linearity in the second:
 \(\langle ax,by\rangle=a\overline b\langle x,y\rangle\).
 
-\textbf{Definition 7.1 (Inner product).} An inner product is a map \(\langle\cdot,\cdot\rangle:V\times V\to\mathbb F\) such that (a) \(x\mapsto\langle x,y\rangle\) is linear for every fixed \(y\); (b) \(\langle x,y\rangle=\overline{\langle y,x\rangle}\); and (c) \(\langle x,x\rangle>0\) for every nonzero \(x\). In particular, (b) makes \(\langle x,x\rangle\) real, and (a)--(b) imply conjugate-linearity in the second argument.
+Definition 7.1 (Inner product). An inner product is a map \(\langle\cdot,\cdot\rangle:V\times V\to\mathbb F\) such that (a) \(x\mapsto\langle x,y\rangle\) is linear for every fixed \(y\); (b) \(\langle x,y\rangle=\overline{\langle y,x\rangle}\); and (c) \(\langle x,x\rangle>0\) for every nonzero \(x\). In particular, (b) makes \(\langle x,x\rangle\) real, and (a)--(b) imply conjugate-linearity in the second argument.
 
 An \emph{orthonormal basis} \((e_1,\ldots,e_n)\) spans \(V\) and satisfies \(\langle e_i,e_j\rangle=\delta_{ij}\): distinct basis vectors are orthogonal and each has norm \(1\).
 
 The \emph{adjoint} \(A^*\) is characterized by
-\(\langle Ax,y\rangle\underset{\text{definition of }A^*}{=}\langle x,A^*y\rangle\).
+\(\langle Ax,y\rangle{=}\langle x,A^*y\rangle\).
 
 
 A map is \emph{normal} if \(AA^*=A^*A\), and \emph{self-adjoint} if \(A=A^*\). Over \(\mathbb R\), self-adjoint maps are called \emph{symmetric}.
@@ -963,10 +963,10 @@ The eigenspace \(V_\lambda(A)=N(A-\lambda I)\), and \(\sigma(A)\) is the set of 
 \]
 
 \begin{personalnote}
-\textbf{In words, (iii).} A vector is an eigenvector of \(A\) with eigenvalue \(\lambda\) if and only if it is an eigenvector of \(A^*\) with eigenvalue \(\overline\lambda\); these eigenspaces are equal.
+\textbf{In words, (iii).} The $\lambda$-eigenspace of $A$ is equal to the $\Bar{\lambda}$-eigenspace of $A^*$ for all $\lambda$.
 
 \medskip
-\textbf{In words, (iv).} Eigenvectors of a normal map belonging to distinct eigenvalues are orthogonal. In other words, the corresponding eigenspaces are perpendicular.
+\textbf{In words, (iv).} The eigenspaces of A are mutually orthogonal. **What exactly does that mean?
 \end{personalnote}
 \textbf{Proof.}
 \begin{proofsteps}
@@ -1032,8 +1032,7 @@ Since \(p_A(A)=0\),
 \[
 (A-\lambda I)^m q(A)=0.
 \]
-Thus, for every \(x\in V\), \((A-\lambda I)^m(q(A)x)=0\); equivalently,
-\(\operatorname{Im}q(A)\subseteq N((A-\lambda I)^m)\).
+Thus, for every \(x\in V\), \((A-\lambda I)^m(q(A)x)=0\).
 Since \(A-\lambda I\) is normal, Lemma 7.22(ii) yields
 \[
 N((A-\lambda I)^m)=N(A-\lambda I).
@@ -1041,17 +1040,10 @@ N((A-\lambda I)^m)=N(A-\lambda I).
 Hence \((A-\lambda I)q(A)x=0\) for every \(x\), so
 \((A-\lambda I)q(A)=0\).
 If \(m>1\), the nonzero polynomial \((X-\lambda)q(X)\) would annihilate \(A\) and have degree less than \(\deg p_A\), contradicting minimality. Thus \(m=1\). \(\square\)
+** can you write out the explanation for the last 3 lines?
+** Also can you rewrite this proof such that it looks more like the lecture notes?
 
-\begin{personalnote}
 
-\medskip
-
-\textbf{Why can we write an arbitrary \(x\)?}
-An equality of maps such as \(p_A(A)=0\) means the zero map, so its value is zero on \emph{every} \(x\in V\).
-The image inclusion means precisely that each output \(q(A)x\) is killed by \((A-\lambda I)^m\).
-Using equality of the null spaces, it is already killed by \(A-\lambda I\).
-Minimality refers to the \emph{degree of a nonzero annihilating polynomial}; removing \(m-1\) copies of \(X-\lambda\) would give a smaller one if \(m>1\).
-\end{personalnote}
 \prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
 Step & Why\\\hline
 Factor \(p_A\) & Isolate a possible repeated root.\\
@@ -1065,7 +1057,7 @@ Reduce null space & Lemma 7.22(ii) for \(A-\lambda I\).\\
 A map is \emph{orthogonally diagonalizable} if \(V\) has an orthonormal basis of eigenvectors, equivalently
 \(V=\bigoplus_{\lambda\in\sigma(A)}V_\lambda\) as an \emph{orthogonal} direct sum.
 
-For each eigenvalue \(\lambda\), the orthogonal projection \(E_\lambda\) sends a vector to its component in \(V_\lambda\).
+For each eigenvalue \(\lambda\), the orthogonal projection \(E_\lambda\) sends a vector to its component (**What is meant by component here?) in \(V_\lambda\).
 If \(v=\sum_\lambda v_\lambda\) with \(v_\lambda\in V_\lambda\), then
 \(E_\lambda v=v_\lambda\). Consequently,
 \[
@@ -1079,11 +1071,11 @@ A=\sum_{\lambda\in\sigma(A)}\lambda E_\lambda.
 \]
 \begin{personalnote}
 \textbf{Intuition for orthogonal projection.}
-Decompose \(v\) into perpendicular pieces, one in each eigenspace. \(E_\lambda\) keeps only the \(\lambda\)-piece and discards all others. Applying the same projection twice does nothing new, while projecting onto a different eigenspace afterward gives zero.
+Decompose \(v\) into perpendicular pieces, one in each eigenspace. \(E_\lambda\) keeps only the \(\lambda\)-piece and discards all others. Applying the same projection twice does nothing new, while projecting onto a different eigenspace afterward gives zero.(** can you explain this in a different way? it doesn't really make sense to me)
 \end{personalnote}
 
 \section{Theorem 7.25: Spectral theorem for normal maps over \(\mathbb C\)}
-\textbf{Statement.} For finite-dimensional complex inner product spaces:
+\textbf{Statement.} For finite-dimensional complex inner product spaces:**write the assumption like in thelecture notes
 
 (a) \(A\) is normal $\Longleftrightarrow$ it is orthogonally diagonalizable;
 
@@ -1105,7 +1097,7 @@ AA^*=\sum_{\lambda,\mu}\lambda\overline\mu E_\lambda E_\mu
 Thus \(A\) is normal.
 \item Conversely, assume \(A\) is normal. Over \(\mathbb C\), the fundamental theorem of algebra implies \(p_A\) splits; Lemma 7.23 says its roots are distinct. Theorem 6.18 therefore implies \(A\) is diagonalizable:
 \(V=\bigoplus_\lambda V_\lambda\).
-Lemma 7.22(iv) makes the distinct eigenspaces mutually orthogonal. Choose an orthonormal basis in each eigenspace (Gram--Schmidt); their union is an orthonormal eigenvector basis of \(V\).
+Lemma 7.22(iv) makes the distinct eigenspaces mutually orthogonal. Choose an orthonormal basis in each eigenspace (Gram--Schmidt); their union is an orthonormal eigenvector basis of \(V\).** write what is says in the lecture notes instead
 \end{proofsteps}
 \textbf{Proof of (b).}
 If \(A=A^*\), then \(A\) is normal. For \(Ax=\lambda x\) with \(x\neq0\), Lemma 7.22(iii) gives \(A^*x=\overline\lambda x\), hence
@@ -1138,7 +1130,7 @@ Normal + real spectrum \(\Rightarrow\) self-adjoint & Conjugates disappear in th
 
 \section{Lemma 7.26: Injectivity of \(A^2+\lambda I\)}
 \textbf{Statement.} If \(A\) is symmetric over \(\mathbb R\), then \(A^2+\lambda I\) is injective for every \(\lambda>0\).
-
+**missing the assumtion that A is an endomorphism and V is a finite dimensional inner product space
 \textbf{Proof.} Suppose \((A^2+\lambda I)x=0\).
 Since \(\lambda>0\), positivity of the inner product and symmetry of \(A\) give
 \[
@@ -1151,9 +1143,13 @@ Thus \(N(A^2+\lambda I)=\{0\}\), proving injectivity. \(\square\)
 
 \begin{personalnote}
 \textbf{What do the symbols mean?}
+
 Symmetric means \(\langle Au,v\rangle=\langle u,Av\rangle\).
+
 Injective means the only vector sent to zero is zero.
+
 The map \(A^2+\lambda I\) sends \(x\) to \(A(Ax)+\lambda x\); \(I\) is the identity.
+
 The equality
 \(\langle A^2x,x\rangle=\langle Ax,Ax\rangle\)
 uses symmetry with \(u=Ax,v=x\).
@@ -1236,13 +1232,9 @@ A^*=\sum_\lambda\overline\lambda E_\lambda
 Thus \(A\) is symmetric.
 \end{proofsteps}
 \begin{personalnote}
-\textbf{Why is symmetry enough to apply the normal-map lemmas?}
-If \(A=A^*\), then both products \(AA^*\) and \(A^*A\) equal \(A^2\).
-
-\medskip
 
 \textbf{Why can we choose bases of each eigenspace?}
-Each eigenspace is a finite-dimensional inner product subspace, so Gram--Schmidt gives an orthonormal basis. Theorem 6.18 first guarantees that the eigenspaces sum to all of \(V\); Lemma 7.22(iv) guarantees vectors chosen from distinct eigenspaces are orthogonal.
+Each eigenspace is a finite-dimensional inner product subspace, so Gram--Schmidt (**What does it say?) gives an orthonormal basis. Theorem 6.18 first guarantees that the eigenspaces sum to all of \(V\); Lemma 7.22(iv) guarantees vectors chosen from distinct eigenspaces are orthogonal.
 \end{personalnote}
 \prooftable{\begin{tabularx}{\linewidth}{@{}p{.29\linewidth}X@{}}\hline
 Direction & Key steps\\\hline
