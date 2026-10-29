@@ -375,23 +375,18 @@ has exactly one minimal polynomial.
 
 \textbf{Proof.}
 \begin{proofsteps}
-\item \textbf{Existence.} ** can you rewrite this part to look more like the lecture notes, because I feel like this doesn really make any sense. Since \(\operatorname{End}(V)\) is finite-dimensional,
-the sequence \(I,A,A^2,\ldots\) cannot be linearly independent.
-Choose the smallest \(m\geq 1\) for which
+\item \textbf{Existence.} Suppose that \(A^m\notin\operatorname{Span}\{I,A,\ldots,A^{m-1}\}\) for every \(m\geq1\). By Lemma 1.11 and induction, the maps \(I,A,A^2,\ldots\) would then be linearly independent in \(\operatorname{End}(V)\). But \(\operatorname{End}(V)\) is finite-dimensional, so it cannot contain infinitely many linearly independent maps. Therefore, choose the smallest \(m\geq1\) such that
 \[
 A^m\in\operatorname{Span}\{I,A,\ldots,A^{m-1}\}.
 \]
-Write \(A^m=\sum_{i=0}^{m-1}a_iA^i\), and set
+Writing \(A^m=\sum_{i=0}^{m-1}a_iA^i\), we get \(p(A)=0\) for the monic polynomial
 \[
 p(X)=X^m-\sum_{i=0}^{m-1}a_iX^i.
 \]
-Then \(p\) is monic and \(p(A)=0\). If a nonzero polynomial of degree
-\(k<m\) annihilated \(A\), its nonzero leading coefficient could be
-rearranged to express \(A^k\) as a combination of lower powers,
-contradicting the choice of \(m\). Hence \(p\) is minimal.
+The minimal choice of \(m\) ensures that no nonzero polynomial of smaller degree annihilates \(A\). Thus \(p\) is a minimal polynomial.
 \item \textbf{Uniqueness.} If \(p,q\) are monic minimal polynomials,
 they have the same degree \(m\). Their leading terms cancel in \(p-q\),
-and \((p-q)(A)=0\) **how do we know that this gives 0?. If \(p-q\neq0\), it would have degree less than \(m\),
+and \((p-q)(A)=p(A)-q(A)=0-0=0\), since both \(p\) and \(q\) annihilate \(A\). If \(p-q\neq0\), it would have degree less than \(m\),
 contradicting minimality. Thus \(p=q\).
 \end{proofsteps}
 
@@ -448,7 +443,7 @@ By minimality, \(q(A)\neq0\). Choose \(x\in V\) with
 (A-\lambda I)y=(A-\lambda I)q(A)x=p_A(A)x=0.
 \]
 Thus \(Ay=\lambda y\) with \(y\neq0\), so \(\lambda\in\sigma(A)\).
-The other direction follows form Lemma 6.9 (**write what it says)
+Conversely, Lemma 6.9 says that if \(Ax=\lambda x\) for some \(x\neq0\), then \(f(A)x=f(\lambda)x\) for every polynomial \(f\). Applying this with \(f=p_A\), we have \(0=p_A(A)x=p_A(\lambda)x\). As \(x\neq0\), \(p_A(\lambda)=0\), so \(\sigma(A)\subseteq Z(p_A)\).
 
 \begin{personalnote}[title=Definitions for understanding]
 \textbf{Eigenvalue:} \(\lambda\in\F\) for which some \emph{nonzero}
@@ -481,8 +476,12 @@ closed, every \(A\in\operatorname{End}(V)\) has an eigenvalue.
 \textbf{Proof.} By Theorem 6.13, \(A\) has a minimal polynomial \(p_A\).
 It is nonconstant: the only monic constant polynomial is \(1\), but
 \(1(A)=I\neq0\) since \(V\neq\{0\}\).
-As \(\F\) is algebraically closed (**does it need to be algrebraically closed, don't we know that every minimal polynomial splits and therefore has roots?), \(p_A\) has a root \(\lambda\in\F\).
+As \(\F\) is algebraically closed, \(p_A\) has a root \(\lambda\in\F\).
 Lemma 6.12 then makes \(\lambda\) an eigenvalue.
+\begin{personalnote}
+\textbf{Why assume algebraic closure?}
+A minimal polynomial does \emph{not} necessarily split over an arbitrary field. For instance, over \(\mathbb R\), the rotation matrix with minimal polynomial \(X^2+1\) has no real eigenvalues. Algebraic closure guarantees that every nonconstant polynomial has a root in \(\mathbb F\), and in fact splits into linear factors. For this corollary, the existence of one root is sufficient.
+\end{personalnote}
 
 \begin{personalnote}[title=Definitions for understanding]
 A field is \textbf{algebraically closed} if every nonconstant polynomial
@@ -522,37 +521,73 @@ We prove \(\text{diagonalizable}\Rightarrow\text{(i)}
 Let \(q(X)=\prod_{i=1}^m(X-\lambda_i)\).
 For an eigenvector \(x\) with eigenvalue \(\lambda_i\),
 \((A-\lambda_iI)x=0\), hence \(q(A)x=0\).
-Since eigenvectors form a basis of \(V\), linearity gives \(q(A)=0\) **why does liniarity give this.
+Since eigenvectors form a basis of \(V\), linearity gives \(q(A)=0\): if \(v=\sum_k c_kx_k\) is expressed in an eigenvector basis, then \(q(A)v=\sum_k c_kq(A)x_k=0\).
 Lemma 6.11 implies \(p_A\mid q\).
 By Lemma 6.12, each distinct \(\lambda_i\) is a root of \(p_A\),
-so \(q\mid p_A\). Both polynomials are monic, hence \(p_A=q\)**why do they need to be monic in order for this to be true?   .
+so \(q\mid p_A\). Since \(p_A\mid q\) and \(q\mid p_A\), we have \(p_A=cq\) for some nonzero scalar \(c\). Both polynomials are monic, so comparing leading coefficients gives \(c=1\); hence \(p_A=q\).
 
 \item \textbf{(i) \(\Rightarrow\) (ii).}
-Define \(E_i=p_i(A)\) and \(U_i=R(E_i)\).
-The Lagrange identity \(\sum_i p_i(X)=1\) (Lemma 6.17) gives
+Assume \(p_A(X)=\prod_{k=1}^m(X-\lambda_k)\), with distinct \(\lambda_k\). For each \(i\), define the Lagrange polynomial
 \[
-\sum_{i=1}^m E_i=I.
+p_i(X)=\prod_{j\neq i}\frac{X-\lambda_j}{\lambda_i-\lambda_j},
+\qquad E_i=p_i(A),\qquad U_i=R(E_i).
 \]
-For \(i\neq j\), \(p_A\mid p_ip_j\): together \(p_i,p_j\) contain
-all the factors \(X-\lambda_k\). Since \(p_A(A)=0\),
+Here \(E_i\) is a linear map obtained by substituting \(A\) into \(p_i\), and \(U_i\) is its image. We will prove that \(U_i\) is exactly the eigenspace \(V_{\lambda_i}\).
+
+\textbf{Step 1: The maps sum to the identity.}
+Lemma 6.17 gives the Lagrange identity \(\sum_{i=1}^m p_i(X)=1\). Evaluating this polynomial identity at \(A\) yields
 \[
-E_iE_j=(p_ip_j)(A)=0.
+\sum_{i=1}^m E_i=\sum_{i=1}^m p_i(A)=I.
 \]
-By Lemma 6.16, \(V=U_1\oplus\cdots\oplus U_m\),
-and \(E_i\) are the associated projections.
-We show \(U_i=V_{\lambda_i}\) using both inclusions:
-\begin{itemize}
-\item If \(x\in V_{\lambda_i}\), then
-\(E_ix=p_i(A)x=p_i(\lambda_i)x=x\), so \(x\in U_i\).
-\item Since
+Thus for every \(v\in V\), \(v=\sum_iE_iv\), with \(E_iv\in U_i\). In particular, the images \(U_i\) span \(V\).
+
+\textbf{Step 2: Different maps annihilate one another.}
+For \(i\neq j\), the polynomial \(p_i\) contains all factors \(X-\lambda_k\) except \(X-\lambda_i\), while \(p_j\) contains all except \(X-\lambda_j\). Together, their product contains \emph{every} factor of \(p_A\). Hence \(p_A\mid p_ip_j\): there is a polynomial \(h\) with \(p_ip_j=p_Ah\). Consequently,
 \[
+E_iE_j=p_i(A)p_j(A)=(p_ip_j)(A)=p_A(A)h(A)=0.
+\]
+We now have \(\sum_iE_i=I\) and \(E_iE_j=0\) whenever \(i\neq j\). By Lemma 6.16,
+\[
+V=U_1\oplus\cdots\oplus U_m,
+\]
+and the \(E_i\) are the projections onto these subspaces.
+
+\textbf{Step 3: Show \(V_{\lambda_i}\subseteq U_i\).}
+Let \(x\in V_{\lambda_i}\), meaning \(Ax=\lambda_i x\). For every polynomial \(f\), we have \(f(A)x=f(\lambda_i)x\) (Lemma 6.9). By construction, \(p_i(\lambda_i)=1\), so
+\[
+E_ix=p_i(A)x=p_i(\lambda_i)x=x.
+\]
+Since \(x\) is an output of \(E_i\), it belongs to its image \(R(E_i)=U_i\). Hence \(V_{\lambda_i}\subseteq U_i\).
+
+\textbf{Step 4: Show \(U_i\subseteq V_{\lambda_i}\).}
+Multiplying the definition of \(p_i\) by the one factor it omits gives
+\[
+\begin{aligned}
 (X-\lambda_i)p_i(X)
-=\frac{p_A(X)}{\prod_{j\neq i}(\lambda_i-\lambda_j)},
+&=(X-\lambda_i)\prod_{j\neq i}\frac{X-\lambda_j}{\lambda_i-\lambda_j}\\
+&=\frac{\prod_{k=1}^m(X-\lambda_k)}
+{\prod_{j\neq i}(\lambda_i-\lambda_j)}
+=\frac{p_A(X)}{\prod_{j\neq i}(\lambda_i-\lambda_j)}.
+\end{aligned}
 \]
-we have \((A-\lambda_iI)E_i=0\). Thus every \(E_iv\)
-lies in \(\ker(A-\lambda_iI)=V_{\lambda_i}\), so \(U_i\subseteq V_{\lambda_i}\).
-\end{itemize}
-Therefore \(U_i=V_{\lambda_i}\), proving (ii).
+The denominator is a nonzero scalar because the eigenvalues are distinct. Substitute \(A\) for \(X\) and use \(p_A(A)=0\):
+\[
+(A-\lambda_iI)E_i
+=(A-\lambda_iI)p_i(A)
+=\frac{p_A(A)}{\prod_{j\neq i}(\lambda_i-\lambda_j)}
+=0.
+\]
+Take any \(u\in U_i=R(E_i)\). By the definition of image, \(u=E_iv\) for some \(v\in V\). Therefore
+\[
+(A-\lambda_iI)u=(A-\lambda_iI)E_iv=0,
+\]
+which is equivalent to \(Au=\lambda_i u\). Thus \(u\in N(A-\lambda_iI)=V_{\lambda_i}\), proving \(U_i\subseteq V_{\lambda_i}\).
+
+Combining the inclusions gives \(U_i=V_{\lambda_i}\) for every \(i\). Replacing \(U_i\) in the direct sum from Step 2, we conclude
+\[
+\boxed{V=V_{\lambda_1}\oplus\cdots\oplus V_{\lambda_m}},
+\]
+as required.
 
 \item \textbf{(ii) \(\Rightarrow\) diagonalizable.}
 Choose a basis of each eigenspace \(V_{\lambda_i}\).
