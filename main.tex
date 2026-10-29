@@ -966,7 +966,7 @@ The eigenspace \(V_\lambda(A)=N(A-\lambda I)\), and \(\sigma(A)\) is the set of 
 \textbf{In words, (iii).} The $\lambda$-eigenspace of $A$ is equal to the $\Bar{\lambda}$-eigenspace of $A^*$ for all $\lambda$.
 
 \medskip
-\textbf{In words, (iv).} The eigenspaces of A are mutually orthogonal. **What exactly does that mean?
+\textbf{In words, (iv).} The eigenspaces of A are mutually orthogonal. This means that for any distinct eigenvalues \(\lambda\neq\mu\), every \(x\in V_\lambda(A)\) and \(y\in V_\mu(A)\) satisfy \(\langle x,y\rangle=0\).
 \end{personalnote}
 \textbf{Proof.}
 \begin{proofsteps}
@@ -1024,25 +1024,22 @@ Part & Key argument\\\hline
 \end{tabularx}}
 
 \section{Lemma 7.23: The minimal polynomial has no repeated roots}
-\textbf{Statement.} If \(V\) is finite-dimensional and \(A\) is normal, the minimal polynomial \(p_A\) has no repeated roots.
+\textbf{Statement.} If \(V\) is finite-dimensional and \(A\) is normal, its minimal polynomial \(p_A\) has no repeated roots.
 
-\textbf{Proof.} Let \(\lambda\) be a root of multiplicity \(m\geq1\), and write
-\(p_A(X)=(X-\lambda)^m q(X)\).
-Since \(p_A(A)=0\),
-\[
-(A-\lambda I)^m q(A)=0.
-\]
-Thus, for every \(x\in V\), \((A-\lambda I)^m(q(A)x)=0\).
-Since \(A-\lambda I\) is normal, Lemma 7.22(ii) yields
+\textbf{Proof.} Let \(m\geq1\), and assume \(p_A(X)=(X-\lambda)^m q(X)\), where \(q\in\mathbb F[X]\). Then \(q(A)\) maps into the null space of \((A-\lambda I)^m\). Since \(A-\lambda I\) is normal, Lemma 7.22(ii) gives
 \[
 N((A-\lambda I)^m)=N(A-\lambda I).
 \]
-Hence \((A-\lambda I)q(A)x=0\) for every \(x\), so
-\((A-\lambda I)q(A)=0\).
-If \(m>1\), the nonzero polynomial \((X-\lambda)q(X)\) would annihilate \(A\) and have degree less than \(\deg p_A\), contradicting minimality. Thus \(m=1\). \(\square\)
-** can you write out the explanation for the last 3 lines?
-** Also can you rewrite this proof such that it looks more like the lecture notes?
+Hence \((A-\lambda I)q(A)=0\), and \(m=1\) by minimality of \(p_A\). \(\square\)
 
+\begin{personalnote}
+\textbf{Why does \(q(A)\) map into this null space?}
+For every \(x\in V\), \(0=p_A(A)x=(A-\lambda I)^m q(A)x\). Therefore \(q(A)x\in N((A-\lambda I)^m)\). The null-space equality shows that \((A-\lambda I)q(A)x=0\) for every \(x\).
+
+\medskip
+\textbf{Why must \(m=1\)?}
+The polynomial \(r(X)=(X-\lambda)q(X)\) now annihilates \(A\). If \(m>1\), then \(\deg r=1+\deg q<m+\deg q=\deg p_A\), contradicting the minimal degree of the nonzero annihilating polynomial \(p_A\). Thus \(m=1\).
+\end{personalnote}
 
 \prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
 Step & Why\\\hline
@@ -1057,8 +1054,8 @@ Reduce null space & Lemma 7.22(ii) for \(A-\lambda I\).\\
 A map is \emph{orthogonally diagonalizable} if \(V\) has an orthonormal basis of eigenvectors, equivalently
 \(V=\bigoplus_{\lambda\in\sigma(A)}V_\lambda\) as an \emph{orthogonal} direct sum.
 
-For each eigenvalue \(\lambda\), the orthogonal projection \(E_\lambda\) sends a vector to its component (**What is meant by component here?) in \(V_\lambda\).
-If \(v=\sum_\lambda v_\lambda\) with \(v_\lambda\in V_\lambda\), then
+For each eigenvalue \(\lambda\), the orthogonal projection \(E_\lambda\) sends a vector to its component in \(V_\lambda\).
+A component \(v_\lambda\) is the particular vector in \(V_\lambda\) appearing in the unique sum \(v=\sum_\lambda v_\lambda\). If \(v=\sum_\lambda v_\lambda\) with \(v_\lambda\in V_\lambda\), then
 \(E_\lambda v=v_\lambda\). Consequently,
 \[
 E_\lambda^*=E_\lambda,\quad
@@ -1071,11 +1068,11 @@ A=\sum_{\lambda\in\sigma(A)}\lambda E_\lambda.
 \]
 \begin{personalnote}
 \textbf{Intuition for orthogonal projection.}
-Decompose \(v\) into perpendicular pieces, one in each eigenspace. \(E_\lambda\) keeps only the \(\lambda\)-piece and discards all others. Applying the same projection twice does nothing new, while projecting onto a different eigenspace afterward gives zero.(** can you explain this in a different way? it doesn't really make sense to me)
+For example, suppose the two eigenspaces in \(\mathbb R^2\) are the coordinate axes. We can write \(v=(3,5)=(3,0)+(0,5)\), where each summand lies in one eigenspace. The projection \(E_{\lambda_1}\) onto the first eigenspace gives \(E_{\lambda_1}v=(3,0)\), and \(E_{\lambda_2}v=(0,5)\). Once we have \((3,0)\), projecting onto the first axis again leaves it unchanged: \(E_{\lambda_1}^2v=E_{\lambda_1}v\). Projecting \((3,0)\) onto the second axis instead gives zero: \(E_{\lambda_2}E_{\lambda_1}v=0\). The same reasoning works for any orthogonal direct sum of eigenspaces.
 \end{personalnote}
 
 \section{Theorem 7.25: Spectral theorem for normal maps over \(\mathbb C\)}
-\textbf{Statement.} For finite-dimensional complex inner product spaces:**write the assumption like in thelecture notes
+\textbf{Statement.} Let \(A\in\operatorname{End}(V)\), where \(\dim V<\infty\) and \(\mathbb F=\mathbb C\).
 
 (a) \(A\) is normal $\Longleftrightarrow$ it is orthogonally diagonalizable;
 
@@ -1097,7 +1094,7 @@ AA^*=\sum_{\lambda,\mu}\lambda\overline\mu E_\lambda E_\mu
 Thus \(A\) is normal.
 \item Conversely, assume \(A\) is normal. Over \(\mathbb C\), the fundamental theorem of algebra implies \(p_A\) splits; Lemma 7.23 says its roots are distinct. Theorem 6.18 therefore implies \(A\) is diagonalizable:
 \(V=\bigoplus_\lambda V_\lambda\).
-Lemma 7.22(iv) makes the distinct eigenspaces mutually orthogonal. Choose an orthonormal basis in each eigenspace (Gram--Schmidt); their union is an orthonormal eigenvector basis of \(V\).** write what is says in the lecture notes instead
+Hence \(A\) is diagonalizable by Theorem 6.18, and by Lemma 7.22(iv) it is orthogonally diagonalizable. In particular, the spectral resolution holds with self-adjoint projections.
 \end{proofsteps}
 \textbf{Proof of (b).}
 If \(A=A^*\), then \(A\) is normal. For \(Ax=\lambda x\) with \(x\neq0\), Lemma 7.22(iii) gives \(A^*x=\overline\lambda x\), hence
@@ -1129,8 +1126,8 @@ Normal + real spectrum \(\Rightarrow\) self-adjoint & Conjugates disappear in th
 \end{tabularx}}
 
 \section{Lemma 7.26: Injectivity of \(A^2+\lambda I\)}
-\textbf{Statement.} If \(A\) is symmetric over \(\mathbb R\), then \(A^2+\lambda I\) is injective for every \(\lambda>0\).
-**missing the assumtion that A is an endomorphism and V is a finite dimensional inner product space
+\textbf{Statement.} Let \(V\) be a finite-dimensional real inner product space and \(A\in\operatorname{End}(V)\) symmetric. Then \(A^2+\lambda I\) is injective for every \(\lambda>0\).
+
 \textbf{Proof.} Suppose \((A^2+\lambda I)x=0\).
 Since \(\lambda>0\), positivity of the inner product and symmetry of \(A\) give
 \[
@@ -1234,7 +1231,7 @@ Thus \(A\) is symmetric.
 \begin{personalnote}
 
 \textbf{Why can we choose bases of each eigenspace?}
-Each eigenspace is a finite-dimensional inner product subspace, so Gram--Schmidt (**What does it say?) gives an orthonormal basis. Theorem 6.18 first guarantees that the eigenspaces sum to all of \(V\); Lemma 7.22(iv) guarantees vectors chosen from distinct eigenspaces are orthogonal.
+Each eigenspace is a finite-dimensional inner product subspace, so Gram--Schmidt gives an orthonormal basis. More precisely, starting from any basis of an eigenspace, the Gram--Schmidt procedure produces orthonormal vectors spanning that same eigenspace. Because these new vectors are still in the eigenspace, they remain eigenvectors. Theorem 6.18 first guarantees that the eigenspaces sum to all of \(V\); Lemma 7.22(iv) guarantees vectors chosen from distinct eigenspaces are orthogonal.
 \end{personalnote}
 \prooftable{\begin{tabularx}{\linewidth}{@{}p{.29\linewidth}X@{}}\hline
 Direction & Key steps\\\hline
