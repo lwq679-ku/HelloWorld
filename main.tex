@@ -353,15 +353,19 @@ f(A)=\sum_{i=0}^n a_iA^i\in\operatorname{End}(V),\qquad A^0=I.
 \]
 Thus \(f(A)\) is a \emph{linear map}, not a scalar; for example
 \(f(X)=2X+3X^3\) gives \(f(A)=2A+3A^3\).
+
 A polynomial \emph{annihilates} \(A\) when \(f(A)=0\), the zero map.
+
 A \emph{minimal polynomial} \(p_A\) is a nonzero monic polynomial of smallest
 degree satisfying \(p_A(A)=0\). Monic means that its leading coefficient is \(1\).
 
 \begin{personalnote}[title=Definitions for understanding]
 \(\operatorname{Hom}(U,V)\) denotes linear maps \(U\to V\), and
 \(\operatorname{End}(V)=\operatorname{Hom}(V,V)\).
+
 The expression \(A^i\) means composition of \(A\) with itself \(i\) times.
 The constant term \(a_0\) in \(f(A)\) means \(a_0I\).
+
 Do not confuse the nonzero polynomial \(p_A(X)\) with its value \(p_A(A)=0\).
 \end{personalnote}
 
@@ -371,7 +375,7 @@ has exactly one minimal polynomial.
 
 \textbf{Proof.}
 \begin{proofsteps}
-\item \textbf{Existence.} Since \(\operatorname{End}(V)\) is finite-dimensional,
+\item \textbf{Existence.} ** can you rewrite this part to look more like the lecture notes, because I feel like this doesn really make any sense. Since \(\operatorname{End}(V)\) is finite-dimensional,
 the sequence \(I,A,A^2,\ldots\) cannot be linearly independent.
 Choose the smallest \(m\geq 1\) for which
 \[
@@ -387,16 +391,12 @@ rearranged to express \(A^k\) as a combination of lower powers,
 contradicting the choice of \(m\). Hence \(p\) is minimal.
 \item \textbf{Uniqueness.} If \(p,q\) are monic minimal polynomials,
 they have the same degree \(m\). Their leading terms cancel in \(p-q\),
-and \((p-q)(A)=0\). If \(p-q\neq0\), it would have degree less than \(m\),
+and \((p-q)(A)=0\) **how do we know that this gives 0?. If \(p-q\neq0\), it would have degree less than \(m\),
 contradicting minimality. Thus \(p=q\).
 \end{proofsteps}
 
 \begin{personalnote}
-\textbf{Why must some power belong to the span of earlier powers?}
-If each new \(A^m\) were outside the span of \(I,\ldots,A^{m-1}\),
-Lemma 1.11 would make \(I,A,A^2,\ldots\) linearly independent.
-That is impossible in the finite-dimensional space \(\operatorname{End}(V)\)
-(of dimension \((\dim V)^2\)). Here we treat the maps \(I,A,A^2,\ldots\)
+Here we treat the maps \(I,A,A^2,\ldots\)
 as \emph{vectors in the vector space of linear maps}.
 \end{personalnote}
 \prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
@@ -448,9 +448,7 @@ By minimality, \(q(A)\neq0\). Choose \(x\in V\) with
 (A-\lambda I)y=(A-\lambda I)q(A)x=p_A(A)x=0.
 \]
 Thus \(Ay=\lambda y\) with \(y\neq0\), so \(\lambda\in\sigma(A)\).
-Conversely, if \(Ax=\lambda x\) with \(x\neq0\), then
-\(0=p_A(A)x=p_A(\lambda)x\); hence \(p_A(\lambda)=0\)
-(Lemma 6.9). Both inclusions follow.
+The other direction follows form Lemma 6.9 (**write what it says)
 
 \begin{personalnote}[title=Definitions for understanding]
 \textbf{Eigenvalue:} \(\lambda\in\F\) for which some \emph{nonzero}
@@ -483,7 +481,7 @@ closed, every \(A\in\operatorname{End}(V)\) has an eigenvalue.
 \textbf{Proof.} By Theorem 6.13, \(A\) has a minimal polynomial \(p_A\).
 It is nonconstant: the only monic constant polynomial is \(1\), but
 \(1(A)=I\neq0\) since \(V\neq\{0\}\).
-As \(\F\) is algebraically closed, \(p_A\) has a root \(\lambda\in\F\).
+As \(\F\) is algebraically closed (**does it need to be algrebraically closed, don't we know that every minimal polynomial splits and therefore has roots?), \(p_A\) has a root \(\lambda\in\F\).
 Lemma 6.12 then makes \(\lambda\) an eigenvalue.
 
 \begin{personalnote}[title=Definitions for understanding]
@@ -524,10 +522,10 @@ We prove \(\text{diagonalizable}\Rightarrow\text{(i)}
 Let \(q(X)=\prod_{i=1}^m(X-\lambda_i)\).
 For an eigenvector \(x\) with eigenvalue \(\lambda_i\),
 \((A-\lambda_iI)x=0\), hence \(q(A)x=0\).
-Since eigenvectors form a basis of \(V\), linearity gives \(q(A)=0\).
+Since eigenvectors form a basis of \(V\), linearity gives \(q(A)=0\) **why does liniarity give this.
 Lemma 6.11 implies \(p_A\mid q\).
 By Lemma 6.12, each distinct \(\lambda_i\) is a root of \(p_A\),
-so \(q\mid p_A\). Both polynomials are monic, hence \(p_A=q\).
+so \(q\mid p_A\). Both polynomials are monic, hence \(p_A=q\)**why do they need to be monic in order for this to be true?   .
 
 \item \textbf{(i) \(\Rightarrow\) (ii).}
 Define \(E_i=p_i(A)\) and \(U_i=R(E_i)\).
