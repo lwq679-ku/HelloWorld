@@ -18,7 +18,7 @@
 \maketitle
 
 \section{Definition 3.6: The dual map}
-Let \(A:U\to V\) be linear. Its \emph{dual map} is
+Let \(A:U\to V\) be linear and $y\in V'$. Its \emph{dual map} is
 \[
  A':V'\longrightarrow U',\qquad A'y=y\circ A,
  \quad\text{meaning}\quad (A'y)(u)=y(Au).
@@ -30,7 +30,7 @@ For linear maps \(A:U\to V\), \(B:V\to W\), the following hold:
 \[
  A'\text{ is linear},\qquad (BA)'=A'B',\qquad (I_V)'=I_{V'}.
 \]
-The assignment \(A\mapsto A'\) is linear and injective. If \(A\) is bijective, so is \(A'\), and \((A')^{-1}=(A^{-1})'\).
+The assignment \(A\mapsto A'\) is linear and injective. If \(A\) is bijective, so is \(A'\), and \((A')^{-1}=(A^{-1})'\)**can you write the things in the statement out as numbers and then let those numbers match the ones in the proof.
 
 \textbf{Proof.}
 \begin{proofsteps}
@@ -39,19 +39,19 @@ The assignment \(A\mapsto A'\) is linear and injective. If \(A\) is bijective, s
  [A'(ay_1+by_2)](u)=(ay_1+by_2)(Au)
  =a(A'y_1)(u)+b(A'y_2)(u).
 \]
-Thus \(A'\) is linear.
+**is this because V' is linear? Thus \(A'\) is linear.
 \item For linear \(A_1,A_2:U\to V\) and scalars \(a,b\),
 \[
- [(aA_1+bA_2)'y](u)=y((aA_1+bA_2)u)
+ [(aA_1+bA_2)'y](u)**write a note here on why it's this exactl elements we're looking at=y((aA_1+bA_2)u)
  =a(A_1'y)(u)+b(A_2'y)(u).
 \]
 Hence \(A\mapsto A'\) is linear.
-\item If \(A'=0\), then \(y(Au)=0\) for every \(u\in U\) and \(y\in V'\). By Lemma 3.3 (linear functionals separate nonzero vectors), \(Au=0\) for every \(u\); hence \(A=0\). Thus \(A\mapsto A'\) is injective.
+\item If \(A'=0\), then \(y(Au)=0\) for every \(u\in U\) and \(y\in V'\). By Lemma 3.3 (linear functionals separate nonzero vectors**can you write this out more, I don't think I understand it.), \(Au=0\) for every \(u\); hence \(A=0\). Thus \(A\mapsto A'\) is injective.
 \item For \(z\in W'\) and \(u\in U\),
 \[
  [(BA)'z](u)=z(B(Au))=[A'(B'z)](u),
 \]
-so \((BA)'=A'B'\). Likewise, \((I_V'y)(v)=y(v)\), hence \((I_V)'=I_{V'}\).
+**how do you get the last equal sign? so \((BA)'=A'B'\). Likewise, \((I_V'y)(v)=y(v)\), hence \((I_V)'=I_{V'}\).
 \item If \(A\) is bijective, apply the preceding identities to \(A^{-1}A=I_U\) and \(AA^{-1}=I_V\):
 \[
  A'(A^{-1})'=I_{U'},\qquad (A^{-1})'A'=I_{V'}.
@@ -71,7 +71,7 @@ Inverse & Dualizing an inverse gives an inverse.\\\hline
 \[
  \boxed{\rank(A')=\rank(A).}
 \]
-Here \(\rank(A)=\dim\Ran(A)\), with \(\Ran(A)=A(U)\).
+Here \(\rank(A)=\dim\Ran(A)\), with \(\Ran(A)=A(U)\)**can we just say that?.
 
 \textbf{Proof.} Define
 \[
@@ -79,7 +79,7 @@ Here \(\rank(A)=\dim\Ran(A)\), with \(\Ran(A)=A(U)\).
 \]
 where \(f\) is a linear functional on the subspace \(\Ran(A)\subseteq V\).
 \begin{proofsteps}
-\item \textbf{\(S\) is injective.} If \(Sf=0\), then \(f(Au)=0\) for all \(u\in U\). Every \(v\in\Ran(A)\) equals \(Au\) for some \(u\), so \(f(v)=0\) throughout \(\Ran(A)\). Hence \(f=0\).
+\item \textbf{\(S\) is injective.} If \(Sf=0\), then \(f(Au)=0\) **why? for all \(u\in U\). Every \(v\in\Ran(A)\) equals \(Au\) for some \(u\), so \(f(v)=0\) throughout \(\Ran(A)\). Hence \(f=0\).
 \item \textbf{\(\Ran(A')\subseteq\Ran(S)\).} Given \(A'y=y\circ A\), restrict \(y\in V'\) to \(\Ran(A)\): let \(f=y|_{\Ran(A)}\). Then \(Sf=f\circ A=y\circ A=A'y\).
 \item \textbf{\(\Ran(S)\subseteq\Ran(A')\).} For \(f\in\Ran(A)'\), Lemma 3.4(1) (a functional on a subspace extends to the whole space) supplies \(y\in V'\) with \(y|_{\Ran(A)}=f\). Thus \(Sf=y\circ A=A'y\).
 \item Therefore \(S:\Ran(A)'\to\Ran(A')\) is a linear bijection. Using Theorem 3.5 (a vector space and its dual have the same dimension),
@@ -180,32 +180,28 @@ Finally choose bases. Lemma 3.25 turns abstract duality into a matrix statement:
 \part*{Topic C: Tensor Products}
 
 \section*{Definition 5.5: Universal property}
-A tensor product is a pair \((T,B)\), with \(B:X\times Y\to T\) bilinear, such that for every vector space \(U\) and bilinear map \(M:X\times Y\to U\), there exists a \emph{unique} linear map \(L:T\to U\) satisfying \(M=L\circ B\):
+A tensor product of the vector spaces $X$ and $Y$ is a pair \((T,B)\), with \(B:X\times Y\to T\) bilinear, such that for every vector space \(U\) and bilinear map \(M:X\times Y\to U\), there exists a \emph{unique} linear map \(L:T\to U\) satisfying \(M=L\circ B\):
 \[
 \begin{array}{ccc}X\times Y&\xrightarrow{\ B\ }&T\\&\searrow_{\scriptstyle M}&\downarrow{\scriptstyle\exists!L}\\&&U.\end{array}
 \]
-Equivalently, for every vector space \(U\), the map
-\[
-\operatorname{Hom}(T,U)\longrightarrow\operatorname{Bil}(X,Y;U),\qquad L\longmapsto L\circ B
-\]
-is a bijection: existence means every bilinear \(M\) is attained, and uniqueness means no two linear maps have the same composition with \(B\).
+
 We write \(T=X\otimes Y\), \(B(x,y)=x\otimes y\); these are \emph{pure tensors}.
 \begin{personalnote}[title=Definitions for understanding]
 \textbf{Bilinear:} a map \(M:X\times Y\to U\) that is linear in each variable separately, with the other held fixed.
 \end{personalnote}
 
 \section*{Theorem 5.7: Existence (Theorem 5.6(a))}
-The pair $(T,B)$ is a tensor product of $X$ and $Y$.
+For any pair of vector spaces X and Y, there exists a pair $(T,B)$ such that it's a tensor product of $X$ and $Y$.
 
 \textbf{Proof.} For each \(x\in X\), \(y\in Y\), define an evaluation functional
 \(x\otimes y\in\operatorname{Bil}(X,Y;\F)'\) by
 \[
 (x\otimes y)(w)=w(x,y)\qquad(w\in\operatorname{Bil}(X,Y;\F)).
 \]
-Set \(T=\operatorname{Span}\{x\otimes y:x\in X,\ y\in Y\}\subseteq\operatorname{Bil}(X,Y;\F)'\) and \(B(x,y)=x\otimes y\).
+Set \(T=\operatorname{Span}\{x\otimes y:x\in X,\ y\in Y\}\subseteq\operatorname{Bil}(X,Y;\F)'\) and \(B(x,y)=x\otimes y\).**T is a vector spaceeeeee.
 \begin{proofsteps}
 \item \(B\) is bilinear: evaluate \((ax_1+bx_2)\otimes y\) at any \(w\in\operatorname{Bil}(X,Y;\F)\), obtaining
-\(w(ax_1+bx_2,y)=aw(x_1,y)+bw(x_2,y)\); similarly in the second argument.
+\(w(ax_1+bx_2,y)=aw(x_1,y)+bw(x_2,y)\)**wite it out in tensor products; similarly in the second argument.
 \item Given bilinear \(M:X\times Y\to U\), UP forces the following formula (since \(M=L\circ B\) requires \(L(x\otimes y)=M(x,y)\), and \(L\) must be linear):
 \[
 L\Big(\sum_i a_ix_i\otimes y_i\Big)=\sum_i a_iM(x_i,y_i). \tag{*}
@@ -234,7 +230,7 @@ Conclusion & Prove existence via UP.\\\hline
 \end{tabularx}}
 
 \section*{Theorem 5.6(b): Uniqueness}
-\textbf{Statement.} If \((T,B)\) and \((S,A)\) are tensor products of \(X,Y\), there is a unique isomorphism \(\Psi:T\to S\) with \(\Psi B=A\).
+\textbf{Statement.} If \((T,B)\) and \((S,A)\) are tensor products of \(X,Y\), there is a unique isomorphism \(\Psi:T\to S\) with \(\Psi B=A\).**make me a drawing
 
 \textbf{Proof.} UP for \((T,B)\) applied to \(A\) gives unique linear \(\Psi:T\to S\) with \(\Psi B=A\). UP for \((S,A)\) applied to \(B\) gives linear \(\Phi:S\to T\) with \(\Phi A=B\). Then
 \[
@@ -251,9 +247,9 @@ Conclusion & Obtain a unique isomorphism.\\\hline
 \end{tabularx}}
 
 \section*{Lemma 5.8: Pure tensors span}
-\textbf{Statement.} \(X\otimes Y=\operatorname{Span}\{x\otimes y\}\).
+\textbf{Statement.} \(X\otimes Y=\operatorname{Span}\{x\otimes y\mid x\in X,y\in Y \}\).
 
-\textbf{Proof.} Put \(T=X\otimes Y\), \(T_0=\operatorname{Span}\{x\otimes y\}\), and let \(Q:T\to T/T_0\) be the quotient map. Since every \(B(x,y)=x\otimes y\) lies in \(T_0\), we have \(QB=0\). The zero map also satisfies \(0B=0\). By uniqueness in UP, \(Q=0\), so \(T=T_0\).
+\textbf{Proof.} Put \(T=X\otimes Y\), \(T_0=\operatorname{Span}\{x\otimes y\mid x\in X,y\in Y\}\), and let \(Q:T\to T/T_0\) be the quotient map. Since every \(B(x,y)=x\otimes y\) lies in \(T_0\), we have \(QB=0\). The zero map also satisfies \(0B=0\). By uniqueness in UP, \(Q=0\), so \(T=T_0\).
 The two maps \(Q\) and \(0\) both complete the following diagram (the diagonal map is the zero bilinear map):
 \[
 \begin{array}{ccc}
@@ -276,14 +272,14 @@ Define \(T_0\), \(Q\) & Compare span of pure tensors with \(T\).\\
 \end{tabularx}}
 
 \section*{Lemma 5.9: Independence test}
-\textbf{Statement.} If \(y_1,\ldots,y_k\) are independent and \(\sum_i x_i\otimes y_i=0\), then all \(x_i=0\). In particular, \(x\otimes y=0\) iff \(x=0\) or \(y=0\).
+\textbf{Statement.} If \(y_1,\ldots,y_k\) are linearly independent and \(\sum_i x_i\otimes y_i=0\), then all \(x_i=0\). \textcolor{red}{In particular, \(x\otimes y=0\) iff \(x=0\) or \(y=0\).}
 
 \textbf{Proof.}
 \begin{proofsteps}
 \item For arbitrary \(z\in X'\), define bilinear \(M(x,y)=z(x)y:X\times Y\to Y\).
 \item UP gives linear \(L:X\otimes Y\to Y\) with \(L(x\otimes y)=z(x)y\).
 \item Hence \(0=L(\sum_i x_i\otimes y_i)=\sum_i z(x_i)y_i\). Independence of the \(y_i\) forces \(z(x_i)=0\).
-\item Since this holds for every \(z\in X'\), Lemma 3.3(1) (a nonzero vector is detected by some functional) implies \(x_i=0\). The special case follows by taking \(k=1\) if \(y\neq0\); the converse follows from bilinearity.
+\item Since this holds for every \(z\in X'\), Lemma 3.3(1) (a nonzero vector is detected by some functional) implies \(x_i=0\). \textcolor{red}{The special case follows by taking \(k=1\) if \(y\neq0\); the converse follows from bilinearity.}
 \end{proofsteps}
 \prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
 Step & Why\\\hline
@@ -294,14 +290,15 @@ Lemma 3.3 & Show \(x_i=0\).\\\hline
 \end{tabularx}}
 
 \section*{Corollary 5.10: Independent pure tensors}
-\textbf{Statement.} If \(C\subseteq X,D\subseteq Y\) are independent, then \(C\otimes D=\{x\otimes y:x\in C,y\in D\}\) is independent and \(C\times D\to C\otimes D\) is bijective.
+\textbf{Statement.} If \(C\subseteq X,D\subseteq Y\) are linearly independent subsets, then 
+\newline\(C\otimes D=\{x\otimes y:x\in C,y\in D\}\) is linearly independent and \(C\times D\to C\otimes D\) is bijective.
 
 \textbf{Proof.} For distinct \(x_i\in C,y_j\in D\), suppose
 \[
 0=\sum_{i,j}a_{ij}x_i\otimes y_j
 =\sum_j\Big(\sum_i a_{ij}x_i\Big)\otimes y_j.
 \]
-Lemma 5.9 (independent second factors force the first factors to vanish) gives \(\sum_i a_{ij}x_i=0\) for each \(j\). Independence of \(C\) gives \(a_{ij}=0\) for all \(i,j\). Thus the products are independent and distinct; surjectivity onto \(C\otimes D\) is by definition.
+Lemma 5.9 (independent second factors force the first factors to vanish) gives \(\sum_i a_{ij}x_i=0\) for each \(j\). Independence of \(C\) gives \(a_{ij}=0\) for all \(i,j\). Thus the products are independent and distinct; surjectivity onto \(C\otimes D\) is by definition.**A little note about why we get injectivity
 \begin{personalnote}[title=Definitions for understanding]
 A subset \(C\subseteq X\) is \textbf{linearly independent} if, for every choice of \emph{distinct} vectors \(x_1,\ldots,x_k\in C\) and scalars \(a_1,\ldots,a_k\in\F\),
 \[
@@ -315,7 +312,7 @@ Group by \(y_j\) & Apply Lemma 5.9.\\
 Independence of \(C\) & Force all coefficients to zero.\\\hline
 \end{tabularx}}
 
-\section*{Theorem 5.11: Tensor-product basis}
+\section*{\textcolor{red}{Theorem 5.11: Tensor-product basis}}
 \textbf{Statement.} If \(C,D\) are bases of \(X,Y\), then \(C\otimes D\) is a basis of \(X\otimes Y\). If finite-dimensional,
 \[
 \boxed{\dim(X\otimes Y)=\dim(X)\dim(Y).}
@@ -325,6 +322,7 @@ Independence of \(C\) & Force all coefficients to zero.\\\hline
 x\otimes y=\sum_{i,j}a_ib_j(x_i\otimes y_j)\in\operatorname{Span}(C\otimes D).
 \]
 By Lemma 5.8 (pure tensors span the tensor product), this spans all of \(X\otimes Y\). Thus it is a basis. If \(|C|=m,|D|=n\), it has \(mn\) distinct elements, giving the dimension formula.
+
 \prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
 Step & Why\\\hline
 Corollary 5.10 & Independence.\\
@@ -499,6 +497,7 @@ Root is eigenvalue & Lemma 6.12.\\\hline
 \section*{Theorem 6.18: Minimal polynomial and diagonalizability}
 Assume \(\dim V<\infty\), with distinct eigenvalues
 \(\sigma(A)=\{\lambda_1,\ldots,\lambda_m\}\).
+
 \textbf{Statement.} \(A\) is diagonalizable if and only if \(p_A\)
 splits into linear factors without repeated roots. In that case
 \[
@@ -850,7 +849,7 @@ In simple terms, we may make an invertible linear change of coordinates
 and translate the origin; the equation changes, but the resulting sets
 represent the same affine geometry.
 
-\section{Theorem 4.20: Classification of quadrics}
+\section{Theorem 4.20: Classification of quadrics - optional}
 \textbf{Statement.} Every quadric in \(\mathbb R^n\) is equivalent to
 one given by
 \[
@@ -913,7 +912,7 @@ No linear terms remain & Normalize \(c'\) to \(1\) or \(0\): (4.11).\\
 Some linear term remains & Combine it into \(x_{m+1}\), absorb \(c'\): (4.12).\\\hline
 \end{tabularx}}
 
-\section{Corollary 4.21: Classification of non-degenerate conics}
+\section{Corollary 4.21: Classification of non-degenerate conics - optional}
 \textbf{Statement.} A \emph{conic} is a quadric in \(\mathbb R^2\).
 Every non-degenerate conic is equivalent to the circle,
 hyperbola, or parabola:
