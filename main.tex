@@ -1281,4 +1281,501 @@ For symmetric maps over \(\mathbb R\), splitting is not automatic: Lemma 7.26 su
 \end{gathered}}
 \]
 
+
+\clearpage
+\part*{Topic I: Hahn--Banach}
+
+\section*{Definitions for understanding}
+Let \(U\subseteq V\) be a subspace of a normed vector space over \(\F\).
+A linear functional \(z:U\to\F\) is \emph{bounded} when \(|z(u)|\leq M\|u\|\) for some \(M\geq0\) and every \(u\in U\).
+The continuous dual \(U^*\) consists of these bounded functionals, while \(U'\) consists of all linear functionals. The norm is
+\[
+ \|z\|=\sup_{\|u\|\leq1}|z(u)|.
+\]
+An extension \(y\) of \(z\) satisfies \(y|_U=z\): it agrees with \(z\) on all of \(U\), but has a larger domain.
+
+\section{Theorem 11.13: Hahn--Banach theorem}
+\textbf{Statement.} Let \(U\subseteq V\) be a subspace and \(z\in U^*\). There exists \(y\in V^*\) such that
+\[
+ \boxed{y|_U=z,\qquad\|y\|=\|z\|.}
+\]
+\begin{personalnote}
+\textbf{Big idea.} A bounded functional defined on only a subspace can be extended to the whole space without increasing its norm. We first reduce the complex case to the real case (Lemma 11.14); then extend one dimension (Lemma 11.15); finally use Zorn's lemma to obtain the full extension.
+\end{personalnote}
+
+\section{Lemma 11.14: Passing between complex and real functionals}
+\textbf{Statement.} For a normed complex space \(V\), let \(V_{\mathbb R}\) be the same set of vectors and the same norm, but with scalar multiplication restricted to \(\mathbb R\).
+The map \(z\mapsto x=\operatorname{Re}z\) is a norm-preserving bijection
+\(V'\to(V_{\mathbb R})'\).
+
+\textbf{Proof, following the lecture notes.}
+\begin{proofsteps}
+\item \textbf{Real-linearity.} If \(z\in V'\), define \(x(v)=\operatorname{Re}z(v)\). For real \(a,b\),
+\[
+ x(av+bw)=\operatorname{Re}(az(v)+bz(w))=ax(v)+bx(w).
+\]
+Hence \(x\in(V_{\mathbb R})'\).
+\begin{personalnote}
+\textbf{What is \(V_{\mathbb R}\)?} We have not changed the vectors at all. We are simply viewing the complex vector space as a real one, so only real-linear combinations are required. Taking real parts is real-linear, but not generally complex-linear.
+\end{personalnote}
+
+\item \textbf{Formula (11.5).} The notes give
+\[
+ \boxed{z(v)=x(v)-ix(iv).}\tag{11.5}
+\]
+Indeed, write \(z(v)=a+ib\), with \(a,b\in\mathbb R\). Then \(x(v)=a\), while
+\[
+ z(iv)=iz(v)=i(a+ib)=-b+ia\quad\Longrightarrow\quad x(iv)=-b.
+\]
+Thus \(x(v)-ix(iv)=a-i(-b)=a+ib=z(v)\).
+\begin{personalnote}
+\textbf{Why does this prove injectivity?} Two complex functionals with the same real part \(x\) are both recovered by this formula, so they are equal. Although \(x\) is real-valued, evaluating it at \(iv\) recovers the imaginary component.
+\end{personalnote}
+
+\item \textbf{Conversely.} Given any real-linear \(x\in(V_{\mathbb R})'\), define \(z(v)=x(v)-ix(iv)\). This is real-linear, and
+\[
+ \begin{aligned}
+ z(iv)&=x(iv)-ix(-v)=x(iv)+ix(v)\\
+ &=i\bigl(x(v)-ix(iv)\bigr)=iz(v).
+ \end{aligned}
+\]
+Since each complex scalar is \(a+ib\) with \(a,b\in\mathbb R\), real-linearity together with \(z(iv)=iz(v)\) proves complex-linearity. Also \(\operatorname{Re}z=x\).
+\begin{personalnote}
+\textbf{Why does this prove surjectivity?} We started with an arbitrary \(x\) in the target space and constructed a complex-linear \(z\) whose real part equals exactly that \(x\).
+\end{personalnote}
+
+\item \textbf{Norm preservation.} Let \(B=\{v:\|v\|\leq1\}\). For \(|\alpha|\leq1\),
+\[
+ \|\alpha v\|=|\alpha|\|v\|\leq1\quad(v\in B).
+\]
+Hence the unit ball is stable under multiplication by complex scalars of modulus at most \(1\), as is its image \(z(B)\). This image is a disc centered at \(0\), possibly missing its boundary, of radius
+\(\sup_{v\in B}|z(v)|=\|z\|\).
+Taking real parts projects the disc onto an interval of the same radius; thus \(\|x\|=\|z\|\).
+\begin{personalnote}
+\textbf{Why is the radius unchanged?} The inequality
+\(|x(v)|=|\operatorname{Re}z(v)|\leq|z(v)|\)
+gives \(\|x\|\leq\|z\|\). Conversely, for \(z(v)\ne0\), choose
+\(\alpha=\overline{z(v)}/|z(v)|\). Then \(|\alpha|=1\), \(\alpha v\in B\), and
+\(x(\alpha v)=\operatorname{Re}(\alpha z(v))=|z(v)|\).
+Take suprema to get \(\|z\|\leq\|x\|\).
+\end{personalnote}
+\end{proofsteps}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.28\linewidth}X@{}}\hline
+Step & Purpose\\\hline
+Real part & Construct a real-linear functional.\\
+Formula (11.5) & Recover \(z\) from \(x\); injectivity.\\
+Converse & Reconstruct a complex-linear functional; surjectivity.\\
+Unit ball & Rotation of complex outputs gives norm preservation.\\\hline
+\end{tabularx}}
+
+\section{Lemma 11.15: Extending one real dimension}
+\textbf{Statement.} Theorem 11.13 holds when \(\F=\mathbb R\) and \(\operatorname{codim}U=1\).
+
+\textbf{Proof, following the lecture notes.}
+\begin{proofsteps}
+\item \textbf{Normalize.} Without loss of generality \(\|z\|=1\).
+\begin{personalnote}
+\textbf{Why can we assume this?} If \(\|z\|=c>0\), apply the norm-one case to \(\widetilde z=z/c\), extend it to \(\widetilde y\), and set \(y=c\widetilde y\). This satisfies \(y|_U=z\) and \(\|y\|=c\). If \(z=0\), extend by zero. Normalization simplifies the estimate to \(|z(u)|\leq\|u\|\).
+\end{personalnote}
+
+\item \textbf{Choose a new direction.} Take \(v\in V\setminus U\). As \(\operatorname{codim}U=1\),
+\[
+ V=U\oplus\operatorname{Span}\{v\}.
+\]
+Every element has a unique representation \(u+\alpha v\): if \((\alpha-\beta)v\in U\), then \(\alpha=\beta\), since \(v\notin U\).
+
+\item \textbf{Find compatible bounds.} For all \(u,u'\in U\),
+\[
+ \begin{aligned}
+ z(u')-z(u)&=z(u'-u) &&\text{(linearity)}\\
+ &\leq\|u'-u\| &&\text{(norm one)}\\
+ &\leq\|u'+v\|+\|u+v\| &&\text{(triangle inequality).}
+ \end{aligned}
+\]
+For the last inequality note \(u'-u=(u'+v)-(u+v)\).
+Rearrange:
+\[
+ -z(u)-\|u+v\|\leq-z(u')+\|u'+v\|.
+\]
+It holds for \emph{every pair} \(u,u'\), so
+\[
+ \boxed{\sup_{u\in U}\bigl(-z(u)-\|u+v\|\bigr)
+ \leq\inf_{u'\in U}\bigl(-z(u')+\|u'+v\|\bigr).}
+\]
+\begin{personalnote}
+\textbf{Why sup--inf?} We need one value \(\lambda=y(v)\) satisfying the norm bound for \emph{all} \(u\in U\). Every candidate lower bound is below every candidate upper bound, so there is a common interval. The bounds are finite: setting \(u'=0\) bounds the lower expressions above, while \(u=0\) bounds the upper expressions below.
+\end{personalnote}
+
+\item \textbf{Choose \(\lambda\) from this interval.} We obtain for all \(u\in U\):
+\[
+ -z(u)-\|u+v\|\leq\lambda\leq-z(u)+\|u+v\|,
+\]
+which is equivalent to
+\[
+ \boxed{|z(u)+\lambda|\leq\|u+v\|.}
+\]
+The value of \(\lambda\) need not be unique; we only need one that works simultaneously for every \(u\).
+
+\item \textbf{Define the extension.} The lecture notes define
+\[
+ \boxed{y(u+\alpha v)=z(u)+\alpha\lambda
+ \quad(u\in U,\ \alpha\in\mathbb R).}
+\]
+Uniqueness of \(u+\alpha v\) makes \(y\) well-defined, and linearity of \(z\) makes \(y\) linear. Taking \(\alpha=0\) gives \(y|_U=z\).
+
+\item \textbf{Verify the last calculation of the notes.} For \(\alpha\ne0\),
+\[
+ \begin{aligned}
+ |y(u+\alpha v)|
+ &=|\alpha|\left|z\left(\frac{u}{\alpha}\right)+\lambda\right|\\
+ &\leq|\alpha|\left\|\frac{u}{\alpha}+v\right\|\\
+ &=\|u+\alpha v\|.
+ \end{aligned}
+\]
+\begin{personalnote}
+\textbf{First equality:} \(z(u)=\alpha z(u/\alpha)\) by linearity, so factor out \(\alpha\).
+\textbf{Inequality:} Apply \(|z(w)+\lambda|\leq\|w+v\|\) from the previous step with \(w=u/\alpha\in U\).
+\textbf{Last equality:} Homogeneity of the norm:
+\(|\alpha|\|u/\alpha+v\|=\|\alpha(u/\alpha+v)\|\).
+\end{personalnote}
+For \(\alpha=0\), \(|y(u)|=|z(u)|\leq\|u\|\).
+Hence \(|y(w)|\leq\|w\|\) for all \(w\in V\), so \(\|y\|\leq1\). Since \(y|_U=z\), restriction gives \(\|y\|\geq\|z\|=1\). Thus \(\boxed{\|y\|=\|z\|=1}\).
+\end{proofsteps}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.26\linewidth}X@{}}\hline
+Step & Purpose\\\hline
+Norm one & Simplify boundedness inequality.\\
+Add \(v\) & Express every vector as \(u+\alpha v\).\\
+Sup--inf & Find a compatible value \(\lambda=y(v)\).\\
+Define and bound \(y\) & Extend \(z\) linearly without changing norm.\\\hline
+\end{tabularx}}
+
+\section{Proof of Theorem 11.13: Zorn's lemma}
+\textbf{Proof.} First let \(\F=\mathbb R\).
+\begin{proofsteps}
+\item \textbf{Collect all admissible extensions.} Let \(\mathcal X\) consist of pairs \((W,y)\) with \(U\subseteq W\subseteq V\), \(y\in W^*\), \(y|_U=z\), and \(\|y\|=\|z\|\).
+It is nonempty: \((U,z)\in\mathcal X\).
+
+\item \textbf{Order these pairs.} Set
+\[
+ (W_1,y_1)\leq(W_2,y_2)
+ \quad\Longleftrightarrow\quad
+ W_1\subseteq W_2\ \text{and}\ y_2|_{W_1}=y_1.
+\]
+\begin{personalnote}
+\textbf{Why must the functionals agree?} A larger domain alone does not give an extension. The new functional must preserve all values already assigned on the smaller domain. This relation is a partial order; not every two pairs need be comparable.
+\end{personalnote}
+
+\item \textbf{Upper bound for a totally ordered subset.} Take any chain \(\mathcal Y\subseteq\mathcal X\), and define
+\[
+ \widetilde W=\bigcup_{(W,y)\in\mathcal Y}W,\qquad
+ \widetilde y(v)=y(v)\quad\text{whenever }v\in W,\ (W,y)\in\mathcal Y.
+\]
+\emph{Why is the union a subspace?} If \(a\in W_1\), \(b\in W_2\), total ordering says one of these domains contains the other. Then \(a,b\) both belong to a common subspace, which also contains all their linear combinations.
+
+\emph{Why is \(\widetilde y\) well-defined?} If \(v\) lies in both \(W_1,W_2\), assume \((W_1,y_1)\leq(W_2,y_2)\); then \(y_2(v)=y_1(v)\). Linearity follows similarly. Moreover
+\[
+ |\widetilde y(v)|=|y(v)|\leq\|z\|\|v\|
+\]
+for every \(v\in\widetilde W\), so \(\|\widetilde y\|\leq\|z\|\).
+Since \(\widetilde y|_U=z\), the reverse inequality holds, hence \(\|\widetilde y\|=\|z\|\).
+Therefore \((\widetilde W,\widetilde y)\in\mathcal X\) and is an upper bound for the chain. For the empty chain, any member of \(\mathcal X\) is an upper bound.
+\begin{personalnote}
+\textbf{What is totally ordered?} Any two elements \emph{within the chosen subset} can be compared. The full set \(\mathcal X\) need not be totally ordered. This condition is what makes the union a subspace and the glued functional unambiguous.
+\end{personalnote}
+
+\item \textbf{Apply Zorn.} Every chain has an upper bound, so Zorn's lemma yields a maximal pair \((W,y)\in\mathcal X\).
+
+\item \textbf{Show \(W=V\).} If \(W\subsetneq V\), choose \(v\notin W\) and set \(W'=W\oplus\operatorname{Span}\{v\}\). Then \(W\) has codimension one in \(W'\). Lemma 11.15 extends \(y\) to \(y'\in(W')^*\) with the same norm. Thus
+\[
+ (W,y)<(W',y')\in\mathcal X,
+\]
+contradicting maximality. So \(W=V\).
+\end{proofsteps}
+\begin{personalnote}
+\textbf{Why is this the complete complex proof?} For complex \(z\), apply the real case to \(x=\operatorname{Re}z\) on \(U_{\mathbb R}\), obtaining an extension \(X\) to \(V_{\mathbb R}\). Set \(y(v)=X(v)-iX(iv)\). By Lemma 11.14 this is complex-linear, extends \(z\), and satisfies \(\|y\|=\|X\|=\|x\|=\|z\|\).
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.24\linewidth}X@{}}\hline
+Step & Purpose\\\hline
+Pairs and ordering & Collect compatible norm-preserving extensions.\\
+Chains & Glue them together to obtain upper bounds.\\
+Zorn & Obtain a maximal extension.\\
+Lemma 11.15 & A proper domain could be enlarged, contradiction.\\\hline
+\end{tabularx}}
+
+\section{Corollary 11.16: Separating a point from a closed subspace}
+\textbf{Statement.} If \(X\subseteq V\) is a closed subspace and \(v\notin X\), there exists \(y\in V^*\) with \(y|_X=0\) and \(y(v)\neq0\).
+
+\textbf{Proof, following the lecture notes.}
+\begin{proofsteps}
+\item Set
+\[
+ U=\operatorname{Span}\{v\}\oplus X,\qquad
+ c=\inf_{x\in X}\|v-x\|.
+\]
+The sum is direct since \(v\notin X\); any \(\alpha v\in X\) with \(\alpha\ne0\) would imply \(v\in X\).
+\item \textbf{Why \(c>0\)?} If \(c=0\), choose \(x_n\in X\) with \(\|v-x_n\|<1/n\). Then \(x_n\to v\), and because \(X\) is closed, \(v\in X\), a contradiction.
+\begin{personalnote}
+\(c\) is the distance of \(v\) from \(X\). We need \(c>0\) because the final functional will have value \(y(v)=c\neq0\). The infimum need not be attained.
+\end{personalnote}
+\item Define
+\[
+ \boxed{z(\alpha v+x)=c\alpha,\qquad \alpha\in\F,\ x\in X.}
+\]
+The direct sum makes the representation unique, so the definition is unambiguous and linear. We immediately have \(z(v)=c\) and \(z(x)=0\) for \(x\in X\).
+\item For \(\alpha\neq0\) the lecture notes calculate
+\[
+ \begin{aligned}
+ |z(\alpha v+x)|
+ &=|\alpha|c\\
+ &\leq|\alpha|\|v+\alpha^{-1}x\|\\
+ &=\|\alpha v+x\|.
+ \end{aligned}
+\]
+\begin{personalnote}
+\textbf{Why the middle inequality?} The definition of the infimum means \(c\leq\|v-x'\|\) for every \(x'\in X\). Choose \(x'=-\alpha^{-1}x\in X\). The final equality follows from homogeneity. If \(\alpha=0\), then \(|z(x)|=0\leq\|x\|\).
+\end{personalnote}
+Hence \(\|z\|\leq1\), so \(z\in U^*\).
+\item Theorem 11.13 provides \(y\in V^*\) extending \(z\) with the same norm. Since \(v\in U\) and \(X\subseteq U\),
+\[
+ \boxed{y(v)=z(v)=c>0,\qquad y|_X=z|_X=0.}
+\]
+\end{proofsteps}
+\begin{personalnote}
+\textbf{Small notation correction.} At the point where the lecture notes prove boundedness, \(z\) is in \(U^*\), not yet in \(V^*\); the latter is the space containing the extension \(y\).
+
+\textbf{Consequence.} With \(X=\{0\}\), every nonzero vector is detected by a bounded linear functional. For \(v_1\neq v_2\), apply the corollary to \(v=v_1-v_2\); then \(y(v_1)\neq y(v_2)\). Thus continuous linear functionals separate vectors.
+\end{personalnote}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.24\linewidth}X@{}}\hline
+Step & Purpose\\\hline
+\(U,c\) & Add \(v\) and use the positive distance from closed \(X\).\\
+Define \(z\) & Zero on \(X\), nonzero at \(v\).\\
+Bound \(z\) & Infimum yields \(\|z\|\leq1\).\\
+Hahn--Banach & Extend to \(y\in V^*\).\\\hline
+\end{tabularx}}
+
+\section*{Big Picture: Topic I}
+Lemma 11.14 reduces complex to real; Lemma 11.15 extends one dimension by choosing \(y(v)=\lambda\); Zorn's lemma produces a maximal extension, which must have full domain; Corollary 11.16 then separates vectors outside closed subspaces.
+
+
+\clearpage
+\part*{Topic K: Spectral Radius Limit Formula}
+
+\section*{Definitions for understanding}
+Let \(V\neq\{0\}\) be a finite-dimensional normed complex vector space and \(A\in\operatorname{End}(V)\).
+The \emph{spectral radius} (Definition 13.1) is
+\[
+ \boxed{\rho(A)=\max_{\lambda\in\sigma(A)}|\lambda|,}
+\]
+where \(\sigma(A)\) is the set of eigenvalues. Over \(\mathbb C\), the spectrum is nonempty because the characteristic polynomial splits.
+The \emph{operator norm} is
+\[
+ \|A\|=\sup_{\|v\|=1}\|Av\|=\sup_{v\neq0}\frac{\|Av\|}{\|v\|}.
+\]
+It measures how much \(A\) can stretch a vector.
+Useful results from the notes are
+\[
+ \rho(A)\leq\|A\|\tag{13.1}
+ \qquad \rho(\alpha A)=|\alpha|\rho(A)\tag{13.2}
+\]
+and, when \(A\) is orthogonally diagonalizable with respect to the inner product inducing the operator norm,
+\[
+ \rho(A)=\|A\|.\tag{13.3}
+\]
+\begin{personalnote}
+\textbf{Why (13.1)?} If \(Av=\lambda v\) with \(v\neq0\), then
+\(|\lambda|\|v\|=\|Av\|\leq\|A\|\|v\|\), so \(|\lambda|\leq\|A\|\); maximize over eigenvalues.
+
+\textbf{Why (13.2)?} Scaling \(A\) by \(\alpha\) scales every eigenvalue by \(\alpha\), so the largest absolute value is multiplied by \(|\alpha|\). For \(\alpha=0\), both sides are zero.
+\end{personalnote}
+
+\section{Theorem 13.2: Gelfand's limit formula}
+\textbf{Statement.} For every \(A\in\operatorname{End}(V)\),
+\[
+ \boxed{\rho(A)=\lim_{k\to\infty}\|A^k\|^{1/k}.}
+\]
+Although \(\|A\|\) depends on the choice of norm, this limit is the spectral radius.
+
+\section{Lemma 13.3: Lower bound}
+\textbf{Statement.} For every positive integer \(k\),
+\[
+ \boxed{\rho(A)\leq\|A^k\|^{1/k}.}
+\]
+\textbf{Proof, following the lecture notes.}
+\begin{proofsteps}
+\item Rewrite the claim as \(\rho(A)^k\leq\|A^k\|\), since taking positive \(k\)-th roots preserves inequalities.
+\item If \(Av=\lambda v\), \(v\neq0\), then
+\[
+ A^2v=A(\lambda v)=\lambda Av=\lambda^2v,\quad\ldots,\quad
+ A^kv=\lambda^kv.
+\]
+Thus \(\lambda^k\in\sigma(A^k)\).
+\begin{personalnote}
+\textbf{Why does the scalar pass through \(A\)?} By linearity, \(A(\lambda v)=\lambda A(v)\). We repeat this \(k\) times; no commutation between different operators is needed.
+\end{personalnote}
+\item Therefore
+\[
+ \rho(A)^k=\max_{\lambda\in\sigma(A)}|\lambda|^k
+ \leq\max_{\mu\in\sigma(A^k)}|\mu|
+ =\rho(A^k)\leq\|A^k\|.
+\]
+The middle inequality holds since the powers of eigenvalues of \(A\) occur among the eigenvalues of \(A^k\); the last inequality is (13.1). Take \(k\)-th roots.
+\end{proofsteps}
+
+\section{Lemma 13.4: If \(\rho(A)<1\), then \(A^k\to0\)}
+\textbf{Statement.} If \(\rho(A)<1\), then \(A^k\to0\) as \(k\to\infty\), in operator norm.
+
+\textbf{Proof, following the lecture notes.}
+\begin{proofsteps}
+\item \textbf{Jordan decomposition.} By Theorem 9.5,
+\[
+ \boxed{A=A_d+A_n,\qquad A_dA_n=A_nA_d,}
+\]
+with \(A_d\) diagonalizable and \(A_n\) nilpotent. Also
+\(\sigma(A_d)=\sigma(A)\), so \(\rho(A_d)=\rho(A)<1\).
+\begin{personalnote}
+\textbf{Does Theorem 9.5 require a splitting minimal polynomial?} Yes; here \(V\) is over \(\mathbb C\), and the fundamental theorem of algebra guarantees that the minimal polynomial splits. The decomposition gives commutativity, which will be important for the binomial formula. Nilpotent means \(A_n^m=0\) for some \(m\geq1\).
+\end{personalnote}
+
+\item \textbf{Choose a convenient norm.} Because \(V\) is finite-dimensional, all norms are equivalent (Theorem 11.8), so convergence does not depend on which one we choose. Since \(A_d\) is diagonalizable, choose an eigenvector basis \(e_1,\ldots,e_n\) and \emph{declare it orthonormal} by defining
+\[
+ \left\langle\sum_i\alpha_ie_i,\sum_i\beta_ie_i\right\rangle
+ =\sum_i\alpha_i\overline{\beta_i}.
+\]
+Use the corresponding vector norm \(\|x\|=\sqrt{\langle x,x\rangle}\) and its associated operator norm.
+\begin{personalnote}
+\textbf{Why may we do this?} A basis provides unique coordinates; the usual complex dot product on their coordinate lists is a valid inner product. The formula follows from \(\langle e_i,e_j\rangle=\delta_{ij}\). The \emph{associated operator norm} is the operator norm computed using this particular vector norm. Since all norms are equivalent in finite dimensions, it is enough to prove convergence in this one.
+\end{personalnote}
+
+\item \textbf{Use the special norm.} In our new inner product the eigenvector basis is orthonormal, so \(A_d\) is orthogonally diagonalizable. From (13.3),
+\[
+ \boxed{\|A_d\|=\rho(A_d)=\rho(A)<1.}
+\]
+\begin{personalnote}
+\textbf{Why introduce an inner product?} We specifically need \(\|A_d\|<1\). In an arbitrary norm, \(\rho(A_d)<1\) does not necessarily imply \(\|A_d\|<1\). This basis-dependent inner product makes the two equal.
+\end{personalnote}
+
+\item \textbf{Binomial expansion.} Let \(m\) be the nilpotency index of \(A_n\), so \(A_n^j=0\) for \(j\geq m\). Because \(A_d\) and \(A_n\) commute, for \(k\geq m\)
+\[
+ \begin{aligned}
+ A^k&=(A_d+A_n)^k
+ =\sum_{j=0}^k\binom{k}{j}A_d^{k-j}A_n^j\\
+ &=\sum_{j=0}^{m-1}\binom{k}{j}A_d^{k-j}A_n^j.
+ \end{aligned}
+\]
+\begin{personalnote}
+\textbf{Why is commutativity needed?} Without \(A_dA_n=A_nA_d\), terms in the product cannot be collected as binomial coefficients. For example, \((B+C)^2=B^2+BC+CB+C^2\), not \(B^2+2BC+C^2\) unless \(BC=CB\).
+
+\textbf{Why stop at \(m-1\)?} Every term with \(j\geq m\) contains \(A_n^j=A_n^mA_n^{j-m}=0\).
+\end{personalnote}
+
+\item \textbf{Estimate the norm.} The triangle inequality gives
+\[
+ \|A^k\|
+ \leq\sum_{j=0}^{m-1}\binom{k}{j}\|A_d^{k-j}A_n^j\|.
+\]
+For \(0\leq j\leq m-1\), \(k\geq m\),
+\[
+ \binom{k}{j}=\frac{k(k-1)\cdots(k-j+1)}{j!}
+ \leq k^j\leq k^m.
+\]
+And \(k-j=(k-m)+(m-j)\), so
+\[
+ A_d^{k-j}=A_d^{k-m}A_d^{m-j}.
+\]
+Therefore
+\[
+ \begin{aligned}
+ \|A^k\|
+ &\leq k^m\sum_{j=0}^{m-1}\|A_d^{k-m}A_d^{m-j}A_n^j\|\\
+ &\leq k^m\|A_d^{k-m}\|
+       \sum_{j=0}^{m-1}\|A_d^{m-j}A_n^j\|\\
+ &\leq Ck^m\|A_d\|^{k-m},
+ \end{aligned}
+\]
+where
+\(
+ C:=\sum_{j=0}^{m-1}\|A_d^{m-j}A_n^j\|
+\)
+does not depend on \(k\).
+\begin{personalnote}
+\textbf{Why may we pull out \(k-m\)?} Submultiplicativity,
+\(\|BC\|\leq\|B\|\|C\|\), bounds each summand by
+\(\|A_d^{k-m}\|\|A_d^{m-j}A_n^j\|\).
+The first factor does not depend on \(j\); hence it can be placed outside the sum. Also \(\|A_d^{k-m}\|\leq\|A_d\|^{k-m}\).
+
+\textbf{Why \(\binom{k}{j}\leq k^m\)?} The numerator has \(j\) factors, each at most \(k\), while \(j!\geq1\); and \(j\leq m\), \(k\geq1\).
+\end{personalnote}
+
+\item \textbf{Convergence.} Let \(q=\|A_d\|<1\).
+If \(q=0\), then \(A_d=0\) and \(A=A_n\) is nilpotent, hence \(A^k=0\) for \(k\geq m\).
+If \(0<q<1\), then \(k^mq^{k-m}\to0\): exponential decay beats polynomial growth. In either case,
+\[
+ \boxed{\|A^k\|\longrightarrow0.}
+\]
+Because norms are equivalent in finite dimensions, this establishes convergence in the originally given norm as well.
+\end{proofsteps}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.27\linewidth}X@{}}\hline
+Step & Purpose\\\hline
+Jordan decomposition & Split into diagonalizable and nilpotent commuting parts.\\
+Choose inner product & Make \(\|A_d\|=\rho(A_d)<1\).\\
+Binomial expansion & Truncate nilpotent terms.\\
+Norm estimate & Get \(Ck^m\|A_d\|^{k-m}\).\\
+Limit & Exponential decay defeats polynomial growth.\\\hline
+\end{tabularx}}
+
+\section{Proof of Theorem 13.2: Spectral radius limit formula}
+\textbf{Proof, following the lecture notes.}
+\begin{proofsteps}
+\item By Lemma 13.3, for every positive integer \(k\),
+\[
+ \rho(A)\leq\|A^k\|^{1/k}.
+\]
+\item Let \(\varepsilon>0\) and put \(\tau=\rho(A)+\varepsilon\), so \(\tau>\rho(A)\).
+Set \(B=A/\tau\). By (13.2),
+\[
+ \boxed{\rho(B)=\rho(A)/\tau<1.}
+\]
+\begin{personalnote}
+\textbf{Why divide by \(\tau\)?} We want the hypothesis of Lemma 13.4, namely spectral radius strictly below one. Eigenvalues of \(A/\tau\) are the eigenvalues of \(A\) divided by \(\tau\), so this choice guarantees it.
+\end{personalnote}
+\item Apply Lemma 13.4 to \(B\):
+\[
+ B^k=\frac{A^k}{\tau^k}\longrightarrow0,
+ \qquad
+ \frac{\|A^k\|}{\tau^k}\longrightarrow0.
+\]
+For all sufficiently large \(k\), this nonnegative quantity is at most \(1\). Consequently,
+\[
+ \|A^k\|\leq\tau^k
+ \quad\Longrightarrow\quad
+ \|A^k\|^{1/k}\leq\tau.
+\]
+\begin{personalnote}
+\textbf{Why is it eventually \(\leq1\)?} By the definition of convergence to zero, with tolerance \(1\), the nonnegative sequence \(\|A^k/\tau^k\|\) is eventually less than \(1\). This yields the desired upper bound.
+\end{personalnote}
+\item Combine this with Lemma 13.3:
+\[
+ \boxed{\rho(A)\leq\|A^k\|^{1/k}\leq\tau=\rho(A)+\varepsilon}
+\]
+for all sufficiently large \(k\).
+Thus
+\(
+0\leq\|A^k\|^{1/k}-\rho(A)\leq\varepsilon
+\)
+eventually, for \emph{every} \(\varepsilon>0\). This is precisely convergence to \(\rho(A)\), proving
+\[
+ \boxed{\lim_{k\to\infty}\|A^k\|^{1/k}=\rho(A).}
+\]
+\end{proofsteps}
+\prooftable{\begin{tabularx}{\linewidth}{@{}p{.26\linewidth}X@{}}\hline
+Step & Purpose\\\hline
+Lemma 13.3 & Lower bound \(\rho(A)\).\\
+Rescale & Force \(\rho(A/\tau)<1\).\\
+Lemma 13.4 & Obtain the eventual upper bound \(\|A^k\|^{1/k}\leq\tau\).\\
+Squeeze & Let the arbitrary \(\varepsilon\) tend to zero.\\\hline
+\end{tabularx}}
+
+\section*{Big Picture: Topic K}
+The spectral radius measures the largest absolute eigenvalue, while the operator norm measures maximal stretching. The first is always bounded by the second but they need not be equal. Repeated powers reveal the spectral radius: Lemma 13.3 gives a lower bound, Lemma 13.4 supplies decay after rescaling, and an \(\varepsilon\)-squeeze proves the limit formula.
+
 \end{document}
