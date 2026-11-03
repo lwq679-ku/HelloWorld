@@ -2,6 +2,7 @@
 \usepackage[margin=2.3cm]{geometry}
 \usepackage{amsmath,amssymb,amsthm,array,tabularx,xcolor}
 \usepackage[most]{tcolorbox}
+\usepackage{tikz-cd}
 \usepackage[hidelinks]{hyperref}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt}
@@ -26,44 +27,101 @@ Let \(A:U\to V\) be linear and $y\in V'$. Its \emph{dual map} is
 The direction reverses: \(A\) maps vectors from \(U\) to \(V\), whereas \(A'\) maps linear functionals on \(V\) to linear functionals on \(U\).
 
 \section{Lemma 3.7: Elementary properties of the dual}
-For linear maps \(A:U\to V\), \(B:V\to W\), the following hold:
-\[
- A'\text{ is linear},\qquad (BA)'=A'B',\qquad (I_V)'=I_{V'}.
-\]
-The assignment \(A\mapsto A'\) is linear and injective. If \(A\) is bijective, so is \(A'\), and \((A')^{-1}=(A^{-1})'\)**can you write the things in the statement out as numbers and then let those numbers match the ones in the proof.
+For linear maps \(A:U\to V\) and \(B:V\to W\), the statements are numbered to match the proof:
+\begin{enumerate}
+\item \(A':V'\to U'\) is linear.
+\item The assignment \(A\mapsto A'\) from \(\operatorname{Hom}(U,V)\) to \(\operatorname{Hom}(V',U')\) is linear.
+\item The assignment \(A\mapsto A'\) is injective.
+\item \((BA)'=A'B'\).
+\item \((I_V)'=I_{V'}\).
+\item If \(A\) is bijective, then \(A'\) is bijective and \((A')^{-1}=(A^{-1})'\).
+\end{enumerate}
 
-\textbf{Proof.}
+\textbf{Proof (numbers correspond to those in the statement).}
 \begin{proofsteps}
-\item For \(y_1,y_2\in V'\), \(a,b\in\F\), and \(u\in U\),
+\item \textbf{Linearity of \(A'\).} For \(y_1,y_2\in V'\), \(a,b\in\F\), and \(u\in U\),
 \[
- [A'(ay_1+by_2)](u)=(ay_1+by_2)(Au)
- =a(A'y_1)(u)+b(A'y_2)(u).
+ \begin{aligned}
+ [A'(ay_1+by_2)](u)
+ &=(ay_1+by_2)(Au)\\
+ &=a\,y_1(Au)+b\,y_2(Au)\\
+ &=a(A'y_1)(u)+b(A'y_2)(u).
+ \end{aligned}
 \]
-**is this because V' is linear? Thus \(A'\) is linear.
-\item For linear \(A_1,A_2:U\to V\) and scalars \(a,b\),
+Since this holds for every \(u\), we have \(A'(ay_1+by_2)=aA'y_1+bA'y_2\).
+\begin{personalnote}
+\textbf{Why is this true?} \(V'\) is the vector space of linear functionals on \(V\), with addition and scalar multiplication defined pointwise:
+\((ay_1+by_2)(w)=ay_1(w)+by_2(w)\).
+It is this definition, not merely the fact that \(V'\) is a vector space, that explains the second equality. We evaluate at arbitrary \(u\) because two functionals on \(U\) are equal exactly when they agree on every \(u\).
+\end{personalnote}
+
+\item \textbf{Linearity of \(A\mapsto A'\).} For \(A_1,A_2:U\to V\), \(a,b\in\F\), \(y\in V'\), and \(u\in U\),
 \[
- [(aA_1+bA_2)'y](u)**write a note here on why it's this exactl elements we're looking at=y((aA_1+bA_2)u)
- =a(A_1'y)(u)+b(A_2'y)(u).
+ \begin{aligned}
+ [((aA_1+bA_2)'y)](u)
+ &=y((aA_1+bA_2)u)\\
+ &=y(aA_1u+bA_2u)\\
+ &=a\,y(A_1u)+b\,y(A_2u)\\
+ &=[aA_1'y+bA_2'y](u).
+ \end{aligned}
 \]
-Hence \(A\mapsto A'\) is linear.
-\item If \(A'=0\), then \(y(Au)=0\) for every \(u\in U\) and \(y\in V'\). By Lemma 3.3 (linear functionals separate nonzero vectors**can you write this out more, I don't think I understand it.), \(Au=0\) for every \(u\); hence \(A=0\). Thus \(A\mapsto A'\) is injective.
-\item For \(z\in W'\) and \(u\in U\),
+Hence \((aA_1+bA_2)'=aA_1'+bA_2'\).
+\begin{personalnote}
+\textbf{Why exactly these elements?} We want to prove equality between two maps \(V'\to U'\). First apply each to an \emph{arbitrary} \(y\in V'\). Their results are functionals on \(U\), so evaluate both at an \emph{arbitrary} \(u\in U\). If the resulting scalars agree for all \(y,u\), the two maps are equal.
+\end{personalnote}
+
+\item \textbf{Injectivity of \(A\mapsto A'\).}
+If \(A'=0\), then for all \(y\in V'\) and all \(u\in U\),
 \[
- [(BA)'z](u)=z(B(Au))=[A'(B'z)](u),
+ 0=(A'y)(u)=y(Au).
 \]
-**how do you get the last equal sign? so \((BA)'=A'B'\). Likewise, \((I_V'y)(v)=y(v)\), hence \((I_V)'=I_{V'}\).
-\item If \(A\) is bijective, apply the preceding identities to \(A^{-1}A=I_U\) and \(AA^{-1}=I_V\):
+Fix \(u\in U\). If \(Au\neq0\), Lemma 3.3 gives some \(y\in V'\) with \(y(Au)\neq0\), a contradiction. Thus \(Au=0\) for every \(u\), so \(A=0\). The assignment is linear by (2), and its kernel is trivial; hence it is injective.
+\begin{personalnote}
+\textbf{What does separating nonzero vectors mean?} Lemma 3.3 says that if \(w\in V\) is nonzero, there exists a linear functional \(y\in V'\) such that \(y(w)\neq0\). One way to see this in the algebraic setting is to extend \(w\) to a basis and define a functional that assigns \(1\) to \(w\) and \(0\) to the other basis vectors. Therefore, if \emph{every} linear functional vanishes at a vector \(w\), we must have \(w=0\). Apply this to \(w=Au\).
+\end{personalnote}
+
+\item \textbf{Composition.} For \(z\in W'\) and \(u\in U\),
 \[
- A'(A^{-1})'=I_{U'},\qquad (A^{-1})'A'=I_{V'}.
+ \begin{aligned}
+ [(BA)'z](u)
+ &=z(B(Au))\\
+ &=(z\circ B)(Au)\\
+ &=(B'z)(Au)\\
+ &=[A'(B'z)](u).
+ \end{aligned}
 \]
-Therefore \((A')^{-1}=(A^{-1})'\).
+Since this is true for every \(z,u\), we conclude \((BA)'=A'B'\).
+\begin{personalnote}
+\textbf{Why the final equality?} By the dual-map definition, \(B'z=z\circ B\). Applying the same definition to \(A\), we get
+\((A'(B'z))(u)=(B'z)(Au)\). Thus the last two expressions are equal. Notice that dualizing a composition reverses the order.
+\end{personalnote}
+
+\item \textbf{Identity.} For \(y\in V'\) and \(v\in V\),
+\[
+ [((I_V)'y)](v)=y(I_Vv)=y(v)=[I_{V'}y](v).
+\]
+Hence \((I_V)'=I_{V'}\).
+\begin{personalnote}
+The identity on \(V\) leaves vectors unchanged. Its dual also leaves every linear functional unchanged, as the displayed evaluation shows.
+\end{personalnote}
+
+\item \textbf{Inverse.} If \(A\) is bijective, then \(A^{-1}A=I_U\) and \(AA^{-1}=I_V\). Using (4) and (5),
+\[
+ \begin{aligned}
+ A'(A^{-1})'&=(A^{-1}A)'=(I_U)'=I_{U'},\\
+ (A^{-1})'A'&=(AA^{-1})'=(I_V)'=I_{V'}.
+ \end{aligned}
+\]
+Therefore \((A^{-1})'\) is a two-sided inverse of \(A'\), so \(A'\) is bijective and \((A')^{-1}=(A^{-1})'\).
 \end{proofsteps}
 \prooftable{\begin{tabularx}{\linewidth}{@{}p{.23\linewidth}X@{}}\hline
 Step & Purpose\\\hline
-Linearity & Composition respects sums and scalars.\\
-Injectivity & Functionals detect any nonzero image \(Au\).\\
-Composition and identity & Duality reverses the order of composition.\\
-Inverse & Dualizing an inverse gives an inverse.\\\hline
+(1) Linearity of \(A'\) & Evaluate a linear combination of functionals.\\
+(2) Linearity of assignment & Test both dual maps on \(y\) and \(u\).\\
+(3) Injectivity & Nonzero vectors are detected by functionals.\\
+(4) Composition & Dual maps reverse composition order.\\
+(5) Identity & Taking a dual preserves identity maps.\\
+(6) Inverse & Dualizing both inverse identities gives a two-sided inverse.\\\hline
 \end{tabularx}}
 
 \section{Theorem 3.8: Equality of ranks}
@@ -71,7 +129,10 @@ Inverse & Dualizing an inverse gives an inverse.\\\hline
 \[
  \boxed{\rank(A')=\rank(A).}
 \]
-Here \(\rank(A)=\dim\Ran(A)\), with \(\Ran(A)=A(U)\)**can we just say that?.
+Here \(\rank(A)=\dim\Ran(A)\), where \(\Ran(A)=A(U)=\{Au:u\in U\}\) is the image (range) of \(A\).
+\begin{personalnote}
+\textbf{Can we simply write \(\operatorname{rank}(A)=\dim A(U)\)?} Yes: this is exactly the definition of rank. Introducing \(\Ran(A)\) is only a shorthand for the same image, which is a subspace because \(A\) is linear.
+\end{personalnote}
 
 \textbf{Proof.} Define
 \[
@@ -79,7 +140,10 @@ Here \(\rank(A)=\dim\Ran(A)\), with \(\Ran(A)=A(U)\)**can we just say that?.
 \]
 where \(f\) is a linear functional on the subspace \(\Ran(A)\subseteq V\).
 \begin{proofsteps}
-\item \textbf{\(S\) is injective.} If \(Sf=0\), then \(f(Au)=0\) **why? for all \(u\in U\). Every \(v\in\Ran(A)\) equals \(Au\) for some \(u\), so \(f(v)=0\) throughout \(\Ran(A)\). Hence \(f=0\).
+\item \textbf{\(S\) is injective.} If \(Sf=0\), then \(f(Au)=0\) for all \(u\in U\). Every \(v\in\Ran(A)\) equals \(Au\) for some \(u\), so \(f(v)=0\) throughout \(\Ran(A)\). Hence \(f=0\).
+\begin{personalnote}
+\textbf{Why does \(Sf=0\) imply \(f(Au)=0\)?} By definition \(Sf=f\circ A\), so \((Sf)(u)=f(Au)\). Writing \(Sf=0\) means that this is the \emph{zero functional on \(U\)}, with value \(0\) for every input \(u\). Since every element of \(\Ran(A)\) has the form \(Au\), this implies \(f=0\) on its entire domain. Thus \(\ker S=\{0\}\), so \(S\) is injective.
+\end{personalnote}
 \item \textbf{\(\Ran(A')\subseteq\Ran(S)\).} Given \(A'y=y\circ A\), restrict \(y\in V'\) to \(\Ran(A)\): let \(f=y|_{\Ran(A)}\). Then \(Sf=f\circ A=y\circ A=A'y\).
 \item \textbf{\(\Ran(S)\subseteq\Ran(A')\).} For \(f\in\Ran(A)'\), Lemma 3.4(1) (a functional on a subspace extends to the whole space) supplies \(y\in V'\) with \(y|_{\Ran(A)}=f\). Thus \(Sf=y\circ A=A'y\).
 \item Therefore \(S:\Ran(A)'\to\Ran(A')\) is a linear bijection. Using Theorem 3.5 (a vector space and its dual have the same dimension),
@@ -198,10 +262,41 @@ For any pair of vector spaces X and Y, there exists a pair $(T,B)$ such that it'
 \[
 (x\otimes y)(w)=w(x,y)\qquad(w\in\operatorname{Bil}(X,Y;\F)).
 \]
-Set \(T=\operatorname{Span}\{x\otimes y:x\in X,\ y\in Y\}\subseteq\operatorname{Bil}(X,Y;\F)'\) and \(B(x,y)=x\otimes y\).**T is a vector spaceeeeee.
+Set \(T=\operatorname{Span}\{x\otimes y:x\in X,\ y\in Y\}\subseteq\operatorname{Bil}(X,Y;\F)'\) and \(B(x,y)=x\otimes y\).
+\begin{personalnote}
+\textbf{Why is \(T\) a vector space?} The ambient space \(\operatorname{Bil}(X,Y;\F)'\) consists of linear functionals, which form a vector space under pointwise addition and scalar multiplication. The \emph{span} of any subset is automatically a vector subspace: it contains the zero function and is closed under adding finite linear combinations and multiplying them by scalars. Hence \(T\) is a vector space.
+\end{personalnote}
 \begin{proofsteps}
-\item \(B\) is bilinear: evaluate \((ax_1+bx_2)\otimes y\) at any \(w\in\operatorname{Bil}(X,Y;\F)\), obtaining
-\(w(ax_1+bx_2,y)=aw(x_1,y)+bw(x_2,y)\)**wite it out in tensor products; similarly in the second argument.
+\item \textbf{\(B\) is bilinear.} For any \(w\in\operatorname{Bil}(X,Y;\F)\), the definition of the evaluation tensor gives
+\[
+ \begin{aligned}
+ [(ax_1+bx_2)\otimes y](w)
+ &=w(ax_1+bx_2,y)\\
+ &=a\,w(x_1,y)+b\,w(x_2,y)\\
+ &=[a(x_1\otimes y)+b(x_2\otimes y)](w).
+ \end{aligned}
+\]
+Since the evaluations agree for all \(w\),
+\[
+ \boxed{(ax_1+bx_2)\otimes y=a(x_1\otimes y)+b(x_2\otimes y).}
+\]
+Similarly, in the second factor,
+\[
+ \begin{aligned}
+ [x\otimes(ay_1+by_2)](w)
+ &=w(x,ay_1+by_2)\\
+ &=a\,w(x,y_1)+b\,w(x,y_2)\\
+ &=[a(x\otimes y_1)+b(x\otimes y_2)](w),
+ \end{aligned}
+\]
+so
+\[
+ \boxed{x\otimes(ay_1+by_2)=a(x\otimes y_1)+b(x\otimes y_2).}
+\]
+These are exactly the two bilinearity conditions for \(B(x,y)=x\otimes y\).
+\begin{personalnote}
+\textbf{Why evaluate at \(w\)?} Here \(x\otimes y\) is itself a functional on the space of bilinear forms. Two such functionals are equal precisely when they agree on every bilinear form \(w\). This is why checking their values at an arbitrary \(w\) proves the tensor identities.
+\end{personalnote}
 \item Given bilinear \(M:X\times Y\to U\), UP forces the following formula (since \(M=L\circ B\) requires \(L(x\otimes y)=M(x,y)\), and \(L\) must be linear):
 \[
 L\Big(\sum_i a_ix_i\otimes y_i\Big)=\sum_i a_iM(x_i,y_i). \tag{*}
@@ -230,7 +325,19 @@ Conclusion & Prove existence via UP.\\\hline
 \end{tabularx}}
 
 \section*{Theorem 5.6(b): Uniqueness}
-\textbf{Statement.} If \((T,B)\) and \((S,A)\) are tensor products of \(X,Y\), there is a unique isomorphism \(\Psi:T\to S\) with \(\Psi B=A\).**make me a drawing
+\textbf{Statement.} If \((T,B)\) and \((S,A)\) are tensor products of \(X,Y\), there is a unique isomorphism \(\Psi:T\to S\) with \(\Psi\circ B=A\).
+
+\textbf{Commutative diagram:}
+\[
+ \begin{tikzcd}[row sep=large, column sep=large]
+ X\times Y \arrow[r,"B"] \arrow[dr,swap,"A"] & T \arrow[d,"\Psi", "\cong"']\\
+ & S
+ \end{tikzcd}
+\]
+\begin{personalnote}
+\textbf{How to read the drawing.} Starting from \((x,y)\in X\times Y\), the direct path \(A\) and the path \(B\) followed by \(\Psi\) produce the same element of \(S\):
+\(\Psi(B(x,y))=A(x,y)\). The reverse map \(\Phi:S\to T\) is supplied by the universal property of \((S,A)\). Their compositions satisfy \(\Phi\Psi=I_T\) and \(\Psi\Phi=I_S\), showing that \(\Psi\) is an isomorphism.
+\end{personalnote}
 
 \textbf{Proof.} UP for \((T,B)\) applied to \(A\) gives unique linear \(\Psi:T\to S\) with \(\Psi B=A\). UP for \((S,A)\) applied to \(B\) gives linear \(\Phi:S\to T\) with \(\Phi A=B\). Then
 \[
@@ -298,7 +405,15 @@ Lemma 3.3 & Show \(x_i=0\).\\\hline
 0=\sum_{i,j}a_{ij}x_i\otimes y_j
 =\sum_j\Big(\sum_i a_{ij}x_i\Big)\otimes y_j.
 \]
-Lemma 5.9 (independent second factors force the first factors to vanish) gives \(\sum_i a_{ij}x_i=0\) for each \(j\). Independence of \(C\) gives \(a_{ij}=0\) for all \(i,j\). Thus the products are independent and distinct; surjectivity onto \(C\otimes D\) is by definition.**A little note about why we get injectivity
+Lemma 5.9 (independent second factors force the first factors to vanish) gives \(\sum_i a_{ij}x_i=0\) for each \(j\). Independence of \(C\) gives \(a_{ij}=0\) for all \(i,j\). Thus the products are independent; surjectivity onto \(C\otimes D\) is by definition.
+\begin{personalnote}
+\textbf{Why is \(C\times D\to C\otimes D\), \((x,y)\mapsto x\otimes y\), injective?} Suppose \(x\otimes y=x'\otimes y'\), with \(x,x'\in C\) and \(y,y'\in D\). Since \(C\) and \(D\) are linearly independent, none of these vectors is zero.
+
+If \(y\neq y'\), then \(y,y'\) are linearly independent. Lemma 5.9 applied to
+\(x\otimes y+(-x')\otimes y'=0\) would force \(x=x'=0\), a contradiction. Thus \(y=y'\).
+
+Now \((x-x')\otimes y=0\) and \(y\neq0\). By Lemma 5.9 with one second factor, \(x-x'=0\), so \(x=x'\). Therefore the two input pairs coincide, proving injectivity. Surjectivity is true by the definition of \(C\otimes D\).
+\end{personalnote}
 \begin{personalnote}[title=Definitions for understanding]
 A subset \(C\subseteq X\) is \textbf{linearly independent} if, for every choice of \emph{distinct} vectors \(x_1,\ldots,x_k\in C\) and scalars \(a_1,\ldots,a_k\in\F\),
 \[
